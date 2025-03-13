@@ -1,0 +1,176 @@
+/* Table */
+
+.table-container {
+    max-width: 100%;
+    /* Giới hạn chiều rộng */
+    overflow-x: auto;
+    /* Cuộn ngang nếu bảng quá rộng */
+    overflow-y: auto;
+    /* Cuộn dọc nếu có nhiều dữ liệu */
+    max-height: 450px;
+    /* Giới hạn chiều cao để tạo cuộn dọc */
+    border: 1px solid #ddd;
+    /* Viền bao quanh bảng */
+}
+
+.table-container thead {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    /* Giữ màu nền để tiêu đề không bị mờ */
+    z-index: 10;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: center;
+    /* Căn giữa văn bản */
+    border: 1px solid #ddd;
+    /* Thêm viền cho từng ô */
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Màu nền xen kẽ cho dòng chẵn */
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+    /* Màu nền cho dòng lẻ */
+}
+
+/* Buttons */
+.btn-add,
+.btn-edit,
+.btn-delete,
+.btn-save,
+.btn-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.btn-add i,
+.btn-edit i,
+.btn-delete i,
+.btn-save i,
+.btn-back i {
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.btn-add {
+    width: 30px;
+    height: 30px;
+    color: white;
+    padding: 8px 15px;
+    font-size: 20px;
+}
+
+.btn-edit {
+    color: black;
+}
+
+.btn-delete {
+    color: red;
+}
+
+.btn-save {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    width: 150px;
+}
+
+.btn-back {
+    background-color: #6c757d;
+    color: white;
+    width: 150px;
+    margin-top: 10px;
+}
+
+.btn-add:hover,
+.btn-edit:hover,
+.btn-delete:hover,
+.btn-save:hover,
+.btn-back:hover {
+    scale: 1.2;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* Form */
+.user-form .form-group {
+    margin-bottom: 15px;
+}
+
+.user-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.user-form input,
+.user-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        transform: translateX(-200px);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* ... (phần khác giữ nguyên) ... */
+
+/* Hình ảnh người dùng trong bảng */
+.user-image {
+    max-width: 70px;
+    max-height: 70px;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.action-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}

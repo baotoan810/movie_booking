@@ -1,0 +1,160 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.admin-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    transition: width 0.3s;
+    padding: 0 20px;
+}
+
+.sidebar.active {
+    width: 60px;
+}
+
+.sidebar .logo {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1.5em;
+    /* background-color: #444; */
+}
+
+.sidebar .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar .menu li {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+
+.sidebar .menu li a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.sidebar.active .logo {
+    display: none;
+}
+
+.sidebar.active .menu li a span {
+    display: none;
+}
+
+.sidebar .menu li a i {
+    margin-right: 10px;
+    min-width: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    /* Adjust icon size */
+}
+
+.sidebar .menu li a span {
+    text-transform: uppercase;
+    margin-left: 5px;
+    /* Adjust spacing between icon and text */
+}
+
+.sidebar .menu li a:hover {
+    border-left: 4px solid #3498db;
+    padding-left: 16px;
+}
+
+.sidebar.active .menu li:hover a span {
+    display: inline;
+    position: absolute;
+    background-color: #333;
+    padding: 15px;
+    margin-left: 60px;
+    border-left: 4px solid #3498db;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.menu-toggle {
+    color: #000000;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    /* background-color: transparent; */
+    border-radius: 20%;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.menu-toggle:hover {
+    background-color: #333;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.admin-info {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+/* css for content */
+.content h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ecf0f1;
+    height: 20px;
+}
+
+.content p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #7f8c8d;
+}
+
+.content-section {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    height: 570px;
+}
+
+.content-section h2 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.sidebar.active .menu li:hover a span {
+    display: inline;
+    position: absolute;
+    background-color: #333;
+    padding: 15px;
+    margin-left: 60px;
+    border-left: 4px solid #3498db;
+}
