@@ -5,6 +5,20 @@ body {
     display: flex;
 }
 
+a {
+    text-decoration: none;
+}
+
+.logo-link {
+    color: #fff;
+    transition: all .3s ease;
+}
+
+.logo-link:hover {
+    font-size: 18px;
+    color: rgb(83, 71, 142);
+}
+
 .admin-container {
     display: flex;
     width: 100%;

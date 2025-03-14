@@ -10,7 +10,7 @@
      <!-- Danh sách phim -->
      <div class="content-section">
           <h1>Quản Thể Loại</h1>
-          <a href="index.php?controller=theater&action=edit" class="btn-add">
+          <a href="index.php?controller=genres&action=edit" class="btn-add">
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                     <g data-name="88-Option Add">
                          <path
@@ -24,25 +24,20 @@
                     <thead>
                          <tr>
                               <th>ID</th>
-                              <th>Tên rạp</th>
-                              <th>Địa chỉ</th>
-                              <th>Số lượng ghế</th>
-                              <th>Thao Tác</th>
+                              <th>Tên thể loại</th>
+                              <th>Hành động</th>
                          </tr>
                     </thead>
                     <tbody>
-                         <?php foreach ($theaters as $theater): ?>
+                         <?php foreach ($genres as $genre): ?>
                               <tr>
-                                   <td><?php echo $theater['id']; ?></td>
-                                   <td><?php echo $theater['name']; ?></td>
-                                   <td><?php echo $theater['address']; ?></td>
-                                   <td><?php echo $theater['capacity']; ?></td>
+                                   <td><?php echo $genre['id']; ?></td>
+                                   <td><?php echo $genre['name']; ?></td>
 
                                    <td class="action-form">
-                                        <a href="index.php?controller=theater&action=edit&id=<?php echo $theater['id']; ?>"
+                                        <a href="index.php?controller=genres&action=edit&id=<?php echo $genre['id']; ?>"
                                              class="btn-edit"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="btn-delete"
-                                             onclick="deleteTheater(<?php echo $theater['id']; ?>)">
+                                        <a href="#" class="btn-delete" onclick="deleteGenres(<?php echo $genre['id']; ?>)">
                                              <i class="fas fa-trash"></i>
                                         </a>
                                    </td>

@@ -22,7 +22,9 @@
     <div class="admin-container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <h2 class="logo">Admin Movie</h2>
+            <a class="logo-link" href="index.php?controller=home&action=index">
+                <h2 class="logo">Admin Movie</h2>
+            </a>
             <ul class="menu">
                 <li class="menu-item active"><a href="index.php?controller=user&action=index"><i
                             class="fas fa-users"></i><span>Người Dùng</span></a></li>
@@ -30,7 +32,8 @@
                             class="fas fa-film"></i><span>Phim</span></a></li>
                 <li class="menu-item"><a href="index.php?controller=theater&action=index"><i
                             class="fas fa-theater-masks"></i><span>Rạp phim</span></a></li>
-                <li class="menu-item"><a href="#"><i class="fas fa-list"></i><span>Thể loại phim</span></a></li>
+                <li class="menu-item"><a href="index.php?controller=genres&action=index"><i
+                            class="fas fa-list"></i><span>Thể loại phim</span></a></li>
                 <li class="menu-item"><a href="#"><i class="fas fa-calendar-alt"></i><span>Lịch chiếu phim</span></a>
                 </li>
                 <li class="menu-item"><a href="#"><i class="fas fa-ticket-alt"></i><span>Quản lý đặt vé</span></a></li>

@@ -61,3 +61,22 @@ function deleteTheater(theaterId) {
             .catch(error => console.error("Lỗi:", error));
     }
 }
+
+// Note: Delete Genres
+function deleteGenres(genresId) {
+    if (confirm("Bạn có chắc là muốn xóa?")) {
+        fetch("index.php?controller=genres&action=delete", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: "id=" + genresId
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert("Xóa thành công!");
+                location.reload(); // Reload lại trang sau khi xóa thành công
+            })
+            .catch(error => console.error("Lỗi:", error));
+    }
+}

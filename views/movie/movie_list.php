@@ -29,7 +29,7 @@
                               <th>Thời lượng <span>(phút)</span></th>
                               <th>Ngày phát hành</th>
                               <th>View</th>
-                              <th>Ngày tạo</th>
+                              <!-- <th>Ngày tạo</th> -->
                               <th>Ảnh Poster</th>
                               <th>Thao Tác</th>
                          </tr>
@@ -43,13 +43,11 @@
                                    <td><?php echo $movie['duration']; ?></td>
                                    <td><?php echo $movie['release_date']; ?></td>
                                    <td><?php echo $movie['view']; ?></td>
-                                   <td><?php echo $movie['created_at']; ?></td>
+                                   <!-- <td><?php echo $movie['created_at']; ?></td> -->
                                    <td>
                                         <img class="user-image" src="<?php echo $movie['trailer_path']; ?>"
                                              alt="Image Poster">
                                    </td>
-
-                               
 
                                    <td class="action-form">
                                         <a href="index.php?controller=movie&action=edit&id=<?php echo $movie['id']; ?>"
