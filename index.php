@@ -20,6 +20,9 @@ switch ($controller) {
     case 'genres':
         require_once 'controllers/GenresAdminController.php';
         break;
+    case 'showtime':
+        require_once 'controllers/ShowtimeAdminController.php';
+        break;
 }
 
 require_once 'views/layout/footer.php';

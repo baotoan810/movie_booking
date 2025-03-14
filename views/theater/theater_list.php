@@ -26,7 +26,7 @@
                               <th>ID</th>
                               <th>Tên rạp</th>
                               <th>Địa chỉ</th>
-                              <th>Số lượng ghế</th>
+                              <th>Sức chứa</th>
                               <th>Thao Tác</th>
                          </tr>
                     </thead>

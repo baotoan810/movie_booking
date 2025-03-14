@@ -34,7 +34,7 @@
                             class="fas fa-theater-masks"></i><span>Rạp phim</span></a></li>
                 <li class="menu-item"><a href="index.php?controller=genres&action=index"><i
                             class="fas fa-list"></i><span>Thể loại phim</span></a></li>
-                <li class="menu-item"><a href="#"><i class="fas fa-calendar-alt"></i><span>Lịch chiếu phim</span></a>
+                <li class="menu-item"><a href="index.php?controller=showtime&action=index"><i class="fas fa-calendar-alt"></i><span>Lịch chiếu phim</span></a>
                 </li>
                 <li class="menu-item"><a href="#"><i class="fas fa-ticket-alt"></i><span>Quản lý đặt vé</span></a></li>
                 <li class="menu-item"><a href="#"><i class="fas fa-tags"></i><span>Khuyến mãi</span></a></li>
