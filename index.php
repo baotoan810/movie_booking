@@ -21,6 +21,9 @@ switch ($controller) {
     case 'theater':
         require_once CONTROLLER_PATH . 'TheaterAdminController.php';
         break;
+    case 'seat':
+        require_once CONTROLLER_PATH . 'SeatAdminController.php';
+        break;
 
     default:
         require_once VIEW_PATH . 'layout/error.php';

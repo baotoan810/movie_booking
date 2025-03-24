@@ -75,7 +75,3 @@
 
 </div>
 </div>
-
-<style>
-
-</style>

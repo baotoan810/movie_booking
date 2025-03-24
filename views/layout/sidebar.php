@@ -46,7 +46,7 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="index.php?controller=theater&action=index">Rạp phim</a></li>
-                        <li><a href="index.php?controller=seat_theater&action=index">Sơ đồ ghế rạp</a></li>
+                        <li><a href="index.php?controller=seat&action=index">Sơ đồ ghế rạp</a></li>
                         <li><a href="index.php?controller=showtime&action=index">Lịch chiếu phim</a></li>
                     </ul>
                 </li>
