@@ -1,0 +1,100 @@
+     body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f9f9f9;
+     }
+
+     /* Heading */
+     h1 {
+          text-align: center;
+          color: #333;
+          margin-top: 20px;
+          font-size: 2rem;
+     }
+
+     .form-input {
+          display: flex;
+          align-items: center;
+     }
+
+     .content-section {
+          width: 80%;
+          max-height: 550px;
+          margin: 30px auto 0;
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          overflow-y: auto;
+     }
+
+     .content-section div {
+          margin-bottom: 20px;
+     }
+
+     /* Label styling */
+     .content-section strong {
+          font-size: 1.2rem;
+          color: #333;
+          display: inline-block;
+          min-width: 150px;
+          /* Changed to min-width for flexibility */
+     }
+
+     /* Paragraph content */
+     .content-section p {
+          font-size: 1rem;
+          color: #666;
+          line-height: 1.6;
+          margin: 0;
+          /* Remove default margin for consistency */
+     }
+
+     /* Video trailer */
+     .content-section video {
+          display: block;
+          max-width: 100%;
+          border-radius: 8px;
+          margin-top: 10px;
+     }
+
+     /* Poster image */
+     .content-section img {
+          display: block;
+          max-width: 100%;
+          border-radius: 8px;
+          margin-top: 10px;
+     }
+
+     /* Placeholder text for missing content */
+     .content-section p span {
+          font-style: italic;
+          color: #888;
+     }
+
+     /* Back button */
+     .content-section a {
+          display: inline-block;
+          text-decoration: none;
+          padding: 10px 20px;
+          background-color: #4CAF50;
+          color: #fff;
+          border-radius: 5px;
+          font-weight: bold;
+          text-align: center;
+          margin-top: 20px;
+          transition: background-color 0.3s ease;
+          /* Smooth hover transition */
+     }
+
+     .content-section a:hover {
+          background-color: #45a049;
+     }
+
+     /* Responsive design */
+     @media (max-width: 768px) {
+          .content-section {
+               width: 95%;
+          }
+     }
