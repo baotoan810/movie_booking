@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4fd26d7c-893e-4192-b5e4-810a1b4be177" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/GenresAdminController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/MovieAdminController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/SeatAdminController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/TheaterAdminController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/UserAdminController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/GenresModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/SeatModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/TheaterModel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/admin.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/form.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/table.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742272101_poster4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742272107_poster7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742272210_poster6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742272552_1742272107_poster7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742272925_1742271124_ali-morshedlou-WMD64tMfc4k-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742280366_poster8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742284031_poster6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742284120_banner3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/1742532923_poster2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/ali-morshedlou-WMD64tMfc4k-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/banner3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/christian-buehner-DItYlc26zVI-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/poster1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/poster10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/poster2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/poster6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/poster7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/poster8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/poster9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742271004_trailer2.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742271124_ali-morshedlou-WMD64tMfc4k-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742271143_trailer1.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742271191_trailer4.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742272210_trailer2.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742272552_trailer1.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742272925_trailer5.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742280366_trailer4.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742284031_trailer3.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/1742284120_1742271191_trailer4.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/trailer1.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/trailer2.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/trailer3.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/trailer4.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/trailer5.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txt.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/genres/genres_form.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/genres/genres_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout/error.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout/footer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout/home.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout/sidebar.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/movie/movie_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/movie/movie_form.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/movie/movie_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/seat/seat_form.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/seat/seat_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/seat/seat_map.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/theater/theater_form.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/theater/theater_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/user/user_form.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/user/user_list.php" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64\php.exe" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2unQvgz54ME7nDmnXJIOnrFrE1p" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PS-243.26053.13" />
+        <option value="bundled-php-predefined-a98d8de5180a-1ec7b7818973-com.jetbrains.php.sharedIndexes-PS-243.26053.13" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4fd26d7c-893e-4192-b5e4-810a1b4be177" name="Changes" comment="" />
+      <created>1742882091573</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742882091573</updated>
+      <workItem from="1742882092854" duration="19000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

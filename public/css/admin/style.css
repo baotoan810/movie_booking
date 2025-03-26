@@ -1,0 +1,313 @@
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+     display: flex;
+     height: 100vh;
+     background-color: #f0f0f0;
+}
+
+.container {
+     display: flex;
+     width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+     width: 250px;
+     background-color: #393e46;
+     color: white;
+     padding: 20px;
+}
+
+.logo {
+     width: 100%;
+     text-align: center;
+     margin-bottom: 40px;
+
+}
+
+.sidebar .title-admin {
+     text-decoration: none;
+     color: #dddddd;
+     font-size: 24px;
+     font-weight: 700;
+}
+
+.sidebar ul {
+     list-style: none;
+}
+
+.sidebar ul li {
+     margin-bottom: 10px;
+}
+
+.dropdown-toggle {
+     display: block;
+     padding: 15px 10px;
+     font-size: 16px;
+     color: white;
+     text-decoration: none;
+     border-radius: 5px;
+     position: relative;
+     font-weight: 600;
+}
+
+
+.dropdown-toggle::after {
+     content: '▼';
+     position: absolute;
+     right: 10px;
+     font-size: 12px;
+}
+
+.dropdown-menu {
+     display: none;
+     list-style: none;
+     background-color: #352f44;
+     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+     border-radius: 5px;
+     margin-top: 5px;
+}
+
+.dropdown-menu li {
+     cursor: pointer;
+     padding: 10px 10px 10px 30px;
+     font-size: 14px;
+}
+
+.dropdown-menu li a {
+     color: white;
+     font-size: 15px;
+     text-transform: capitalize;
+     font-weight: 500;
+     text-decoration: none;
+     display: block;
+}
+
+.dropdown-menu li:hover {
+     background-color: #3e5c76;
+}
+
+.dropdown.open .dropdown-menu {
+     display: block;
+}
+
+.dropdown.open .dropdown-toggle::after {
+     content: '▲';
+}
+
+/* Main Content */
+.main-content {
+     flex: 1;
+     padding: 20px;
+}
+
+.header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 20px;
+}
+
+.header h1 {
+     font-size: 24px;
+}
+
+.user-info {
+     font-size: 16px;
+     color: #333;
+}
+
+/* Search Bar */
+.nav-search {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0 5%;
+     margin-bottom: 15px;
+}
+
+.search {
+     display: flex;
+     justify-content: flex-end;
+}
+
+.search input {
+     padding: 10px;
+     width: 200px;
+     border: 1px solid #ccc;
+     border-radius: 5px 0 0 5px;
+     outline: none;
+}
+
+.search button {
+     padding: 10px 20px;
+     background-color: #3498db;
+     color: white;
+     border: none;
+     border-radius: 0 5px 5px 0;
+     cursor: pointer;
+}
+
+.nav-search .add-btn {
+     text-decoration: none;
+     background-color: #333;
+     padding: 10px 15px;
+     color: #fff;
+     border-radius: 5px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+/* Table */
+table {
+     width: 100%;
+     border-collapse: collapse;
+     background-color: white;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+     padding: 15px;
+     text-align: center;
+     border-bottom: 1px solid #ddd;
+}
+
+table th {
+     background-color: #34495e;
+     color: white;
+     text-transform: capitalize;
+}
+
+table td {
+     color: #333;
+     border: 1px solid #eee;
+}
+
+.edit-btn,
+.delete-btn {
+     display: inline-block;
+     padding: 5px 10px;
+     text-decoration: none;
+     border-radius: 5px;
+     margin-right: 5px;
+     font-size: 16px;
+}
+
+.edit-btn {
+     background-color: #f1c40f;
+     color: black;
+}
+
+.delete-btn {
+     background-color: #e74c3c;
+     color: white;
+}
+
+.add-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover {
+     transition: all .3s ease;
+     scale: 1.1;
+}
+
+.image-user {
+     width: 80px;
+     height: 80px;
+     border-radius: 3px;
+     aspect-ratio: 1/1;
+     object-fit: cover;
+}
+
+/* Form sửa xóa */
+/* Style cho phần container của form */
+.content-section {
+     width: 600px;
+     height: 670px;
+     overflow-y: auto;
+     margin: 0 auto;
+     background: #fff;
+     padding: 20px;
+     border-radius: 8px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+     text-align: center;
+     font-size: 22px;
+     margin-bottom: 20px;
+     color: #333;
+}
+
+/* Style cho form */
+.user-form .form-group {
+     margin-bottom: 15px;
+}
+
+.user-form label {
+     font-weight: bold;
+     display: block;
+     margin-bottom: 5px;
+     color: #555;
+}
+
+.user-form input,
+.user-form select {
+     width: 100%;
+     padding: 8px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     font-size: 14px;
+     transition: 0.3s;
+}
+
+.user-form input:focus,
+.user-form select:focus {
+     border-color: #007bff;
+     outline: none;
+     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Style cho ảnh xem trước */
+.user-image-preview {
+     display: block;
+     margin-top: 10px;
+     border-radius: 5px;
+     border: 1px solid #ddd;
+}
+
+/* Style cho nút */
+.btn-view {
+     width: 80px;
+     color: #dfdfdf;
+     background-color: rgb(82, 96, 165);
+     padding: 5px 10px;
+     border-radius: 5px;
+     margin-right: 8px;
+     text-decoration: none;
+     text-align: center;
+
+}
+
+.btn-back,
+.btn-save {
+     font-size: 15px;
+     color: #fff;
+     background-color: #007bff;
+     padding: 10px 15px;
+     text-decoration: none;
+     border: none;
+     border-radius: 5px;
+}
+
+.btn-view:hover,
+.btn-save:hover {
+     scale: 1.1;
+}

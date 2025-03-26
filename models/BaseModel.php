@@ -30,26 +30,41 @@ class BaseModel
      }
 
      // Thêm dữ liệu
+     // public function add($data)
+     // {
+     //      $fields = implode(", ", array_keys($data));
+     //      $values = ":" . implode(", :", array_keys($data));
+
+     //      $query = "INSERT INTO " . $this->table . " ($fields) VALUES ($values)";
+     //      $stmt = $this->conn->prepare($query);
+
+     //      foreach ($data as $key => $value) {
+     //           $stmt->bindValue(":$key", $value);
+     //      }
+
+     //      return $stmt->execute();
+     // }
      public function add($data)
      {
-          $fields = implode(", ", array_keys($data));
-          $values = ":" . implode(", :", array_keys($data));
+          $fields = array_keys($data);
+          $values = array_values($data);
+          $placeholders = array_fill(0, count($values), '?');
 
-          $query = "INSERT INTO " . $this->table . " ($fields) VALUES ($values)";
+          // Bọc tên cột trong dấu backtick
+          $fieldList = array_map(function ($field) {
+               return "`$field`";
+          }, $fields);
+
+          $query = "INSERT INTO {$this->table} (" . implode(', ', $fieldList) . ") VALUES (" . implode(', ', $placeholders) . ")";
           $stmt = $this->conn->prepare($query);
-
-          foreach ($data as $key => $value) {
-               $stmt->bindValue(":$key", $value);
-          }
-
-          return $stmt->execute();
+          return $stmt->execute($values);
      }
      // Update dữ liệu
      public function update($id, $data)
      {
           $setClause = "";
           foreach ($data as $key => $value) {
-               $setClause .= "$key = :$key, ";
+               $setClause .= "`$key` = :$key, "; // Bọc cột trong backtick
           }
           $setClause = rtrim($setClause, ", ");
 

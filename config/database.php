@@ -2,7 +2,7 @@
 class Database
 {
     private $host = "localhost";
-    private $dbname = "website_moive";
+    private $dbname = "table_movie";
     private $username = "root";
     private $password = "";
     private $conn;
