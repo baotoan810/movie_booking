@@ -22,9 +22,10 @@
                     <li class="dropdown">
                          <a href="#" class="dropdown-toggle ">QUẢN LÝ PHIM</a>
                          <ul class="dropdown-menu">
-                              <li><a href="index.php?controller=movie&action=index">Danh sách phim</a></li>
+                              <li><a href="admin.php?controller=movie&action=index">Danh sách phim</a></li>
                               <li><a href="index.php?controller=genres&action=index">Thể loại phim</a></li>
-                              <li><a href="index.php?controller=review&action=index">đánh giá phim</a></li>
+                              <li><a href="admin.php?controller=review&action=index">đánh giá phim</a></li>
+                              <li><a href="admin.php?controller=news&action=index">tin tức phim</a></li>
                          </ul>
                     </li>
                     <li class="dropdown">
@@ -49,5 +50,6 @@
                               <li><a href="#">Lịch sử đặt vé</a></li>
                          </ul>
                     </li>
+
                </ul>
           </div>

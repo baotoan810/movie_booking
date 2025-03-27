@@ -227,10 +227,9 @@ table td {
 }
 
 /* Form sửa xóa */
-/* Style cho phần container của form */
 .content-section {
      width: 600px;
-     height: 670px;
+     /* height: 670px; */
      overflow-y: auto;
      margin: 0 auto;
      background: #fff;
@@ -310,4 +309,8 @@ h1 {
 .btn-view:hover,
 .btn-save:hover {
      scale: 1.1;
+}
+
+.action-buttons{
+     display: flex;
 }

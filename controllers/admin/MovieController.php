@@ -71,7 +71,7 @@ class MovieController
           }
 
           if ($result) {
-               header("Location: index.php?controller=movie&action=index");
+               header("Location: admin.php?controller=movie&action=index");
                exit();
           } else {
                echo "Lỗi khi lưu phim!";
@@ -113,7 +113,7 @@ class MovieController
                }
                $result = $this->movieModel->deleteMovie($id);
                if ($result) {
-                    header("Location: index.php?controller=movie&action=index");
+                    header("Location: admin.php?controller=movie&action=index");
                } else {
                     die("Xóa thất bại");
                }

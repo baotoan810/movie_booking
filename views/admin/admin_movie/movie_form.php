@@ -2,7 +2,7 @@
 <div class="content-section section-form">
      <h1><?= $movie ? 'Sửa Phim' : 'Thêm Phim'; ?></h1>
 
-     <form action="index.php?controller=movie&action=save" method="POST" enctype="multipart/form-data"
+     <form action="admin.php?controller=movie&action=save" method="POST" enctype="multipart/form-data"
           class="user-form">
           <?php if (!empty($movie)): ?>
                <input type="hidden" name="id" value="<?= htmlspecialchars($movie['id']); ?>">
@@ -82,7 +82,7 @@
           <button type="submit" class="btn-save"><i class="fas fa-save"></i> Lưu</button>
 
           <!-- Link quay lại -->
-          <a href="index.php?controller=movie&action=index" class="btn-back">
+          <a href="admin.php?controller=movie&action=index" class="btn-back">
                <i class="fas fa-arrow-left"></i> Quay Lại
           </a>
      </form>

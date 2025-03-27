@@ -11,10 +11,10 @@ class MovieModel extends BaseModel
      public function getAllMoviesWithGenres()
      {
           $query = "SELECT movies.*, GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
-                  FROM movies 
-                  LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
-                  LEFT JOIN genres ON movie_genres.genre_id = genres.id 
-                  GROUP BY movies.id";
+                              FROM movies 
+                              LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                              LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                              GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->execute();
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,12 +23,12 @@ class MovieModel extends BaseModel
      public function getMovieById($id)
      {
           $query = "SELECT movies.*, 
-                       GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres
-                       FROM movies
-                       LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
-                       LEFT JOIN genres ON movie_genres.genre_id = genres.id
-                       WHERE movies.id = :id
-                       GROUP BY movies.id";
+                                   GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres
+                                   FROM movies
+                                   LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
+                                   LEFT JOIN genres ON movie_genres.genre_id = genres.id
+                                   WHERE movies.id = :id
+                                   GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':id', $id);
           $stmt->execute();
@@ -122,14 +122,33 @@ class MovieModel extends BaseModel
      public function searchMovie($keyword)
      {
           $query = "SELECT movies.*, 
-                  GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
-                  FROM movies 
-                  LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
-                  LEFT JOIN genres ON movie_genres.genre_id = genres.id 
-                  WHERE movies.title LIKE :keyword
-                  GROUP BY movies.id";
+                              GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
+                              FROM movies 
+                              LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                              LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                              WHERE movies.title LIKE :keyword
+                              GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+          $stmt->execute();
+          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+     }
+
+
+     // note:  User-----------------------------
+     // Phương thức mới: Lấy 4 phim có lượt xem cao nhất
+     public function getTopMoviesByViews($limit = 4)
+     {
+          $query = "SELECT movies.*, 
+                              GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
+                              FROM movies 
+                              LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                              LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                              GROUP BY movies.id 
+                              ORDER BY movies.view DESC 
+                              LIMIT :limit";
+          $stmt = $this->conn->prepare($query);
+          $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
           $stmt->execute();
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
      }

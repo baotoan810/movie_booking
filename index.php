@@ -1,42 +1,29 @@
 <?php
-require_once 'config/config.php';
+require 'config/config.php';
 
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
+
+$controller = isset($_GET['controller']) ? $_GET['controller'] : 'homepage';
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
-require_once VIEW_PATH . 'admin/layout/sidebar.php';
+require_once VIEW_PATH . 'user/home/header.php';
+
 switch ($controller) {
-     case 'home':
-          require_once VIEW_PATH . 'admin/layout/home.php';
+     case 'homepage':
+          require_once CONTROLLER_PATH . 'user/HomeController.php';
+          require_once VIEW_PATH . 'user/home/main.php';
           break;
-     case 'user':
-          require_once CONTROLLER_PATH . 'admin/UserController.php';
+     case 'detail':
+          require_once CONTROLLER_PATH . 'user/DetailController.php';
           break;
-     case 'movie':
-          require_once CONTROLLER_PATH . 'admin/MovieController.php';
+     case 'reviews':
+          require_once CONTROLLER_PATH . 'user/CommentController.php';
           break;
-     case 'genres':
-          require_once CONTROLLER_PATH . 'admin/GenresController.php';
-          break;
-     case 'theater':
-          require_once CONTROLLER_PATH . 'admin/TheaterController.php';
-          break;
-     case 'room':
-          require_once CONTROLLER_PATH . 'admin/RoomController.php';
-          break;
-     case 'booking':
-          require_once CONTROLLER_PATH . 'admin/BookingController.php';
-          break;
-     case 'showtime':
-          require_once CONTROLLER_PATH . 'admin/ShowtimeController.php';
+     case 'new':
+          require_once CONTROLLER_PATH . 'user/NewController.php';
           break;
 
-     default:
-          require_once VIEW_PATH . 'layout/error.php';
-          break;
 
 }
 
-require_once VIEW_PATH . 'admin/layout/footer.php';
+require_once VIEW_PATH . 'user/home/footer.php';
 
-?>

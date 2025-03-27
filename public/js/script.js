@@ -108,3 +108,23 @@ function deleteRoom(roomId) {
                .catch(error => console.error("Lỗi:", error));
      }
 }
+
+
+// Note: Delete News
+function deleteNews(newsId) {
+     if (confirm("Bạn có chắc là muốn xóa?")) {
+          fetch("admin.php?controller=news&action=delete", {
+               method: "POST",
+               headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+               },
+               body: "id=" + newsId
+          })
+               .then(response => response.text())
+               .then(data => {
+                    alert("Xóa thành công!");
+                    location.reload(); // Reload lại trang sau khi xóa thành công
+               })
+               .catch(error => console.error("Lỗi:", error));
+     }
+}

@@ -1,0 +1,511 @@
+/* Reset CSS */
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: Arial, sans-serif;
+     scroll-behavior: smooth;
+}
+
+body {
+     background-color: #121212;
+     color: white;
+}
+
+/* ===================== */
+/* Thanh Điều Hướng */
+/* ===================== */
+.logo {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 1rem;
+}
+
+.logo img {
+     width: 100px;
+     height: 100px;
+     object-fit: contain;
+     aspect-ratio: 1/1;
+     border-radius: 50%;
+}
+
+.navbar {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     background: #1c1c1c;
+     padding: 15px 50px;
+     box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.navbar h1 {
+     color: #ffcc00;
+     font-size: 24px;
+}
+
+.navbar ul {
+     display: flex;
+     list-style: none;
+}
+
+.navbar ul li {
+     margin: 0 15px;
+}
+
+.navbar ul li a {
+     text-decoration: none;
+     color: white;
+     font-size: 16px;
+     transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+     color: #ffcc00;
+}
+
+/* Nút đăng ký */
+.register-btn {
+     background: #ffcc00;
+     padding: 8px 15px;
+     border-radius: 5px;
+     color: black !important;
+     font-weight: bold;
+}
+
+.register-btn:hover {
+     background: #ff9900;
+}
+
+/* ===================== */
+/* Banner Quảng Cáo */
+/* ===================== */
+/* Banner */
+.banner {
+     position: relative;
+     width: 100%;
+}
+
+.banner img {
+     width: 100%;
+     height: 300px;
+     object-fit: cover;
+}
+
+.banner-text {
+     position: absolute;
+     top: 50%;
+     left: 10%;
+     transform: translateY(-50%);
+     color: white;
+     text-align: left;
+}
+
+.banner-text h2 {
+     font-size: 28px;
+}
+
+.banner-text button {
+     padding: 10px;
+     background: #ff4c4c;
+     border: none;
+     color: white;
+     cursor: pointer;
+     font-size: 16px;
+     border-radius: 5px;
+}
+
+.banner-text button:hover {
+     background: #e63b3b;
+}
+
+
+/* Hiệu ứng chuyển động */
+@keyframes slide {
+
+     0%,
+     100% {
+          transform: translateX(0);
+     }
+
+     33% {
+          transform: translateX(-100%);
+     }
+
+     66% {
+          transform: translateX(-200%);
+     }
+}
+
+/* ===================== */
+/* Form Tìm Kiếm Phim */
+/* ===================== */
+.search-form {
+     display: flex;
+     gap: 5px;
+}
+
+.search-input {
+     text-align: center;
+     margin: 30px auto;
+     padding: 20px;
+     background: #1c1c1c;
+     border-radius: 10px;
+     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+     max-width: 600px;
+}
+
+.search-input h2 {
+     color: #ffcc00;
+     font-size: 22px;
+     margin-bottom: 10px;
+}
+
+.input-search {
+     width: 80%;
+     padding: 12px;
+     border: 2px solid #ffcc00;
+     border-radius: 5px;
+     font-size: 16px;
+     outline: none;
+     transition: 0.3s ease-in-out;
+}
+
+.input-search:focus {
+     border-color: #ff9900;
+     box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+}
+
+.btn-search {
+     padding: 12px 20px;
+     background: #ffcc00;
+     color: black;
+     border: none;
+     border-radius: 5px;
+     font-size: 14px;
+     font-weight: bold;
+     cursor: pointer;
+     transition: 0.3s;
+}
+
+.btn-search:hover {
+     background: #ff9900;
+     transform: scale(1.05);
+}
+
+/* Hiển thị kết quả tìm kiếm */
+.search-results {
+     position: absolute;
+     width: 80%;
+     background: #fff;
+     max-height: 250px;
+     overflow-y: auto;
+     border-radius: 5px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     display: none;
+}
+
+.search-results li {
+     list-style: none;
+     padding: 10px;
+     cursor: pointer;
+     transition: 0.2s;
+     font-size: 16px;
+}
+
+.search-results li:hover {
+     background: #ffcc00;
+     color: black;
+}
+
+/* ===================== */
+/* Danh Sách Phim */
+/* ===================== */
+.movie-list {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: 20px;
+     padding: 20px;
+}
+
+.movie {
+     background: #1c1c1c;
+     padding: 15px;
+     border-radius: 10px;
+     text-align: center;
+     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+     width: 250px;
+     transition: 0.3s;
+     line-height: 30px;
+}
+
+.movie img {
+     width: 100%;
+     height: 40;
+     border-radius: 10px;
+}
+
+.title-movie {
+     margin: 10px 0;
+     color: #ffcc00;
+     font-size: 18px;
+     text-transform: uppercase;
+}
+
+.date_movie,
+.genres_movie {
+     font-size: 14px;
+     color: #ccc;
+     text-transform: uppercase;
+     margin-bottom: 10px;
+}
+
+/* Ẩn các nút khi chưa hover */
+.movie .btn {
+     display: none;
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background: rgba(0, 0, 0, 0.7);
+     padding: 30px 15px 15px;
+     border-radius: 5px;
+}
+
+/* Hiển thị các nút khi hover vào ảnh */
+.movie:hover .btn {
+     display: block;
+}
+
+.movie {
+     position: relative;
+     text-align: center;
+     transition: 0.5s ease;
+}
+
+.movie img {
+     width: 100%;
+     border-radius: 10px;
+     transition: 0.3s;
+}
+
+.btn a {
+     display: block;
+     background: #ffcc00;
+     padding: 8px 12px;
+     border-radius: 5px;
+     color: black;
+     text-decoration: none;
+     font-weight: bold;
+     margin: 5px 0;
+}
+
+.btn a:hover {
+     background: #ff9900;
+}
+
+
+/* ===================== */
+/* Footer */
+/* ===================== */
+footer {
+     background: #1c1c1c;
+     padding: 30px 0;
+     text-align: center;
+     margin-top: 20px;
+}
+
+.footer-container {
+     display: flex;
+     justify-content: space-around;
+     flex-wrap: wrap;
+}
+
+.footer-logo h2 {
+     color: #ffcc00;
+}
+
+.footer-links ul {
+     list-style: none;
+     line-height: 30px;
+}
+
+.footer-links ul li a {
+     text-decoration: none;
+     color: white;
+     transition: 0.3s;
+}
+
+.footer-links ul li a:hover {
+     color: #ffcc00;
+}
+
+.footer-contact,
+.footer-social {
+     color: #ccc;
+     text-align: left;
+}
+
+.footer-social a {
+     margin: 0 10px;
+     font-size: 20px;
+     color: white;
+     transition: 0.3s;
+}
+
+.footer-social a:hover {
+     color: #ffcc00;
+}
+
+.footer-bottom {
+     margin-top: 20px;
+     color: #ccc;
+}
+
+.scroll-top {
+     display: inline-block;
+     margin-top: 10px;
+     background: #ffcc00;
+     padding: 10px 15px;
+     color: black;
+     text-decoration: none;
+     font-weight: bold;
+     border-radius: 5px;
+}
+
+.scroll-top:hover {
+     background: #ff9900;
+}
+
+/* css contact fb ins------------------- */
+/* From Uiverse.io by svqantonio */
+.main {
+     display: flex;
+     flex-direction: column;
+     gap: 0.5em;
+}
+
+.up {
+     display: flex;
+     flex-direction: row;
+     gap: 0.5em;
+}
+
+.down {
+     display: flex;
+     flex-direction: row;
+     gap: 0.5em;
+}
+
+.card1 {
+     width: 90px;
+     height: 90px;
+     outline: none;
+     border: none;
+     background: white;
+     border-radius: 90px 5px 5px 5px;
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+     transition: .2s ease-in-out;
+}
+
+.instagram {
+     margin-top: 1.5em;
+     margin-left: 1.2em;
+     fill: #cc39a4;
+}
+
+.card2 {
+     width: 90px;
+     height: 90px;
+     outline: none;
+     border: none;
+     background: white;
+     border-radius: 5px 90px 5px 5px;
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+     transition: .2s ease-in-out;
+}
+
+.facebook {
+     margin-top: 1.5em;
+     margin-left: -.9em;
+     fill: #03A9F4;
+}
+
+.card3 {
+     width: 90px;
+     height: 90px;
+     outline: none;
+     border: none;
+     background: white;
+     border-radius: 5px 5px 5px 90px;
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+     transition: .2s ease-in-out;
+}
+
+.whatsapp {
+     margin-top: -.6em;
+     margin-left: 1.2em;
+     fill: #00ff00;
+}
+
+.card4 {
+     width: 90px;
+     height: 90px;
+     outline: none;
+     border: none;
+     background: white;
+     border-radius: 5px 5px 90px 5px;
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+     transition: .2s ease-in-out;
+}
+
+.gmail {
+     margin-top: -.9em;
+     margin-left: -1.2em;
+     fill: #f14336;
+}
+
+.card1:hover {
+     cursor: pointer;
+     scale: 1.1;
+     background-color: #cc39a4;
+}
+
+.card1:hover .instagram {
+     fill: white;
+}
+
+.card2:hover {
+     cursor: pointer;
+     scale: 1.1;
+     background-color: #1877f2;
+}
+
+.card2:hover .facebook {
+     fill: white;
+}
+
+.card3:hover {
+     cursor: pointer;
+     scale: 1.1;
+     background-color: #00ff00;
+}
+
+.card3:hover .whatsapp {
+     fill: white;
+}
+
+.card4:hover {
+     cursor: pointer;
+     scale: 1.1;
+     background-color: #FF0004;
+}
+
+.card4:hover .gmail {
+     fill: white;
+}
+
+/* Tin tức phim */
