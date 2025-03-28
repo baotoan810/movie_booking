@@ -43,7 +43,7 @@ class RoomModel extends BaseModel
           $result = $stmt->fetch(PDO::FETCH_ASSOC);
           return $result['total'] ?? 0;
      }
-
+     
      // Lấy capacity của rạp
      public function getTheaterCapacity($theater_id)
      {

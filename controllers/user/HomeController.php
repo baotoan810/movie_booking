@@ -22,9 +22,10 @@ class HomeController
      public function index()
      {
           $keyword = $_GET['search'] ?? '';
-          $movies = !empty($keyword) ? $this->movieModel->searchMovie($keyword) : $this->movieModel->getAllMoviesWithGenres();
-          $topMovie = $this->movieModel->getTopMoviesByViews(4) ?? []; // Đảm bảo $topMovie luôn là mảng
-          $news = $this->newsModel->getAllNews(3);
+          $movies = !empty($keyword) ? $this->movieModel->searchMovie($keyword) :
+               $this->movieModel->getTopMoviesByViews(4);
+          // $topMovie = $this->movieModel->getTopMoviesByViews(4) ?? [];
+          $news = $this->newsModel->getAllNewsLimit(3);
           require VIEW_PATH . 'user/home/main.php';
      }
 

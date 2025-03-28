@@ -18,15 +18,17 @@ class DetailController
           $controller = 'detail';
           $action = 'index';
           $movies = $this->movieModel->getAllMoviesWithGenres();
-          require VIEW_PATH . 'user/detail/detail_movie.php';
+          $getMovieToday = $this->movieModel->getMoviesShowingToday();
+          require VIEW_PATH . 'user/movie/movie.php';
      }
 
      public function detail($id = null)
      {
           $movie = $id ? $this->movieModel->getMovieById($id) : null;
           $genres = $id ? $this->movieModel->getGenresId($id) : [];
-          require VIEW_PATH . 'user/detail/detail_movie.php';
+          require VIEW_PATH . 'user/movie/detail_movie.php';
      }
+
 
 
 

@@ -25,8 +25,8 @@
           </div>
           <ul>
                <li><a href="index.php">Trang Chủ</a></li>
-               <li><a href="#">Phim</a></li>
-               <li><a href="#">Rạp Phim</a></li>
+               <li><a href="index.php?controller=detail&action=index">Phim</a></li>
+               <li><a href="index.php?controller=theater&action=index">Rạp Phim</a></li>
                <li><a href="index.php?controller=new&action=index">Tin Tức Phim</a></li>
                <li><a href="login.html">Đăng Nhập</a></li>
                <li><a href="register.html" class="register-btn">Đăng Ký</a></li>

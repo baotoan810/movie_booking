@@ -28,33 +28,33 @@
      </div> -->
 
      <!-- Danh sách phim -->
-     <div class="movie-list">
-          <?php foreach ($movies as $movie): ?>
-               <div class="movie">
-                    <!-- <img src="<?= htmlspecialchars($movie['poster_path']) ?>" alt="Phim 1">-->
-                    <?php if ($movie['poster_path'] && file_exists($movie['poster_path'])): ?>
-                         <img src="<?= htmlspecialchars($movie['poster_path']) ?>" alt="Poster" width="200px">
-                    <?php else: ?>
-                         <p>Không có ảnh poster</p>
-                    <?php endif; ?>
-                    <h3 class="title-movie"><?= htmlspecialchars($movie['title']) ?></h3>
-                    <span class="date_movie">
-                         <!-- <p>Ngày chiếu</p> -->
-                         <p><?= htmlspecialchars($movie['release_date']) ?></p>
-                    </span>
-                    <span class="genres_movie">
-                         <!-- <p>Thể loại</p> -->
-                         <p><?= htmlspecialchars($movie['genres']) ?></p>
-                    </span>
-                    <div class="btn">
-                         <a href="index.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
-                              class="book-btn">Xem Chi Tiết</a>
-                         <a href="#" class="book-btn">🎟 Đặt Vé</a>
+     <div class="movie-hot">
+          <h2>Phim nổi bật nhất</h2>
+          <div class="movie-list">
+               <?php foreach ($movies as $movie): ?>
+                    <div class="movie">
+                         <?php if ($movie['poster_path'] && file_exists($movie['poster_path'])): ?>
+                              <img src="<?= htmlspecialchars($movie['poster_path']) ?>" alt="Poster" width="200px">
+                         <?php else: ?>
+                              <p>Không có ảnh poster</p>
+                         <?php endif; ?>
+                         <h3 class="title-movie"><?= htmlspecialchars($movie['title']) ?></h3>
+                         <span class="date_movie">
+                              <p><?= htmlspecialchars($movie['release_date']) ?></p>
+                         </span>
+                         <span class="genres_movie">
+                              <p><?= htmlspecialchars($movie['genres']) ?></p>
+                         </span>
+                         <div class="btn">
+                              <a href="index.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
+                                   class="book-btn">Xem Chi Tiết</a>
+                              <a href="index.php?controller=booking&action=selectTheaterAndRoom&movie_id=<?= htmlspecialchars($movie['id']) ?>"
+                                   class="book-btn">🎟 Đặt Vé</a>
+                         </div>
                     </div>
-               </div>
-          <?php endforeach; ?>
+               <?php endforeach; ?>
+          </div>
      </div>
-
 
      <!-- Tin tức phim -->
      <section class="movie-news">
@@ -62,14 +62,18 @@
           <div class="news-container">
                <?php foreach ($news as $newItem): ?>
                     <div class="news-item">
-                         <img src="<?= htmlspecialchars($newItem['image'])?>" alt="">
+                         <img src="<?= htmlspecialchars($newItem['image']) ?>" alt="">
                          <div class="news-content">
-                              <h3><?= htmlspecialchars($newItem['title'])?></h3>
-                              <p><?= htmlspecialchars($newItem['content'])?></p>
+                              <h3><?= htmlspecialchars($newItem['title']) ?></h3>
+                              <p><?= htmlspecialchars($newItem['content']) ?></p>
                               <a href="#" class="read-more">Đọc tiếp</a>
                          </div>
                     </div>
                <?php endforeach; ?>
+          </div>
+
+          <div class="new-all">
+               <a href="index.php?controller=new&action=index">Xem tất cả</a>
           </div>
      </section>
 

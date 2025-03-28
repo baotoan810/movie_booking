@@ -258,3 +258,83 @@
      transform: translateY(-3px);
      box-shadow: 0px 8px 18px rgba(255, 0, 0, 0.8);
 }
+
+
+/* css Theater detail */
+.theater-details {
+     max-width: 800px;
+     margin: 20px auto;
+     padding: 20px;
+     background: #181818;
+     /* Màu nền tối */
+     border-radius: 8px;
+     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+     /* Viền nhẹ */
+     color: #fff;
+     /* Màu chữ trắng */
+     text-align: center;
+}
+
+.theater-details h1 {
+     font-size: 24px;
+     color: #FFC107;
+     /* Màu vàng */
+     margin-bottom: 10px;
+}
+
+.theater-details p {
+     font-size: 16px;
+     color: #ddd;
+     /* Màu chữ xám nhạt */
+     margin-bottom: 10px;
+}
+
+.room-list {
+     margin-top: 15px;
+}
+
+.room-item {
+     background: #222;
+     /* Màu xám đậm */
+     padding: 15px;
+     border-radius: 6px;
+     margin-bottom: 10px;
+     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+     transition: transform 0.2s;
+}
+
+.room-item:hover {
+     transform: translateY(-3px);
+}
+
+.room-item strong {
+     display: block;
+     font-size: 18px;
+     color: #FFC107;
+     /* Màu vàng */
+     margin-bottom: 5px;
+}
+
+.room-item p {
+     font-size: 14px;
+     color: #bbb;
+}
+
+.theater-details a {
+     display: inline-block;
+     margin-top: 15px;
+     padding: 10px 15px;
+     background: #FF7F00;
+     /* Màu cam */
+     color: #fff;
+     text-decoration: none;
+     border-radius: 5px;
+     text-align: center;
+     transition: background 0.3s;
+     font-weight: bold;
+}
+
+.theater-details a:hover {
+     background: #FF5A00;
+     /* Màu cam đậm hơn khi hover */
+}

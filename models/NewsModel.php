@@ -16,7 +16,16 @@ class NewsModel extends BaseModel
           $stmt->execute();
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
      }
-
+     public function getAllNewsLimit($limit = 3)
+     {
+          $query = "SELECT * FROM news  
+                    ORDER BY news.created_at DESC 
+                    LIMIT :limit";
+          $stmt = $this->conn->prepare($query);
+          $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+          $stmt->execute();
+          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+     }
      // Lấy một tin tức theo ID
      public function getNewsById($id)
      {

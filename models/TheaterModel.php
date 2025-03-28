@@ -41,5 +41,28 @@ class TheaterModel extends BaseModel
      }
 
 
+
+     // User--------------------------------------------
+     public function getRoomsByTheater($theaterId)
+     {
+          $query = "
+               SELECT r.*
+               FROM rooms r
+               WHERE r.theater_id = :theater_id
+               ORDER BY r.name ASC
+               ";
+
+          try {
+               $stmt = $this->conn->prepare($query);
+               $stmt->bindParam(':theater_id', $theaterId, PDO::PARAM_INT);
+               $stmt->execute();
+               $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+               return $rooms;
+
+          } catch (Exception $e) {
+               return [];
+          }
+     }
 }
 ?>

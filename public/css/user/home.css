@@ -221,14 +221,28 @@ body {
 /* ===================== */
 /* Danh Sách Phim */
 /* ===================== */
+.movie-hot {
+     padding: 20px;
+     max-width: 80%;
+     margin: 50px auto;
+     padding: 30px;
+     background: linear-gradient(135deg, #1e1e1e, #292929);
+     border-radius: 15px;
+     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+     color: #fff;
+     text-align: center;
+}
+
 .movie-list {
      display: flex;
      flex-wrap: wrap;
      justify-content: center;
      gap: 20px;
-     padding: 20px;
 }
-
+.movie-hot h2{
+     text-transform: uppercase;
+     margin-bottom: 20px;
+}
 .movie {
      background: #1c1c1c;
      padding: 15px;
