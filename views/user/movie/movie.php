@@ -14,13 +14,13 @@
                          <p>Lượt xem: <?= htmlspecialchars($movie['view']) ?></p>
                     </span>
                     <span class="genres_movie">
-                         <!-- <p>Thể loại</p> -->
-                         <p><?= htmlspecialchars($movie['genres']) ?></p>
+                         <!-- <p><?= htmlspecialchars($movie['genres']) ?></p> -->
                     </span>
                     <div class="btn">
-                         <a href="index.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
+                         <a href="user.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
                               class="book-btn">Xem Chi Tiết</a>
-                         <a href="#" class="book-btn">🎟 Đặt Vé</a>
+                         <a href="user.php?controller=booking&action=selectTheaterAndRoom&movie_id=<?= htmlspecialchars($movie['id']) ?>"
+                              class="book-btn">🎟 Đặt Vé</a>
                     </div>
                </div>
           <?php endforeach; ?>
@@ -40,17 +40,15 @@
                          <p>Không có ảnh poster</p>
                     <?php endif; ?>
                     <h3 class="title-movie"><?= htmlspecialchars($movie['title']) ?></h3>
-                    <!-- <span class="date_movie">
-                         <p><?= htmlspecialchars($movie['release_date']) ?></p>
-                    </span> -->
                     <span class="genres_movie">
                          <!-- <p>Thể loại</p> -->
                          <p><?= htmlspecialchars($movie['genres']) ?></p>
                     </span>
                     <div class="btn">
-                         <a href="index.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
+                         <a href="user.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
                               class="book-btn">Xem Chi Tiết</a>
-                         <a href="#" class="book-btn">🎟 Đặt Vé</a>
+                         <a href="user.php?controller=booking&action=selectTheaterAndRoom&movie_id=<?= htmlspecialchars($movie['id']) ?>"
+                              class="book-btn">🎟 Đặt Vé</a>
                     </div>
                </div>
           <?php endforeach; ?>

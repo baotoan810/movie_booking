@@ -2,6 +2,7 @@
 require_once MODEL_PATH . 'MovieModel.php';
 require_once MODEL_PATH . 'ReviewModel.php';
 require_once MODEL_PATH . 'NewsModel.php';
+require_once MODEL_PATH . 'AuthModel.php';
 require_once DATABASE_PATH . 'database.php';
 
 class HomeController
@@ -9,6 +10,7 @@ class HomeController
      private $movieModel;
      private $reviewModel;
      private $newsModel;
+     private $authModel;
 
      public function __construct()
      {
@@ -17,6 +19,7 @@ class HomeController
           $this->movieModel = new MovieModel($db);
           $this->reviewModel = new ReviewModel($db);
           $this->newsModel = new NewsModel($db);
+          $this->authModel = new AuthModel($db);
      }
 
      public function index()
@@ -24,7 +27,8 @@ class HomeController
           $keyword = $_GET['search'] ?? '';
           $movies = !empty($keyword) ? $this->movieModel->searchMovie($keyword) :
                $this->movieModel->getTopMoviesByViews(4);
-          // $topMovie = $this->movieModel->getTopMoviesByViews(4) ?? [];
+
+
           $news = $this->newsModel->getAllNewsLimit(3);
           require VIEW_PATH . 'user/home/main.php';
      }
@@ -74,8 +78,5 @@ switch ($action) {
           break;
      case 'detail':
           $controller->detail();
-          break;
-     case 'newDetail':
-          $controller->newsDetail();
           break;
 } ?>

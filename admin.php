@@ -1,5 +1,11 @@
 <?php
+// admin.php
 require_once 'config/config.php';
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+     header('Location: index.php?action=login');
+     exit();
+}
 
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
@@ -39,7 +45,6 @@ switch ($controller) {
      default:
           require_once VIEW_PATH . 'layout/error.php';
           break;
-
 }
 
 require_once VIEW_PATH . 'admin/layout/footer.php';

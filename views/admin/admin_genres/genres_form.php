@@ -4,7 +4,7 @@
      <h1><?php echo $genre ? 'Sửa Thể Loại' : 'Thêm Thể Loại'; ?></h1>
 
 
-     <form action="index.php?controller=genres&action=save" method="POST" enctype="multipart/form-data"
+     <form action="admin.php?controller=genres&action=save" method="POST" enctype="multipart/form-data"
           class="user-form">
           <?php if ($genre): ?>
                <input type="hidden" name="id" value="<?php echo $genre['id']; ?>">
@@ -16,7 +16,7 @@
           </div>
 
           <button type="submit" class="btn-save"><i class="fas fa-save"></i> Lưu</button>
-          <a href="index.php?controller=genres&action=index" class="btn-back"><i class="fas fa-arrow-left"></i> Quay
+          <a href="admin.php?controller=genres&action=index" class="btn-back"><i class="fas fa-arrow-left"></i> Quay
                Lại</a>
      </form>
 </div>

@@ -14,25 +14,25 @@ class BookingModel extends BaseModel
           $date = $date ?? date('Y-m-d');
 
           $query = "
-            SELECT 
-                t.id AS theater_id,
-                t.name AS theater_name,
-                t.address AS theater_address,
-                r.id AS room_id,
-                r.name AS room_name,
-                r.capacity AS room_capacity,
-                s.id AS showtime_id,
-                s.start_time,
-                s.price,
-                s.available_seats
-            FROM theaters t
-            LEFT JOIN rooms r ON t.id = r.theater_id
-            LEFT JOIN showtimes s ON r.id = s.room_id
-            WHERE s.movie_id = :movie_id
-            AND DATE(s.start_time) = :date
-            AND s.available_seats > 0
-            ORDER BY t.name, r.name, s.start_time
-        ";
+               SELECT 
+                    t.id AS theater_id,
+                    t.name AS theater_name,
+                    t.address AS theater_address,
+                    r.id AS room_id,
+                    r.name AS room_name,
+                    r.capacity AS room_capacity,
+                    s.id AS showtime_id,
+                    s.start_time,
+                    s.price,
+                    s.available_seats
+               FROM theaters t
+               LEFT JOIN rooms r ON t.id = r.theater_id
+               LEFT JOIN showtimes s ON r.id = s.room_id
+               WHERE s.movie_id = :movie_id
+               AND DATE(s.start_time) = :date
+               AND s.available_seats > 0
+               ORDER BY t.name, r.name, s.start_time
+          ";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
           $stmt->bindParam(':date', $date);
@@ -88,12 +88,12 @@ class BookingModel extends BaseModel
      public function getSeatsByShowtime($showtimeId)
      {
           $query = "
-            SELECT ts.*, sts.status as status
-            FROM showtime_seats sts
-            INNER JOIN theater_seats ts ON sts.theater_seat_id = ts.id
-            WHERE sts.showtime_id = :showtime_id
-            ORDER BY ts.row, ts.column
-        ";
+               SELECT ts.*, sts.status as status
+               FROM showtime_seats sts
+               INNER JOIN theater_seats ts ON sts.theater_seat_id = ts.id
+               WHERE sts.showtime_id = :showtime_id
+               ORDER BY ts.row, ts.column
+          ";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':showtime_id', $showtimeId, PDO::PARAM_INT);
           $stmt->execute();
@@ -131,16 +131,16 @@ class BookingModel extends BaseModel
                          'status' => 'pending'
                     ];
                     $seatStmt = $this->conn->prepare("
-                    INSERT INTO booking_seats (booking_id, theater_seat_id, price, status)
-                    VALUES (:booking_id, :theater_seat_id, :price, :status)
-                ");
+                         INSERT INTO booking_seats (booking_id, theater_seat_id, price, status)
+                         VALUES (:booking_id, :theater_seat_id, :price, :status)
+                    ");
                     $seatStmt->execute($bookingSeatData);
 
                     $updateSeatQuery = "
-                    UPDATE showtime_seats 
-                    SET status = 'booked'
-                    WHERE showtime_id = :showtime_id AND theater_seat_id = :seat_id
-                ";
+                         UPDATE showtime_seats 
+                         SET status = 'booked'
+                         WHERE showtime_id = :showtime_id AND theater_seat_id = :seat_id
+                    ";
                     $updateStmt = $this->conn->prepare($updateSeatQuery);
                     $updateStmt->execute([
                          ':showtime_id' => $showtimeId,
@@ -150,11 +150,11 @@ class BookingModel extends BaseModel
 
                $seatCount = count($selectedSeats);
                $updateShowtimeQuery = "
-                UPDATE showtimes 
-                SET available_seats = available_seats - :seat_count
-                WHERE id = :showtime_id
-                AND available_seats >= :seat_count
-            ";
+                    UPDATE showtimes 
+                    SET available_seats = available_seats - :seat_count
+                    WHERE id = :showtime_id
+                    AND available_seats >= :seat_count
+               ";
                $updateShowtimeStmt = $this->conn->prepare($updateShowtimeQuery);
                $updateShowtimeStmt->execute([
                     ':seat_count' => $seatCount,

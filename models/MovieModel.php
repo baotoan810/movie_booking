@@ -171,36 +171,17 @@ class MovieModel extends BaseModel
                ";
 
           try {
-               // Nếu dùng PDO
                $stmt = $this->conn->prepare($query);
                $stmt->bindParam(':today', $today);
                $stmt->execute();
                $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                return $movies;
-
-               // Nếu dùng MySQLi
-               /*
-               $stmt = $this->db->prepare($query);
-               $stmt->bind_param('s', $today);
-               $stmt->execute();
-               $result = $stmt->get_result();
-               $movies = $result->fetch_all(MYSQLI_ASSOC);
-               $stmt->close();
-               return $movies;
-               */
-
           } catch (Exception $e) {
-               // Xử lý lỗi (có thể log lỗi)
                return [];
           }
      }
 
-     /**
-      * Lấy thông tin chi tiết suất chiếu của một phim trong ngày
-      * @param int $movieId ID của phim
-      * @return array Danh sách suất chiếu
-      */
      public function getShowtimesForMovieToday($movieId)
      {
           $today = date('Y-m-d');

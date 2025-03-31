@@ -2,7 +2,7 @@
 <div class="content-section section-form">
      <h1><?= $room ? 'Sửa Phòng' : 'Thêm Phòng'; ?></h1>
 
-     <form action="index.php?controller=room&action=save" method="POST" enctype="multipart/form-data" class="user-form"
+     <form action="admin.php?controller=room&action=save" method="POST" enctype="multipart/form-data" class="user-form"
           onsubmit="return validateForm()">
           <?php if (!empty($room)): ?>
                <input type="hidden" name="id" value="<?= htmlspecialchars($room['id']); ?>">
@@ -47,7 +47,7 @@
           <button type="submit" class="btn-save"><i class="fas fa-save"></i> Lưu</button>
 
           <!-- Link quay lại -->
-          <a href="index.php?controller=room&action=index" class="btn-back">
+          <a href="admin.php?controller=room&action=index" class="btn-back">
                <i class="fas fa-arrow-left"></i> Quay Lại
           </a>
      </form>

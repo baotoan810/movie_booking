@@ -25,6 +25,7 @@ class UserController
           }
 
           require VIEW_PATH . 'admin/admin_user/user_list.php';
+
      }
 
      public function edit($id = null)

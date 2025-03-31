@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    <form id="bookingForm" method="post" action="index.php?controller=booking&action=payment">
+    <form id="bookingForm" method="post" action="user.php?controller=booking&action=payment">
         <input type="hidden" name="showtime_id" value="<?php echo $selectedShowtime['id']; ?>">
 
         <div class="screen">Màn hình</div>
@@ -165,7 +165,7 @@
         <p style="text-align: center;">Tổng tiền: <input type="number" name="total_price" id="total_price" value="0" readonly> VND</p>
         <div style="text-align: center;">
             <button type="button" id="submitBtn">Thanh toán</button>
-            <a href="index.php?controller=booking&action=selectTheaterAndRoom&movie_id=<?php echo htmlspecialchars($_POST['movie_id']); ?>&date=<?php echo htmlspecialchars($_POST['date']); ?>" class="back-btn">Quay lại</a>
+            <a href="user.php?controller=booking&action=selectTheaterAndRoom&movie_id=<?php echo htmlspecialchars($_POST['movie_id']); ?>&date=<?php echo htmlspecialchars($_POST['date']); ?>" class="back-btn">Quay lại</a>
         </div>
     </form>
 

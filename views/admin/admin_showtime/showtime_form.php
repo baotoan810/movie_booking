@@ -2,7 +2,7 @@
      <h1><?php echo $showtime ? 'Sửa suất chiếu' : 'Thêm suất chiếu'; ?></h1>
 
      <div class="content-section">
-          <form method="POST" action="index.php?controller=showtime&action=save">
+          <form method="POST" action="admin.php?controller=showtime&action=save">
                <?php if ($showtime): ?>
                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($showtime['id']); ?>">
                <?php endif; ?>
@@ -50,7 +50,7 @@
                </div>
                <div class="form-actions">
                     <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Lưu</button>
-                    <a href="index.php?controller=showtime&action=index" class="btn btn-back"><i
+                    <a href="admin.php?controller=showtime&action=index" class="btn btn-back"><i
                               class="fas fa-arrow-left"></i> Quay lại</a>
                </div>
           </form>

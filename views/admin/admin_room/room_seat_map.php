@@ -251,7 +251,7 @@
      </div>
 
      <!-- Nút quay lại danh sách phòng -->
-     <a href="index.php?controller=room&action=index" class="btn-back">
+     <a href="admin.php?controller=room&action=index" class="btn-back">
           <i class="fas fa-arrow-left"></i> Quay Lại
      </a>
 
@@ -285,7 +285,7 @@
                     }
 
                     if (isAddMode) {
-                         form.action = 'index.php?controller=room&action=addSeat';
+                         form.action = 'admin.php?controller=room&action=addSeat';
                          formTitle.innerText = `Thêm ghế ${label}`;
                          seatIdInput.value = '';
                          seatRowInput.value = row;
@@ -295,7 +295,7 @@
                          seatPrice.value = 50000;
                          deleteButton.style.display = 'none';
                     } else {
-                         form.action = 'index.php?controller=room&action=updateSeat';
+                         form.action = 'admin.php?controller=room&action=updateSeat';
                          formTitle.innerText = `Chỉnh sửa ghế ${label}`;
                          seatIdInput.value = seatId;
                          seatRowInput.value = row;
@@ -341,7 +341,7 @@
 
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = 'index.php?controller=room&action=deleteSeat';
+                    form.action = 'admin.php?controller=room&action=deleteSeat';
 
                     const seatInput = document.createElement('input');
                     seatInput.type = 'hidden';

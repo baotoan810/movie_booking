@@ -1,5 +1,5 @@
 <h1>Chọn suất chiếu - Ngày <?php echo htmlspecialchars($date); ?></h1>
-<form method="post" action="index.php?controller=booking&action=selectShowtime&room_id=<?php echo $room_id; ?>">
+<form method="post" action="user.php?controller=booking&action=selectShowtime&room_id=<?php echo $room_id; ?>">
      <?php foreach ($showtimes as $showtime): ?>
           <div>
                <h3><?php echo htmlspecialchars($showtime['title']); ?></h3>

@@ -46,9 +46,9 @@
                               <p><?= htmlspecialchars($movie['genres']) ?></p>
                          </span>
                          <div class="btn">
-                              <a href="index.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
+                              <a href="user.php?controller=detail&action=detail&id=<?= htmlspecialchars($movie['id']) ?>"
                                    class="book-btn">Xem Chi Tiết</a>
-                              <a href="index.php?controller=booking&action=selectTheaterAndRoom&movie_id=<?= htmlspecialchars($movie['id']) ?>"
+                              <a href="user.php?controller=booking&action=selectTheaterAndRoom&movie_id=<?= htmlspecialchars($movie['id']) ?>"
                                    class="book-btn">🎟 Đặt Vé</a>
                          </div>
                     </div>
@@ -66,14 +66,15 @@
                          <div class="news-content">
                               <h3><?= htmlspecialchars($newItem['title']) ?></h3>
                               <p><?= htmlspecialchars($newItem['content']) ?></p>
-                              <a href="#" class="read-more">Đọc tiếp</a>
+                              <a href="user.php?controller=news&action=detail&id=<?= $newItem['id'] ?>" class="read-more">Đọc
+                                   tiếp</a>
                          </div>
                     </div>
                <?php endforeach; ?>
           </div>
 
           <div class="new-all">
-               <a href="index.php?controller=new&action=index">Xem tất cả</a>
+               <a href="user.php?controller=news&action=index">Xem tất cả</a>
           </div>
      </section>
 

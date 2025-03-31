@@ -8,13 +8,11 @@
                          <h3><?= htmlspecialchars($newItem['title']) ?></h3>
                          <p><?= htmlspecialchars($newItem['created_at']) ?></p>
                          <p><?= htmlspecialchars($newItem['content']) ?></p>
-                         <a href="#" class="read-more">Đọc tiếp</a>
+                         
+                         <a href="user.php?controller=news&action=detail&id=<?= $newItem['id'] ?>" class="read-more">Đọc
+                              tiếp</a>
                     </div>
                </div>
           <?php endforeach; ?>
-     </div>
-
-     <div class="new-all">
-          <a href="#">Xem tất cả</a>
      </div>
 </section>

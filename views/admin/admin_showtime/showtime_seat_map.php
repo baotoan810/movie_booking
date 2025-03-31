@@ -141,7 +141,8 @@
 <body>
      <h1>Sơ đồ ghế - Suất chiếu <?php echo htmlspecialchars($showtime['id']); ?> (Phim:
           <?php echo htmlspecialchars($showtime['movie_title']); ?>, Phòng:
-          <?php echo htmlspecialchars($showtime['room_name']); ?>)</h1>
+          <?php echo htmlspecialchars($showtime['room_name']); ?>)
+     </h1>
 
      <div class="legend">
           <h3>Chú thích:</h3>
@@ -172,14 +173,14 @@
                          $button_class = ($seat['showtime_status'] === 'available') ? 'btn-book' : 'btn-cancel';
                          $button_label = ($seat['showtime_status'] === 'available') ? 'Đặt' : 'Hủy';
                          echo "<div class='seat $class'>
-                            $label
-                            <form method='POST' action='index.php?controller=showtime&action=toggleSeatStatus' style='display:inline;'>
-                                <input type='hidden' name='showtime_id' value='{$showtime['id']}'>
-                                <input type='hidden' name='seat_id' value='{$seat['id']}'>
-                                <input type='hidden' name='current_status' value='{$seat['showtime_status']}'>
-                                <button type='submit' class='btn-toggle $button_class'>$button_label</button>
-                            </form>
-                          </div>";
+                              $label
+                              <form method='POST' action='index.php?controller=showtime&action=toggleSeatStatus' style='display:inline;'>
+                                   <input type='hidden' name='showtime_id' value='{$showtime['id']}'>
+                                   <input type='hidden' name='seat_id' value='{$seat['id']}'>
+                                   <input type='hidden' name='current_status' value='{$seat['showtime_status']}'>
+                                   <button type='submit' class='btn-toggle $button_class'>$button_label</button>
+                              </form>
+                              </div>";
                     } else {
                          $class = 'unavailable';
                          $label = 'X';
@@ -191,7 +192,7 @@
           ?>
      </div>
 
-     <a href="index.php?controller=showtime&action=index" class="btn-back">
+     <a href="admin.php?controller=showtime&action=index" class="btn-back">
           <i class="fas fa-arrow-left"></i> Quay Lại
      </a>
 </body>

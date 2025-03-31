@@ -9,7 +9,7 @@
                          <h2><?= htmlspecialchars($theater['name']); ?></h2>
                          <p>Địa chỉ: <?= htmlspecialchars($theater['address']); ?></p>
                          <div class="new-all">
-                              <a href="index.php?controller=theater&action=edit&id=<?= htmlspecialchars($theater['id']) ?>">
+                              <a href="user.php?controller=theater&action=edit&id=<?= htmlspecialchars($theater['id']) ?>">
                                    Xem phòng
                               </a>
                          </div>

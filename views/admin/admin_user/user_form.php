@@ -1,11 +1,11 @@
 <!-- Form thêm/sửa người dùng -->
 <div class="main-content">
-     <a href="index.php?controller=user&action=index" class="btn-back">
+     <a href="admin.php?controller=user&action=index" class="btn-back">
           <i class="fas fa-arrow-left"></i> Quay Lại
      </a>
      <div class="content-section">
           <h1><?php echo $user ? 'Sửa Người Dùng' : 'Thêm Người Dùng'; ?></h1>
-          <form action="index.php?controller=user&action=save" method="POST" enctype="multipart/form-data"
+          <form action="admin.php?controller=user&action=save" method="POST" enctype="multipart/form-data"
                class="user-form">
                <?php if ($user): ?>
                     <input type="hidden" name="id" value="<?php echo $user['id']; ?>">

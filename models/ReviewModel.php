@@ -12,48 +12,70 @@ class ReviewModel extends BaseModel
      public function getAllReviews()
      {
           $query = "SELECT reviews.*, users.username, movies.title 
-                  FROM reviews 
-                  JOIN users ON reviews.user_id = users.id 
-                  JOIN movies ON reviews.movie_id = movies.id 
-                  ORDER BY reviews.created_at DESC";
+                 FROM reviews 
+                 LEFT JOIN users ON reviews.user_id = users.id 
+                 JOIN movies ON reviews.movie_id = movies.id 
+                 ORDER BY reviews.created_at DESC";
           $stmt = $this->conn->prepare($query);
           $stmt->execute();
-          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+          $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          // Nếu user_id là NULL, gán username là "User"
+          foreach ($reviews as &$review) {
+               if (is_null($review['user_id'])) {
+                    $review['username'] = 'User';
+               }
+          }
+          return $reviews;
      }
 
      // Lấy một bình luận theo ID
      public function getReviewById($review_id)
      {
           $query = "SELECT reviews.*, users.username, movies.title 
-                  FROM reviews 
-                  JOIN users ON reviews.user_id = users.id 
-                  JOIN movies ON reviews.movie_id = movies.id 
-                  WHERE reviews.id = :id";
+                 FROM reviews 
+                 LEFT JOIN users ON reviews.user_id = users.id 
+                 JOIN movies ON reviews.movie_id = movies.id 
+                 WHERE reviews.id = :id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':id', $review_id, PDO::PARAM_INT);
           $stmt->execute();
-          return $stmt->fetch(PDO::FETCH_ASSOC);
+          $review = $stmt->fetch(PDO::FETCH_ASSOC);
+
+          // Nếu user_id là NULL, gán username là "User"
+          if ($review && is_null($review['user_id'])) {
+               $review['username'] = 'User';
+          }
+          return $review;
      }
 
      // Lấy tất cả bình luận của một phim (dành cho giao diện người dùng)
      public function getReviewsByMovieId($movie_id)
      {
           $query = "SELECT reviews.*, users.username 
-                  FROM reviews 
-                  JOIN users ON reviews.user_id = users.id 
-                  WHERE reviews.movie_id = :movie_id 
-                  ORDER BY reviews.created_at DESC";
+                 FROM reviews 
+                 LEFT JOIN users ON reviews.user_id = users.id 
+                 WHERE reviews.movie_id = :movie_id 
+                 ORDER BY reviews.created_at DESC";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
           $stmt->execute();
-          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+          $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          // Nếu user_id là NULL, gán username là "User"
+          foreach ($reviews as &$review) {
+               if (is_null($review['user_id'])) {
+                    $review['username'] = 'User';
+               }
+          }
+          return $reviews;
      }
 
      // Thêm một bình luận mới
      public function addReview($user_id, $movie_id, $content)
      {
           $data = [
-               'user_id' => $user_id,
+               'user_id' => $user_id, // Có thể là NULL nếu người dùng chưa đăng nhập
                'movie_id' => $movie_id,
                'content' => $content,
                'created_at' => date('Y-m-d H:i:s')
@@ -109,4 +131,3 @@ class ReviewModel extends BaseModel
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
      }
 }
-?>

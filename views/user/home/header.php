@@ -24,11 +24,36 @@
                <h1>BOOKING MOVIE</h1>
           </div>
           <ul>
-               <li><a href="index.php">Trang Chủ</a></li>
-               <li><a href="index.php?controller=detail&action=index">Phim</a></li>
-               <li><a href="index.php?controller=theater&action=index">Rạp Phim</a></li>
-               <li><a href="index.php?controller=new&action=index">Tin Tức Phim</a></li>
-               <li><a href="login.html">Đăng Nhập</a></li>
-               <li><a href="register.html" class="register-btn">Đăng Ký</a></li>
+               <li><a href="user.php">Trang Chủ</a></li>
+               <li><a href="user.php?controller=detail&action=index">Phim</a></li>
+               <li><a href="user.php?controller=theater&action=index">Rạp Phim</a></li>
+               <li><a href="user.php?controller=news&action=index">Tin Tức Phim</a></li>
+               <li><a href="index.php?controller=auth&action=logout">Đăng Xuất</a></li>
+               <li class="register-btn">
+                    <h2>
+                         <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Khách'; ?>
+                    </h2>
+
+                    <?php if (isset($_SESSION['user_image']) && !empty($_SESSION['user_image'])): ?>
+                         <img width="50px" height="50px" src="<?php echo BASE_URL . $_SESSION['user_image']; ?>"
+                              alt="Hình đại diện" class="user-image">
+                    <?php else: ?>
+                         <p>Chưa có hình đại diện.</p>
+                    <?php endif; ?>
+               </li>
+
+
           </ul>
      </nav>
+
+
+     <script>
+          window.addEventListener('scroll', function () {
+               const navbar = document.querySelector('.navbar');
+               if (window.scrollY > 200) {
+                    navbar.classList.add('scrolled');
+               } else {
+                    navbar.classList.remove('scrolled');
+               }
+          });
+     </script>

@@ -19,6 +19,11 @@ class NewsController
           $news = $this->newsModel->getAllNews();
           require VIEW_PATH . 'user/news/news_list.php';
      }
+     public function newDetail($id = null)
+     {
+          $new = $id ? $this->newsModel->getById($id) : [];
+          require VIEW_PATH . 'user/news/news_detail.php';
+     }
 
 }
 
@@ -30,7 +35,9 @@ switch ($action) {
      case 'index':
           $controller->index();
           break;
-
+     case 'detail':
+          $controller->newDetail($_GET['id'] ?? null);
+          break;
      default:
           $controller->index();
           break;

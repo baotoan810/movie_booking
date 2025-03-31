@@ -10,7 +10,7 @@
      <!-- Search Bar -->
      <div class="nav-search">
           <div class="search">
-               <form action="index.php" method="get" class="search">
+               <form action="admin.php" method="get" class="search">
                     <input type="hidden" name="controller" value="theater">
                     <input type="hidden" name="action" value="index">
                     <input type="text" name="search" placeholder="Tìm kiếm phim..."
@@ -19,7 +19,7 @@
                </form>
           </div>
           <div class="add">
-               <a href="index.php?controller=theater&action=edit" class="add-btn">
+               <a href="admin.php?controller=theater&action=edit" class="add-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="lucide lucide-square-plus">
@@ -51,9 +51,9 @@
                               <td><?= htmlspecialchars($theater['address']) ?></td>
                               <td><?= htmlspecialchars($theater['capacity']) ?></td>
                               <td class="table-setting">
-                                   <a href="index.php?controller=theater&action=edit&id=<?= $theater['id']; ?>"
+                                   <a href="admin.php?controller=theater&action=edit&id=<?= $theater['id']; ?>"
                                         class="edit-btn">✏️</a>
-     
+
                                    <a href="#" class="delete-btn" onclick="deleteTheater(<?= $theater['id']; ?>)">
                                         🗑️
                                    </a>

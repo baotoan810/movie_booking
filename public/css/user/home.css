@@ -10,11 +10,10 @@
 body {
      background-color: #121212;
      color: white;
+     position: relative;
 }
 
-/* ===================== */
 /* Thanh Điều Hướng */
-/* ===================== */
 .logo {
      display: flex;
      justify-content: center;
@@ -31,12 +30,27 @@ body {
 }
 
 .navbar {
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 20;
+     width: 100%;
      display: flex;
      justify-content: space-between;
      align-items: center;
      background: #1c1c1c;
      padding: 15px 50px;
      box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.navbar.scrolled {
+     transition: all.3s ease;
+     padding: 10px 10%;
+     background: #2a2a2a2a;
+}
+
+main {
+     margin-top: 135px;
 }
 
 .navbar h1 {
@@ -82,13 +96,13 @@ body {
 /* ===================== */
 /* Banner */
 .banner {
-     position: relative;
      width: 100%;
+     height: 400px;
 }
 
 .banner img {
      width: 100%;
-     height: 300px;
+     height: 100%;
      object-fit: cover;
 }
 
@@ -239,10 +253,12 @@ body {
      justify-content: center;
      gap: 20px;
 }
-.movie-hot h2{
+
+.movie-hot h2 {
      text-transform: uppercase;
      margin-bottom: 20px;
 }
+
 .movie {
      background: #1c1c1c;
      padding: 15px;
@@ -523,3 +539,18 @@ footer {
 }
 
 /* Tin tức phim */
+
+.register-btn {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 1rem;
+}
+
+.register-btn h2 {
+     text-transform: uppercase;
+}
+
+.register-btn img {
+     border-radius: 50%;
+}

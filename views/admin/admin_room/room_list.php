@@ -19,7 +19,7 @@
                </form>
           </div>
           <div class="add">
-               <a href="index.php?controller=room&action=edit" class="add-btn">
+               <a href="admin.php?controller=room&action=edit" class="add-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          class="lucide lucide-square-plus">
@@ -54,12 +54,12 @@
                          <td><?= htmlspecialchars($room['rows']); ?></td>
                          <td><?= htmlspecialchars($room['columns']); ?></td>
                          <td>
-                              <a href="index.php?controller=room&action=viewSeats&room_id=<?php echo $room['id']; ?>"
+                              <a href="admin.php?controller=room&action=viewSeats&room_id=<?php echo $room['id']; ?>"
                                    class="btn-view">
                                    🪑
                               </a>
 
-                              <a href="index.php?controller=room&action=edit&id=<?= $room['id'] ?>" class="edit-btn">✏️</a>
+                              <a href="admin.php?controller=room&action=edit&id=<?= $room['id'] ?>" class="edit-btn">✏️</a>
                               <a href="#" class="delete-btn" onclick="deleteRoom(<?= $room['id'] ?>)">🗑️</a>
                          </td>
                     </tr>

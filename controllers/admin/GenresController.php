@@ -45,7 +45,7 @@ class GenresAdminController
                $result = $this->genresModel->addGenres($name);
           }
           if ($result) {
-               header("Location: index.php?controller=genres&action=index");
+               header("Location: admin.php?controller=genres&action=index");
                exit();
           } else {
                die("Xóa thất bại");
@@ -62,7 +62,7 @@ class GenresAdminController
           }
 
           if ($this->genresModel->deleteGenres($id)) {
-               header("Location: index.php?controller=genres&action=index");
+               header("Location: admin.php?controller=genres&action=index");
                exit;
           } else {
                die("Xóa thất bại, vui lòng thử lại");

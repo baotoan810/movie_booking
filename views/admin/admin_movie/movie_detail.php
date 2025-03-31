@@ -1,7 +1,7 @@
 <div class="main-content">
      <div class="content-section" style="width: 900px;">
           <div class="form-input">
-               <a href="index.php?controller=movie&action=index"><i class="fa fa-arrow-left"></i></a>
+               <a href="admin.php?controller=movie&action=index"><i class="fa fa-arrow-left"></i></a>
           </div>
           <h1>Chi Tiết Phim: <?= htmlspecialchars($movie['title']) ?></h1>
           <div class="form-input">

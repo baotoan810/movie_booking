@@ -15,7 +15,7 @@
                <?php endforeach; ?>
           <?php endif; ?>
      </div>
-     <a href="index.php?controller=theater&action=index">Quay lại danh sách</a>
+     <a href="user.php?controller=theater&action=index">Quay lại danh sách</a>
 </section>
 
 

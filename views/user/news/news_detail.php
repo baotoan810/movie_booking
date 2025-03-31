@@ -1,102 +1,80 @@
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title><?= htmlspecialchars($newsItem['title']) ?></title>
-     <style>
-          body {
-               font-family: Arial, sans-serif;
-               margin: 0;
-               padding: 0;
-               background-color: #f4f4f4;
-          }
-
-          header {
-               background-color: #333;
-               color: white;
-               padding: 15px 0;
-               text-align: center;
-          }
-
-          header a {
-               color: white;
-               text-decoration: none;
-               margin: 0 15px;
-          }
-
-          header a:hover {
-               text-decoration: underline;
-          }
-
-          .news-detail {
-               max-width: 800px;
-               margin: 20px auto;
-               padding: 0 15px;
-               background-color: white;
-               border-radius: 8px;
-               box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-               padding: 20px;
-          }
-
-          .news-detail img {
-               max-width: 100%;
-               height: auto;
-               border-radius: 5px;
-               margin-bottom: 15px;
-          }
-
-          .news-detail h1 {
-               margin: 0 0 15px;
-               font-size: 2em;
-          }
-
-          .news-detail .date {
-               color: #888;
-               font-size: 0.9em;
-               margin-bottom: 15px;
-          }
-
-          .news-detail .content {
-               line-height: 1.6;
-               color: #333;
-          }
-
-          .back-link {
-               display: inline-block;
-               margin-top: 20px;
-               color: #007bff;
-               text-decoration: none;
-               font-weight: bold;
-          }
-
-          .back-link:hover {
-               text-decoration: underline;
-          }
-     </style>
-</head>
-
-<body>
-     <header>
-          <h1>Tin Tức Phim</h1>
-          <nav>
-               <a href="index.php?controller=homepage&action=index">Trang chủ</a>
-               <a href="index.php?controller=homepage&action=news">Tin tức</a>
-          </nav>
-     </header>
-
-     <div class="news-detail">
-          <h1><?= htmlspecialchars($newsItem['title']) ?></h1>
-          <p class="date">Đăng ngày: <?= htmlspecialchars($newsItem['created_at']) ?></p>
-          <?php if ($newsItem['image'] && file_exists($newsItem['image'])): ?>
-               <img src="<?= htmlspecialchars($newsItem['image']) ?>" alt="Hình ảnh tin tức">
-          <?php endif; ?>
-          <div class="content">
-               <?= nl2br(htmlspecialchars($newsItem['content'])) ?>
-          </div>
-          <a href="index.php?controller=homepage&action=news" class="back-link">Quay lại danh sách tin tức</a>
+<div class="news-detail">
+     <h1><?= htmlspecialchars($new['title']) ?></h1>
+     <p class="date">Đăng ngày: <?= htmlspecialchars($new['created_at']) ?></p>
+     <?php if ($new['image'] && file_exists($new['image'])): ?>
+          <img src="<?= htmlspecialchars($new['image']) ?>" alt="Hình ảnh tin tức">
+     <?php endif; ?>
+     <div class="content">
+          <?= nl2br(htmlspecialchars($new['content'])) ?>
      </div>
-</body>
+     <a href="user.php?controller=news&action=index" class="back-link">Quay lại danh sách tin tức</a>
+</div>
 
-</html>
+<style>
+     /* Định dạng chung */
+     body {
+          background-color: #121212;
+          color: #fff;
+          font-family: Arial, sans-serif;
+     }
+
+     /* Container chính */
+     .news-detail {
+          max-width: 900px;
+          margin: 20px auto;
+          background: #1a1a1a;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+     }
+
+     /* Tiêu đề tin tức */
+     .news-detail h1 {
+          font-size: 28px;
+          font-weight: bold;
+          color: #fdd835;
+          /* Màu vàng nổi bật */
+          margin-bottom: 10px;
+     }
+
+     /* Ngày đăng */
+     .news-detail .date {
+          font-size: 14px;
+          color: #bbb;
+          margin-bottom: 15px;
+     }
+
+     /* Ảnh tin tức */
+     .news-detail img {
+          width: 100%;
+          /* height: 200px; */
+          aspect-ratio: 16/9;
+          object-fit: contain;
+          border-radius: 8px;
+          margin-bottom: 15px;
+     }
+
+     /* Nội dung tin tức */
+     .news-detail .content {
+          font-size: 16px;
+          line-height: 1.6;
+          color: #ddd;
+     }
+
+     /* Link quay lại */
+     .news-detail .back-link {
+          display: inline-block;
+          margin-top: 20px;
+          padding: 10px 15px;
+          background-color: #fdd835;
+          /* Màu vàng */
+          color: #121212;
+          text-decoration: none;
+          border-radius: 5px;
+          font-weight: bold;
+     }
+
+     .news-detail .back-link:hover {
+          background-color: #ffc107;
+     }
+</style>

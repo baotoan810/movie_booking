@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
      const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // note:Delete User-------------------
 function deleteUser(userId) {
      if (confirm("Bạn có chắc là muốn xóa?")) {
-          fetch("index.php?controller=user&action=delete", {
+          fetch("admin.php?controller=user&action=delete", {
                method: "POST",
                headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -34,7 +35,7 @@ function deleteUser(userId) {
 
 function deleteMovie(movieId) {
      if (confirm("Bạn có chắc là muốn xóa?")) {
-          fetch("index.php?controller=movie&action=delete", {
+          fetch("admin.php?controller=movie&action=delete", {
                method: "POST",
                headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -54,7 +55,7 @@ function deleteMovie(movieId) {
 
 function deleteTheater(theaterId) {
      if (confirm("Bạn có chắc là muốn xóa?")) {
-          fetch("index.php?controller=theater&action=delete", {
+          fetch("admin.php?controller=theater&action=delete", {
                method: "POST",
                headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -73,7 +74,7 @@ function deleteTheater(theaterId) {
 // Note: Delete Genres
 function deleteGenres(genresId) {
      if (confirm("Bạn có chắc là muốn xóa?")) {
-          fetch("index.php?controller=genres&action=delete", {
+          fetch("admin.php?controller=genres&action=delete", {
                method: "POST",
                headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -93,7 +94,7 @@ function deleteGenres(genresId) {
 // Note: Delete Room
 function deleteRoom(roomId) {
      if (confirm("Bạn có chắc là muốn xóa?")) {
-          fetch("index.php?controller=room&action=delete", {
+          fetch("admin.php?controller=room&action=delete", {
                method: "POST",
                headers: {
                     "Content-Type": "application/x-www-form-urlencoded",

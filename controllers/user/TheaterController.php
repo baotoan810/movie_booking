@@ -21,13 +21,6 @@ class TheaterAdminController
      }
 
 
-     // public function edit($id = null)
-     // {
-     //      $theater = $id ? $this->theaterModel->getById($id) : null;
-     //      $controller = 'theater';
-     //      $action = 'edit';
-     //      require VIEW_PATH . 'user/theater/theater_detail.php';
-     // }
      public function edit($theaterId)
      {
           // Lấy thông tin rạp phim
