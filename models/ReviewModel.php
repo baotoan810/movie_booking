@@ -8,6 +8,19 @@ class ReviewModel extends BaseModel
           parent::__construct($conn, 'reviews');
      }
 
+    public function getAllReviews()
+    {
+        $query = "
+            SELECT r.*, u.username, m.title
+            FROM reviews r
+            INNER JOIN users u ON r.user_id = u.id
+            INNER JOIN movies m ON r.movie_id = m.id
+            ORDER BY r.created_at DESC
+        ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
      public function addReview($user_id, $movie_id, $content)
      {
           $data = [

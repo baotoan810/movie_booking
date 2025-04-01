@@ -1,6 +1,8 @@
 <?php
 require_once 'config/config.php';
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: " . BASE_URL . "login");
     exit;
@@ -41,6 +43,9 @@ switch ($controller) {
      case 'news':
           require_once CONTROLLER_PATH . 'admin/NewsController.php';
           break;
+    case 'history':
+        require_once CONTROLLER_PATH . 'admin/BookingController.php';
+        break;
      default:
           require_once VIEW_PATH . 'layout/error.php';
           break;

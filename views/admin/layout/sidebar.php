@@ -33,21 +33,19 @@
                          <ul class="dropdown-menu">
                               <li><a href="admin.php?controller=theater&action=index">Danh sách rạp</a></li>
                               <li><a href="admin.php?controller=room&action=index">Danh sách phòng</a></li>
-                              <li><a href="admin.php?controller=theater_seats&action=index">Sơ đồ rạp</a></li>
                          </ul>
                     </li>
                     <li class="dropdown">
                          <a href="#" class="dropdown-toggle">QUẢN LÝ SUẤT CHIẾU</a>
                          <ul class="dropdown-menu">
                               <li><a href="admin.php?controller=showtime&action=index">Danh sách suất chiếu</a></li>
-                              <li><a href="admin.php?controller=booking&action=index">Quản lý đặt vé vé</a></li>
                          </ul>
                     </li>
                     <li class="dropdown">
                          <a href="#" class="dropdown-toggle">NGƯỜI DÙNG</a>
                          <ul class="dropdown-menu">
                               <li><a href="admin.php?controller=user&action=index">Danh sách người dùng</a></li>
-                              <li><a href="#">Lịch sử đặt vé</a></li>
+                              <li><a href="admin.php?controller=history&action=index">Lịch sử đặt vé</a></li>
                          </ul>
                     </li>
 
