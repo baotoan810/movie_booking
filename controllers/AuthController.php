@@ -1,126 +1,176 @@
 <?php
+require_once DATABASE_PATH . 'config.php';
 require_once MODEL_PATH . 'AuthModel.php';
-require_once DATABASE_PATH . 'database.php';
 
-class AuthController
-{
-     private $authModel;
+// Nếu dùng Composer, thêm autoload cho PHPMailer
+require_once BASH_PATH . '/vendor/autoload.php';
 
-     public function __construct()
-     {
-          $database = new Database();
-          $db = $database->getConnection();
-          $this->authModel = new AuthModel($db);
-     }
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-     public function login()
-     {
-          $message = $_SESSION['message'] ?? '';
-          unset($_SESSION['message']);
-          require VIEW_PATH . 'auth/login.php';
-     }
-     public function home()
-     {
-          if (!isset($_SESSION['user_id'])) {
-               header('Location: index.php?action=login');
-               exit();
-          }
+class AuthController {
+    private $authModel;
 
-          $user = $this->authModel->findById($_SESSION['user_id']); // Lấy dữ liệu user từ DB
+    public function __construct($pdo) {
+        $this->authModel = new AuthModel($pdo);
+    }
 
-          require VIEW_PATH . 'user/home/header.php';
-     }
+    public function register() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_POST['username'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $phone = $_POST['phone'] ?? null;
+            $address = $_POST['address'] ?? null;
+            $image = null;
 
+            if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+                $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+                $filename = $_FILES['image']['name'];
+                $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
-     public function handleLogin()
-     {
-          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-               $email = $_POST['email'] ?? '';
-               $password = $_POST['password'] ?? '';
-
-               $user = $this->authModel->findByEmail($email);
-               if ($user && password_verify($password, $user['password'])) {
-                    // Lưu thông tin vào session
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['role'] = $user['role'];
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['user_image'] = $user['image']; // Thêm hình ảnh vào session
-
-                    if ($user['role'] === 'admin') {
-                         header('Location: ' . BASE_URL . 'admin.php');
+                if (in_array($ext, $allowed)) {
+                    $newFilename = uniqid() . '.' . $ext;
+                    $uploadPath = PUBLIC_PATH . 'images/' . $newFilename;
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+                        $image = 'public/images/' . $newFilename;
                     } else {
-                         header('Location: ' . BASE_URL . 'user.php');
+                        $error = "Không thể upload ảnh";
                     }
-                    exit();
-               } else {
-                    $_SESSION['message'] = "Email hoặc mật khẩu không đúng!";
-                    header('Location: ' . BASE_URL . 'index.php?action=login');
-                    exit();
-               }
-          }
-     }
+                } else {
+                    $error = "Định dạng ảnh không được hỗ trợ";
+                }
+            }
 
+            if (empty($username) || empty($email) || empty($password)) {
+                $error = "Vui lòng điền đầy đủ thông tin bắt buộc";
+            } elseif ($this->authModel->emailExists($email)) {
+                $error = "Email đã được sử dụng";
+            } else {
+                if ($this->authModel->register($username, $email, $password, $phone, $address, $image)) {
+                    header("Location: " . BASE_URL . "login");
+                    exit;
+                } else {
+                    $error = "Đăng ký thất bại, vui lòng thử lại";
+                }
+            }
+        }
+        require_once VIEW_PATH . 'auth/register.php';
+    }
 
-     public function register()
-     {
-          $message = $_SESSION['message'] ?? '';
-          unset($_SESSION['message']);
-          require VIEW_PATH . 'auth/register.php';
-     }
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
 
-     public function handleRegister()
-     {
-          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-               $data = [
-                    'username' => $_POST['username'] ?? '',
-                    'email' => $_POST['email'] ?? '',
-                    'password' => password_hash($_POST['password'] ?? '', PASSWORD_BCRYPT),
-                    'phone' => $_POST['phone'] ?? '',
-                    'address' => $_POST['address'] ?? '',
-                    'image' => null,
-                    'role' => 'user'
-               ];
+            $user = $this->authModel->login($email, $password);
+            if ($user) {
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+                $_SESSION['image'] = $user['image'];
 
-               if (!empty($_FILES['image']['name'])) {
-                    $imageExt = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-                    $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
-                    if (in_array($imageExt, $allowedExts) && $_FILES['image']['size'] < 5 * 1024 * 1024) {
-                         $newFileName = uniqid() . '.' . $imageExt;
-                         move_uploaded_file($_FILES['image']['tmp_name'], PUBLIC_PATH . 'images/' . $newFileName);
-                         $data['image'] = 'public/images/' . $newFileName;
+                if ($user['role'] === 'admin') {
+                    header("Location: " . BASE_URL . "admin");
+                } else {
+                    header("Location: " . BASE_URL . "user");
+                }
+                exit;
+            } else {
+                $error = "Email hoặc mật khẩu không đúng";
+            }
+        }
+        require_once VIEW_PATH . 'auth/login.php';
+    }
+
+    public function logout() {
+        session_start();
+        session_destroy();
+        header("Location: " . BASE_URL . "login");
+        exit;
+    }
+
+    public function forgotPassword() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+
+            if (empty($email)) {
+                $error = "Vui lòng nhập email";
+            } elseif (!$this->authModel->emailExists($email)) {
+                $error = "Email không tồn tại";
+            } else {
+                // Tạo token và lưu vào database
+                $token = $this->authModel->createPasswordResetToken($email);
+                if ($token) {
+                    // Gửi email chứa link đặt lại mật khẩu
+                    $resetLink = BASE_URL . "reset?email=" . urlencode($email) . "&token=" . $token;
+                    $subject = "Đặt lại mật khẩu";
+                    $message = "Nhấn vào link sau để đặt lại mật khẩu: <a href='$resetLink'>$resetLink</a>";
+                    $message .= "<br>Link này sẽ hết hạn sau 1 giờ.";
+
+                    // Gửi email bằng PHPMailer
+                    $mail = new PHPMailer(true);
+                    try {
+                        // Cấu hình server email (dùng Gmail làm ví dụ)
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.gmail.com';
+                        $mail->SMTPAuth = true;
+                        $mail->Username = 'baotoandep810@gmail.com'; // Thay bằng email của bạn
+                        $mail->Password = 'gfznyscxsclahshr'; // Thay bằng App Password của Gmail
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port = 587;
+
+                        // Người gửi và người nhận
+                        $mail->setFrom('baotoandep810@gmail.com', 'PassWord Reset');
+                        $mail->addAddress($email);
+
+                        // Nội dung email
+                        $mail->isHTML(true);
+                        // Mã hóa tiêu đề để hỗ trợ tiếng Việt
+                        $mail->Subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+                        $mail->Body = $message;
+
+                        $mail->send();
+                        $success = "Link đặt lại mật khẩu đã được gửi đến email của bạn.";
+                    } catch (Exception $e) {
+                        $error = "Không thể gửi email. Lỗi: {$mail->ErrorInfo}";
                     }
-               }
+                } else {
+                    $error = "Có lỗi xảy ra, vui lòng thử lại.";
+                }
+            }
+        }
+        require_once VIEW_PATH . 'auth/forgot.php';
+    }
 
-               if ($this->authModel->create($data)) {
-                    $_SESSION['message'] = "Đăng ký thành công! Vui lòng đăng nhập.";
-                    header('Location: ' . BASE_URL . 'index.php?action=login');
-               } else {
-                    $_SESSION['message'] = "Đăng ký thất bại! Email có thể đã tồn tại.";
-                    header('Location: ' . BASE_URL . 'index.php?action=register');
-               }
-               exit();
-          }
-     }
-}
+    public function resetPassword() {
+        $email = '';
+        $token = '';
 
-$controller = new AuthController();
-$action = $_GET['action'] ?? 'login';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $token = $_POST['token'] ?? '';
+            $newPassword = $_POST['new_password'] ?? '';
 
-switch ($action) {
-     case 'login':
-          $controller->login();
-          break;
-     case 'handleLogin':
-          $controller->handleLogin();
-          break;
-     case 'register':
-          $controller->register();
-          break;
-     case 'handleRegister':
-          $controller->handleRegister();
-          break;
-     default:
-          $controller->login();
-          break;
+            if (empty($email) || empty($token) || empty($newPassword)) {
+                $error = "Vui lòng điền đầy đủ thông tin";
+            } elseif (!$this->authModel->verifyPasswordResetToken($email, $token)) {
+                $error = "Link đặt lại mật khẩu không hợp lệ hoặc đã hết hạn";
+            } else {
+                if ($this->authModel->resetPassword($email, $newPassword)) {
+                    $success = "Mật khẩu đã được đặt lại thành công. Vui lòng đăng nhập.";
+                } else {
+                    $error = "Có lỗi xảy ra, vui lòng thử lại.";
+                }
+            }
+        } else {
+            // Chỉ gán từ $_GET nếu không phải POST
+            $email = $_GET['email'] ?? '';
+            $token = $_GET['token'] ?? '';
+        }
+
+        require_once VIEW_PATH . 'auth/reset.php';
+    }
 }
 ?>

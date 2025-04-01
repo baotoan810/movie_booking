@@ -178,6 +178,11 @@
      margin-bottom: 15px;
 }
 
+.review-actions a {
+     text-decoration: none;
+     
+}
+
 /* Danh sách đánh giá */
 .reviews-list {
      margin-bottom: 20px;

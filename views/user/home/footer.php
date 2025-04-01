@@ -4,7 +4,7 @@
 <footer>
      <div class="footer-container">
           <div class="footer-logo">
-               <img width="200px" height="200px" src="public/img/logo.jpg" alt="">
+               <img src="public/img/logo.jpg" alt="">
           </div>
 
           <div class="footer-links">

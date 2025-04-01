@@ -1,114 +1,145 @@
 <!DOCTYPE html>
-<html lang="vi">
-
+<html>
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Đăng ký</title>
-     <link rel="stylesheet" href="<?= BASE_URL ?>public/css/auth.css">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/style.css">
 </head>
-
 <body>
+<div class="container">
+    <h2>Đăng ký tài khoản</h2>
+    <?php if (isset($error)): ?>
+        <p class="error"><?php echo $error; ?></p>
+    <?php endif; ?>
 
-     <div class="container">
-          <h2>Đăng ký</h2>
-          <form action="<?= BASE_URL ?>index.php?action=handleRegister" method="post" enctype="multipart/form-data">
-               <div class="input-group">
-                    <input type="text" name="username" placeholder="Tên người dùng" required>
-               </div>
-               <div class="input-group">
-                    <input type="email" name="email" placeholder="Email" required>
-               </div>
-               <div class="input-group">
-                    <input type="password" name="password" placeholder="Mật khẩu" required>
-               </div>
-               <div class="input-group">
-                    <input type="text" name="phone" placeholder="Số điện thoại">
-               </div>
-               <div class="input-group">
-                    <input type="text" name="address" placeholder="Địa chỉ">
-               </div>
-               <div class="input-group">
-                    <input type="file" name="image" accept="image/*">
-               </div>
-               <button type="submit" class="btn">Đăng ký</button>
-          </form>
-          <div class="toggle-form">
-               <p>Đã có tài khoản? <a href="<?= BASE_URL ?>index.php?action=login">Đăng nhập</a></p>
-          </div>
-     </div>
+    <form method="POST" action="<?php echo BASE_URL; ?>register" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Tên người dùng:</label>
+            <input type="text" name="username" required>
+        </div>
 
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu:</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label>Số điện thoại:</label>
+            <input type="text" name="phone">
+        </div>
+
+        <div class="form-group">
+            <label>Địa chỉ:</label>
+            <input type="text" name="address">
+        </div>
+
+        <div class="form-group">
+            <label>Ảnh đại diện:</label>
+            <input type="file" name="image" accept="image/*">
+        </div>
+
+        <button type="submit">Đăng ký</button>
+    </form>
+    <p>Đã có tài khoản? <a href="<?php echo BASE_URL; ?>login">Đăng nhập</a></p>
+</div>
 </body>
-
 </html>
 
 <style>
-     * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          font-family: Arial, sans-serif;
-     }
+    /* style.css */
 
-     body {
-          background: linear-gradient(135deg, #667eea, #764ba2);
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-     }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-     .container {
-          width: 350px;
-          background: #fff;
-          padding: 20px;
-          border-radius: 10px;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-          text-align: center;
-     }
+    .container {
+        background-color: #1c1c1e;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        width: 100%;
+        max-width: 400px;
+        color: #ffffff;
+        text-align: center;
+    }
 
-     h2 {
-          margin-bottom: 20px;
-     }
+    h2 {
+        margin-bottom: 24px;
+        color: #e50914;
+    }
 
-     .input-group {
-          margin-bottom: 15px;
-     }
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
 
-     .input-group input {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          outline: none;
-     }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #ccc;
+    }
 
-     .btn {
-          width: 100%;
-          padding: 10px;
-          background: #667eea;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 16px;
-     }
+    .form-group input {
+        width: 100%;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        background-color: #2a2a2c;
+        color: #fff;
+        font-size: 16px;
+        transition: 0.3s ease;
+    }
 
-     .btn:hover {
-          background: #5643a9;
-     }
+    .form-group input:focus {
+        outline: none;
+        background-color: #333;
+        box-shadow: 0 0 5px #e50914;
+    }
 
-     .toggle-form {
-          margin-top: 15px;
-     }
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #e50914;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
 
-     .toggle-form a {
-          color: #667eea;
-          text-decoration: none;
-          font-weight: bold;
-     }
+    button:hover {
+        background-color: #bf0810;
+    }
 
-     .toggle-form a:hover {
-          text-decoration: underline;
-     }
+    .error {
+        background-color: #ff4d4d;
+        color: #fff;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+
+    a {
+        color: #e50914;
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
 </style>

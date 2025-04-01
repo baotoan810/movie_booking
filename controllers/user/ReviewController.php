@@ -4,7 +4,6 @@ require_once DATABASE_PATH . 'database.php';
 
 class ReviewController
 {
-     private $db;
      private $reviewModel;
 
      public function __construct()
@@ -14,121 +13,118 @@ class ReviewController
           $this->reviewModel = new ReviewModel($db);
      }
 
-     public function index()
-     {
-          $movie_id = $_GET['movie_id'] ?? null;
-          if (!$movie_id) {
-               die("Lỗi: Vui lòng chọn phim để xem đánh giá (movie_id không được để trống).");
-          }
-
-          $reviews = $this->reviewModel->getReviewsByMovieId($movie_id);
-          require VIEW_PATH . 'user/movie/reviews.php';
-     }
-
      public function add()
      {
-          if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-               $movie_id = $_GET['movie_id'] ?? '';
-               header("Location: index.php?controller=detail&action=index&movie_id=$movie_id");
-               exit;
+          if (!isset($_SESSION['user_id'])) {
+               header("Location: login.php");
+               exit();
           }
 
           $movie_id = $_GET['movie_id'] ?? null;
-          $user_id = $_SESSION['user_id'] ?? null; // user_id có thể là NULL nếu chưa đăng nhập
-          $content = trim($_POST['content'] ?? '');
+          $user_id = $_SESSION['user_id'];
 
-          if (!$movie_id) {
-               die("Lỗi: Movie ID không hợp lệ.");
+          // Kiểm tra xem người dùng đã bình luận cho phim này chưa
+          if ($this->reviewModel->hasUserReviewed($user_id, $movie_id)) {
+               // Nếu đã bình luận, chuyển hướng về trang chi tiết phim với thông báo lỗi
+               header("Location: user.php?controller=detail&action=detail&id=$movie_id&error=" . urlencode("Bạn chỉ được bình luận một lần cho mỗi phim!"));
+               exit();
           }
 
-          if (empty($content)) {
-               die("Lỗi: Nội dung đánh giá không được để trống.");
-          }
+          if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+               $content = trim($_POST['content'] ?? '');
 
-          $result = $this->reviewModel->addReview($user_id, $movie_id, $content);
-          if ($result) {
-               header("Location: index.php?controller=detail&action=index&movie_id=$movie_id");
-               exit;
-          } else {
-               die("Lỗi: Không thể thêm đánh giá. Vui lòng kiểm tra lại dữ liệu hoặc kết nối cơ sở dữ liệu.");
+               if ($movie_id && $content) {
+                    $result = $this->reviewModel->addReview($user_id, $movie_id, $content);
+                    if ($result) {
+                         header("Location: user.php?controller=detail&action=detail&id=$movie_id");
+                         exit();
+                    } else {
+                         die("Lỗi khi thêm bình luận!");
+                    }
+               } else {
+                    die("Dữ liệu không hợp lệ! Vui lòng nhập nội dung bình luận.");
+               }
           }
      }
 
      public function edit()
      {
+          if (!isset($_SESSION['user_id'])) {
+               header("Location: login.php");
+               exit();
+          }
+
           $review_id = $_GET['review_id'] ?? null;
           $movie_id = $_GET['movie_id'] ?? null;
-          $user_id = $_SESSION['user_id'] ?? null;
 
-          if (!$review_id || !$movie_id || !$user_id) {
-               die("Lỗi: Dữ liệu không hợp lệ hoặc bạn chưa đăng nhập.");
+          if (!$review_id || !$movie_id) {
+               die("Dữ liệu không hợp lệ!");
           }
 
           $review = $this->reviewModel->getReviewById($review_id);
-          if (!$review || !$this->reviewModel->isReviewOwner($review_id, $user_id)) {
-               die("Lỗi: Bạn không có quyền chỉnh sửa đánh giá này.");
+          if (!$review || $review['user_id'] != $_SESSION['user_id']) {
+               die("Bạn không có quyền chỉnh sửa bình luận này!");
           }
 
           if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                $content = trim($_POST['content'] ?? '');
-               if (empty($content)) {
-                    die("Lỗi: Nội dung đánh giá không được để trống.");
-               }
-
-               $result = $this->reviewModel->updateReview($review_id, $content);
-               if ($result) {
-                    header("Location: index.php?controller=detail&action=index&movie_id=$movie_id");
-                    exit;
+               if ($content) {
+                    $result = $this->reviewModel->updateReview($review_id, $content);
+                    if ($result) {
+                         header("Location: user.php?controller=detail&action=detail&id=$movie_id");
+                         exit();
+                    } else {
+                         die("Lỗi khi cập nhật bình luận!");
+                    }
                } else {
-                    die("Lỗi: Không thể cập nhật đánh giá. Vui lòng thử lại.");
+                    die("Nội dung không hợp lệ! Vui lòng nhập nội dung bình luận.");
                }
           }
 
-          require VIEW_PATH . 'user/movie/edit_review.php';
+          require VIEW_PATH . 'user/review/edit_review.php';
      }
 
      public function delete()
      {
-          $review_id = $_GET['review_id'] ?? null;
-          $movie_id = $_GET['movie_id'] ?? null;
-          $user_id = $_SESSION['user_id'] ?? null;
-
-          if (!$review_id || !$movie_id || !$user_id) {
-               die("Lỗi: Dữ liệu không hợp lệ hoặc bạn chưa đăng nhập.");
+          if (!isset($_SESSION['user_id'])) {
+               header("Location: login.php");
+               exit();
           }
 
-          if (!$this->reviewModel->isReviewOwner($review_id, $user_id)) {
-               die("Lỗi: Bạn không có quyền xóa đánh giá này.");
+          $review_id = $_GET['review_id'] ?? null;
+          $movie_id = $_GET['movie_id'] ?? null;
+
+          if (!$review_id || !$movie_id) {
+               die("Dữ liệu không hợp lệ!");
+          }
+
+          $review = $this->reviewModel->getReviewById($review_id);
+          if (!$review || $review['user_id'] != $_SESSION['user_id']) {
+               die("Bạn không có quyền xóa bình luận này!");
           }
 
           $result = $this->reviewModel->deleteReview($review_id);
           if ($result) {
-               header("Location: index.php?controller=detail&action=index&movie_id=$movie_id");
-               exit;
+               header("Location: user.php?controller=detail&action=detail&id=$movie_id");
+               exit();
           } else {
-               die("Lỗi: Không thể xóa đánh giá. Vui lòng thử lại.");
+               die("Lỗi khi xóa bình luận!");
           }
      }
 }
 
-// Xử lý các action
 $controller = new ReviewController();
-$action = $_GET['action'] ?? 'index';
+$action = $_GET['action'] ?? 'add';
 
 switch ($action) {
-     case 'index':
-          $controller->index();
-          break;
      case 'add':
           $controller->add();
           break;
      case 'edit':
-          $controller->edit($_GET['id'] ?? null); // Không cần truyền tham số vì đã lấy từ $_GET trong phương thức
+          $controller->edit();
           break;
      case 'delete':
           $controller->delete();
           break;
-     default:
-          $controller->index();
-          break;
 }
+?>

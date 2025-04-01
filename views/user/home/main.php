@@ -1,15 +1,16 @@
+
 <main>
      <!-- Banner quảng cáo -->
      <section class="banner">
           <div class="slider">
                <div class="slide fade">
-                    <img src="public/img/banner1.jpg" alt="Phim 1">
+                    <img src="public/img/bn1.png" alt="Phim 1">
                </div>
                <div class="slide fade">
-                    <img src="public/img/banner2.jpg" alt="Phim 1">
+                    <img src="public/img/bn2.png" alt="Phim 1">
                </div>
                <div class="slide fade">
-                    <img src="public/img/bg.jpg" alt="Phim 1">
+                    <img src="public/img/bn3.png" alt="Phim 1">
                </div>
           </div>
      </section>
@@ -29,7 +30,7 @@
 
      <!-- Danh sách phim -->
      <div class="movie-hot">
-          <h2>Phim nổi bật nhất</h2>
+          <h2>Phim đang chiếu</h2>
           <div class="movie-list">
                <?php foreach ($movies as $movie): ?>
                     <div class="movie">

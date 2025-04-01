@@ -1,10 +1,9 @@
 <?php
-// admin.php
 require_once 'config/config.php';
-session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-     header('Location: index.php?action=login');
-     exit();
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: " . BASE_URL . "login");
+    exit;
 }
 
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';

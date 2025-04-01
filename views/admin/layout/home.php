@@ -3,7 +3,8 @@
      <div class="main admin-main">
           <h2 class="admin-title">Trang Admin</h2>
           <p class="admin-welcome">Chào mừng đến với trang Admin</p>
-          <a href="index.php?controller=auth&action=logout" class="admin-logout-btn">Đăng Xuất</a>
+<!--          <a href="index.php?controller=auth&action=logout" class="admin-logout-btn">Đăng Xuất</a>-->
+         <a href="<?php echo BASE_URL; ?>logout" class="admin-logout-btn">Đăng xuất</a>
      </div>
 </div>
 

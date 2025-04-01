@@ -26,7 +26,7 @@ class HomeController
      {
           $keyword = $_GET['search'] ?? '';
           $movies = !empty($keyword) ? $this->movieModel->searchMovie($keyword) :
-               $this->movieModel->getTopMoviesByViews(4);
+               $this->movieModel->getMoviesShowingToday();
 
 
           $news = $this->newsModel->getAllNewsLimit(3);
@@ -48,20 +48,23 @@ class HomeController
           require VIEW_PATH . 'user/news/news_detail.php';
      }
 
-     public function detail()
+     public function detail($id = null)
      {
-          $movie_id = $_GET['movie_id'] ?? null;
-          if (!$movie_id) {
-               header('Location: index.php');
+          if (!$id) {
+               header('Location: user.php?controller=detail&action=index');
                exit;
           }
-          $movie = $this->movieModel->getMovieById($movie_id);
+
+          $movie = $this->movieModel->getMovieById($id);
           if (!$movie) {
-               header('Location: index.php');
-               exit;
+               die("Phim không tồn tại!");
           }
-          $reviews = $this->reviewModel->getReviewsByMovieId($movie_id);
-          require VIEW_PATH . 'user/detail_movie/detail_movie.php';
+
+          $genres = $this->movieModel->getGenresId($id);
+          $reviews = $this->movieModel->getReviewsByMovieId($id); // Lấy danh sách đánh giá
+          $movie_id = $id; // Truyền movie_id vào giao diện
+
+          require VIEW_PATH . 'user/movie/detail_movie.php';
      }
 
 

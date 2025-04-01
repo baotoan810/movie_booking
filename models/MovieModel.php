@@ -11,10 +11,10 @@ class MovieModel extends BaseModel
      public function getAllMoviesWithGenres()
      {
           $query = "SELECT movies.*, GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
-                                   FROM movies 
-                                   LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
-                                   LEFT JOIN genres ON movie_genres.genre_id = genres.id 
-                                   GROUP BY movies.id";
+                                                       FROM movies 
+                                                       LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                                                       LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                                                       GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->execute();
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,12 +23,12 @@ class MovieModel extends BaseModel
      public function getMovieById($id)
      {
           $query = "SELECT movies.*, 
-                                        GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres
-                                        FROM movies
-                                        LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
-                                        LEFT JOIN genres ON movie_genres.genre_id = genres.id
-                                        WHERE movies.id = :id
-                                        GROUP BY movies.id";
+                                                            GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres
+                                                            FROM movies
+                                                            LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
+                                                            LEFT JOIN genres ON movie_genres.genre_id = genres.id
+                                                            WHERE movies.id = :id
+                                                            GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':id', $id);
           $stmt->execute();
@@ -122,12 +122,12 @@ class MovieModel extends BaseModel
      public function searchMovie($keyword)
      {
           $query = "SELECT movies.*, 
-                                   GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
-                                   FROM movies 
-                                   LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
-                                   LEFT JOIN genres ON movie_genres.genre_id = genres.id 
-                                   WHERE movies.title LIKE :keyword
-                                   GROUP BY movies.id";
+                                                       GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
+                                                       FROM movies 
+                                                       LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                                                       LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                                                       WHERE movies.title LIKE :keyword
+                                                       GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
           $stmt->execute();
@@ -140,13 +140,13 @@ class MovieModel extends BaseModel
      public function getTopMoviesByViews($limit = 4)
      {
           $query = "SELECT movies.*, 
-                                   GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
-                                   FROM movies 
-                                   LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
-                                   LEFT JOIN genres ON movie_genres.genre_id = genres.id 
-                                   GROUP BY movies.id 
-                                   ORDER BY movies.view DESC 
-                                   LIMIT :limit";
+                                                       GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
+                                                       FROM movies 
+                                                       LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                                                       LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                                                       GROUP BY movies.id 
+                                                       ORDER BY movies.view DESC 
+                                                       LIMIT :limit";
           $stmt = $this->conn->prepare($query);
           $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
           $stmt->execute();
@@ -160,15 +160,15 @@ class MovieModel extends BaseModel
 
           // Query SQL để lấy phim đang chiếu trong ngày
           $query = "
-               SELECT DISTINCT m.*, 
-                    GROUP_CONCAT(g.name) as genres
-               FROM movies m
-               INNER JOIN showtimes s ON m.id = s.movie_id
-               LEFT JOIN movie_genres mg ON m.id = mg.movie_id
-               LEFT JOIN genres g ON mg.genre_id = g.id
-               WHERE DATE(s.start_time) = :today
-               GROUP BY m.id
-               ";
+                                   SELECT DISTINCT m.*, 
+                                        GROUP_CONCAT(g.name) as genres
+                                   FROM movies m
+                                   INNER JOIN showtimes s ON m.id = s.movie_id
+                                   LEFT JOIN movie_genres mg ON m.id = mg.movie_id
+                                   LEFT JOIN genres g ON mg.genre_id = g.id
+                                   WHERE DATE(s.start_time) = :today
+                                   GROUP BY m.id
+                                   ";
 
           try {
                $stmt = $this->conn->prepare($query);
@@ -182,36 +182,37 @@ class MovieModel extends BaseModel
           }
      }
 
-     public function getShowtimesForMovieToday($movieId)
+     public function getUpcomingMovies()
      {
-          $today = date('Y-m-d');
-
           $query = "
-               SELECT s.*, 
-                    t.name as theater_name,
-                    t.address as theater_address,
-                    r.name as room_name
-               FROM showtimes s
-               INNER JOIN theaters t ON s.theater_id = t.id
-               INNER JOIN rooms r ON s.room_id = r.id
-               WHERE s.movie_id = :movie_id
-               AND DATE(s.start_time) = :today
-               ORDER BY s.start_time ASC
-               ";
+               SELECT DISTINCT m.*, GROUP_CONCAT(g.name SEPARATOR ', ') AS genres
+               FROM movies m
+               INNER JOIN showtimes s ON m.id = s.movie_id
+               LEFT JOIN movie_genres mg ON m.id = mg.movie_id
+               LEFT JOIN genres g ON mg.genre_id = g.id
+               WHERE DATE(s.start_time) > CURDATE()
+               GROUP BY m.id
+          ";
 
-          try {
-               $stmt = $this->conn->prepare($query);
-               $stmt->bindParam(':movie_id', $movieId, PDO::PARAM_INT);
-               $stmt->bindParam(':today', $today);
-               $stmt->execute();
-               $showtimes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-               return $showtimes;
-
-          } catch (Exception $e) {
-               return [];
-          }
+          $stmt = $this->conn->prepare($query);
+          $stmt->execute();
+          return $stmt->fetchAll(PDO::FETCH_ASSOC);
      }
 
+     // Phương thức mới: Lấy danh sách đánh giá của một phim
+     public function getReviewsByMovieId($movie_id)
+     {
+          $query = "
+               SELECT r.*, u.username
+               FROM reviews r
+               INNER JOIN users u ON r.user_id = u.id
+               WHERE r.movie_id = :movie_id
+               ORDER BY r.created_at DESC
+          ";
+          $stmt = $this->conn->prepare($query);
+          $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
+          $stmt->execute();
+          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+     }
 }
 ?>

@@ -1,13 +1,13 @@
 <?php
-require 'config/config.php';
-require_once MODEL_PATH . 'AuthModel.php';
-
-session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-     header('Location: index.php?action=login');
-     exit();
+if (session_status() === PHP_SESSION_NONE) {
+     session_start();
 }
+require_once 'config/config.php';
 
+if (!isset($_SESSION['user_id'])) {
+     header("Location: " . BASE_URL . "login");
+     exit;
+}
 
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'homepage';
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
