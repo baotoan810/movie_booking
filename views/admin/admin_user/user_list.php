@@ -10,7 +10,7 @@
      <!-- Search Bar -->
      <div class="nav-search">
           <div class="search">
-               <form action="index.php" method="get" class="search">
+               <form action="admin.php" method="get" class="search">
                     <input type="hidden" name="controller" value="user">
                     <input type="hidden" name="action" value="index">
                     <input type="text" name="search" placeholder="Tìm kiếm người dùng..."
@@ -32,38 +32,41 @@
      </div>
 
      <!-- Table -->
-     <table>
-          <thead>
-               <tr>
-                    <th>STT</th>
-                    <th>Tên người dùng</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
-                    <th>Địa chỉ</th>
-                    <th>Avata</th>
-                    <th>Phân quyền</th>
-                    <th>Thao Tác</th>
-               </tr>
-          </thead>
-          <tbody>
-               <?php $i = 1;
-               foreach ($users as $user): ?>
+     <div class="table-container">
+          <table>
+               <thead>
                     <tr>
-                         <td><?= $i ?></td>
-                         <td><?= htmlspecialchars($user['username']) ?></td>
-                         <td><?= htmlspecialchars($user['email']) ?></td>
-                         <td><?= htmlspecialchars($user['phone']) ?></td>
-                         <td><?= htmlspecialchars($user['address']) ?></td>
-                         <td>
-                              <img src="<?= htmlspecialchars($user['image']) ?>" alt="Image User" class="image-user">
-                         </td>
-                         <td><?= htmlspecialchars($user['role']) ?></td>
-                         <td >
-                              <a href="index.php?controller=user&action=edit&id=<?= $user['id'] ?>" class="edit-btn">✏️</a>
-                              <a href="#" class="delete-btn" onclick="deleteUser(<?= $user['id'] ?>)">🗑️</a>
-                         </td>
+                         <th>STT</th>
+                         <th>Tên người dùng</th>
+                         <th>Email</th>
+                         <th>Số điện thoại</th>
+                         <th>Địa chỉ</th>
+                         <th>Avata</th>
+                         <th>Phân quyền</th>
+                         <th>Thao Tác</th>
                     </tr>
-                    <?php $i++; endforeach; ?>
-          </tbody>
-     </table>
+               </thead>
+               <tbody>
+                    <?php $i = 1;
+                    foreach ($users as $user): ?>
+                         <tr>
+                              <td><?= $i ?></td>
+                              <td><?= htmlspecialchars($user['username']) ?></td>
+                              <td><?= htmlspecialchars($user['email']) ?></td>
+                              <td><?= htmlspecialchars($user['phone']) ?></td>
+                              <td><?= htmlspecialchars($user['address']) ?></td>
+                              <td>
+                                   <img src="<?= htmlspecialchars($user['image']) ?>" alt="Image User" class="image-user">
+                              </td>
+                              <td><?= htmlspecialchars($user['role']) ?></td>
+                              <td>
+                                   <a href="admin.php?controller=user&action=edit&id=<?= $user['id'] ?>"
+                                        class="edit-btn">✏️</a>
+                                   <a href="#" class="delete-btn" onclick="deleteUser(<?= $user['id'] ?>)">🗑️</a>
+                              </td>
+                         </tr>
+                         <?php $i++; endforeach; ?>
+               </tbody>
+          </table>
+     </div>
 </div>

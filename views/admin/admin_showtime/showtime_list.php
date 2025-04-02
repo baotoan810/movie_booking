@@ -8,7 +8,7 @@
 
      <!-- Search Bar -->
      <div class="nav-search">
-          <div class="search">
+          <!-- <div class="search">
                <form action="admin.php" method="get" class="search">
                     <input type="hidden" name="controller" value="showtime">
                     <input type="hidden" name="action" value="index">
@@ -16,7 +16,7 @@
                          value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
                     <button type="submit">Tìm kiếm</button>
                </form>
-          </div>
+          </div> -->
           <div class="add">
                <a href="admin.php?controller=showtime&action=edit" class="add-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -29,52 +29,53 @@
                </a>
           </div>
      </div>
-
-
-     <table>
-          <thead>
-               <tr>
-                    <th>ID</th>
-                    <th>Phim</th>
-                    <th>Phòng</th>
-                    <th>Rạp</th>
-                    <th>Thời gian bắt đầu</th>
-                    <th>Thời gian kết thúc</th>
-                    <th>Giá vé (VNĐ)</th>
-                    <th>Hành động</th>
-               </tr>
-          </thead>
-          <tbody>
-               <?php if (empty($showtimes)): ?>
+     <div class="table-container">
+          <table>
+               <thead>
                     <tr>
-                         <td colspan="8" style="text-align: center;">Không có suất chiếu nào.</td>
+                         <th>ID</th>
+                         <th>Phim</th>
+                         <th>Phòng</th>
+                         <th>Rạp</th>
+                         <th>Thời gian bắt đầu</th>
+                         <th>Thời gian kết thúc</th>
+                         <th>Giá vé (VNĐ)</th>
+                         <th>Hành động</th>
                     </tr>
-               <?php else: ?>
-                    <?php foreach ($showtimes as $showtime): ?>
+               </thead>
+               <tbody>
+                    <?php if (empty($showtimes)): ?>
                          <tr>
-                              <td><?= htmlspecialchars($showtime['id']); ?></td>
-                              <td><?= htmlspecialchars($showtime['movie_title']); ?></td>
-                              <td><?= htmlspecialchars($showtime['room_name']); ?></td>
-                              <td><?= htmlspecialchars($showtime['theater_name']); ?></td>
-                              <td><?= htmlspecialchars($showtime['start_time']); ?></td>
-                              <td><?= htmlspecialchars($showtime['end_time']); ?></td>
-                              <td><?= number_format($showtime['price'], 0, ',', '.'); ?></td>
-                              <td>
-                                   <a href="admin.php?controller=showtime&action=edit&id=<?= $showtime['id']; ?>"
-                                        class="edit-btn"><i class="fas fa-edit"></i> Sửa</a>
-                                   <!-- <a href="index.php?controller=showtime&action=viewSeats&showtime_id=<?= $showtime['id']; ?>"
-                                        class="btn-view" style="background: #17a2b8;"><i class="fas fa-chair"></i></a> -->
-                                   <form method="POST" action="admin.php?controller=showtime&action=delete"
-                                        style="display:inline;"
-                                        onsubmit="return confirm('Bạn có chắc chắn muốn xóa suất chiếu này?');">
-                                        <input type="hidden" name="id" value="<?= $showtime['id']; ?>">
-                                        <button type="submit" class="delete-btn"><i class="fas fa-trash"></i>
-                                             Xóa</button>
-                                   </form>
-                              </td>
+                              <td colspan="8" style="text-align: center;">Không có suất chiếu nào.</td>
                          </tr>
-                    <?php endforeach; ?>
-               <?php endif; ?>
-          </tbody>
-     </table>
+                    <?php else: ?>
+                         <?php foreach ($showtimes as $showtime): ?>
+                              <tr>
+                                   <td><?= htmlspecialchars($showtime['id']); ?></td>
+                                   <td><?= htmlspecialchars($showtime['movie_title']); ?></td>
+                                   <td><?= htmlspecialchars($showtime['room_name']); ?></td>
+                                   <td><?= htmlspecialchars($showtime['theater_name']); ?></td>
+                                   <td><?= htmlspecialchars($showtime['start_time']); ?></td>
+                                   <td><?= htmlspecialchars($showtime['end_time']); ?></td>
+                                   <td><?= number_format($showtime['price'], 0, ',', '.'); ?></td>
+                                   <td>
+                                        <a href="admin.php?controller=showtime&action=edit&id=<?= $showtime['id']; ?>"
+                                             class="edit-btn"><i class="fas fa-edit"></i> Sửa</a>
+                                        <!-- <a href="index.php?controller=showtime&action=viewSeats&showtime_id=<?= $showtime['id']; ?>"
+                                        class="btn-view" style="background: #17a2b8;"><i class="fas fa-chair"></i></a> -->
+                                        <form method="POST" action="admin.php?controller=showtime&action=delete"
+                                             style="display:inline;"
+                                             onsubmit="return confirm('Bạn có chắc chắn muốn xóa suất chiếu này?');">
+                                             <input type="hidden" name="id" value="<?= $showtime['id']; ?>">
+                                             <button type="submit" class="delete-btn"><i class="fas fa-trash"></i>
+                                                  Xóa</button>
+                                        </form>
+                                   </td>
+                              </tr>
+                         <?php endforeach; ?>
+                    <?php endif; ?>
+               </tbody>
+          </table>
+     </div>
+
 </div>

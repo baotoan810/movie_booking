@@ -1,11 +1,11 @@
 <?php
 require_once 'config/config.php';
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+     session_start();
 }
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: " . BASE_URL . "login");
-    exit;
+     header("Location: " . BASE_URL . "login");
+     exit;
 }
 
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
@@ -43,9 +43,12 @@ switch ($controller) {
      case 'news':
           require_once CONTROLLER_PATH . 'admin/NewsController.php';
           break;
-    case 'history':
-        require_once CONTROLLER_PATH . 'admin/BookingController.php';
-        break;
+     case 'history':
+          require_once CONTROLLER_PATH . 'admin/BookingController.php';
+          break;
+     case 'bookingHistory':
+          require_once CONTROLLER_PATH . 'admin/RevenueController.php';
+          break;
      default:
           require_once VIEW_PATH . 'layout/error.php';
           break;

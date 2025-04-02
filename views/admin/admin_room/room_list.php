@@ -9,7 +9,7 @@
 
      <!-- Search Bar -->
      <div class="nav-search">
-          <div class="search">
+          <!-- <div class="search">
                <form method="GET" class="search">
                     <input type="hidden" name="controller" value="room">
                     <input type="hidden" name="action" value="index">
@@ -17,7 +17,7 @@
                          placeholder="Tìm kiếm phòng...">
                     <button type="submit">Tìm kiếm</button>
                </form>
-          </div>
+          </div> -->
           <div class="add">
                <a href="admin.php?controller=room&action=edit" class="add-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

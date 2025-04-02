@@ -23,6 +23,7 @@ class BookingModel extends BaseModel
                     r.capacity AS room_capacity,
                     s.id AS showtime_id,
                     s.start_time,
+                    s.end_time,
                     s.price,
                     s.available_seats
                FROM theaters t
@@ -67,6 +68,7 @@ class BookingModel extends BaseModel
                     $theaters[$theaterId]['rooms'][$roomId]['showtimes'][] = [
                          'id' => $row['showtime_id'],
                          'start_time' => $row['start_time'],
+                         'end_time' => $row['end_time'],
                          'price' => $row['price'],
                          'available_seats' => $row['available_seats']
                     ];

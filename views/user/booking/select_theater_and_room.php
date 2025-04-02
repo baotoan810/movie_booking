@@ -199,7 +199,10 @@
                               <h3><?php echo htmlspecialchars($room['name']); ?> (Sức chứa: <?php echo $room['capacity']; ?>)</h3>
                               <?php foreach ($room['showtimes'] as $showtime): ?>
                                    <div class="theater-seat">
-                                        <p>Giờ: <?php echo date('H:i', strtotime($showtime['start_time'])); ?></p>
+                                        <p>Giờ:
+                                             <?php echo date('H:i', strtotime($showtime['start_time'])); ?> -
+                                             <?php echo date('H:i', strtotime($showtime['end_time'])); ?>
+                                        </p>
                                         <p>Giá: <?php echo number_format($showtime['price'], 0); ?> VND</p>
                                         <p>Còn: <?php echo $showtime['available_seats']; ?> ghế</p>
                                         <button type="submit" name="showtime_id" value="<?php echo $showtime['id']; ?>">Chọn suất</button>

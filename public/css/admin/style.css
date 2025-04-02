@@ -101,8 +101,14 @@ body {
      content: '▲';
 }
 
+.table-container {
+     height: 580px;
+     overflow-y: auto;
+}
+
 /* Main Content */
 .main-content {
+     height: 100%;
      flex: 1;
      padding: 20px;
 }
@@ -311,6 +317,6 @@ h1 {
      scale: 1.1;
 }
 
-.action-buttons{
+.action-buttons {
      display: flex;
 }

@@ -30,51 +30,54 @@
                </a>
           </div>
      </div>
-
-     <table>
-          <thead>
-               <tr>
-                    <th>STT</th>
-                    <th>Tên Phim</th>
-                    <th>Thời Lượng</th>
-                    <th>Ngày Tạo</th>
-                    <th>Thể Loại</th>
-                    <th>Ảnh Poster</th>
-                    <th>Thao Tác</th>
-               </tr>
-          </thead>
-          <tbody>
-               <?php $i = 1;
-               foreach ($movies as $movie): ?>
+     <div class="table-container">
+          <table class="table">
+               <thead>
                     <tr>
-                         <td><?= $i ?></td>
-                         <td><?= htmlspecialchars($movie['title']) ?></td>
-                         <td><?= htmlspecialchars($movie['duration']) ?></td>
-                         <td><?= htmlspecialchars($movie['release_date']) ?></td>
-                         <td><?= htmlspecialchars($movie['genres'] ?: 'Chưa có thể loại') ?></td>
-
-
-                         <td>
-                              <?php if ($movie['poster_path'] && file_exists($movie['poster_path'])): ?>
-                                   <img src="<?= htmlspecialchars($movie['poster_path']) ?>" alt="Poster" class="image-user">
-                              <?php else: ?>
-                                   <span>Không có ảnh</span>
-                              <?php endif; ?>
-                         </td>
-
-
-                         <td>
-                              <a href="admin.php?controller=movie&action=view&id=<?= $movie['id']; ?>" class="btn-view"><i
-                                        class="fa fa-eye"></i></a>
-                              <a href="admin.php?controller=movie&action=edit&id=<?= $movie['id'] ?>" class="edit-btn">✏️</a>
-                              <a href="#" class="delete-btn" onclick="deleteMovie(<?= $movie['id'] ?>)">🗑️</a>
-                         </td>
+                         <th>STT</th>
+                         <th>Tên Phim</th>
+                         <th>Thời Lượng</th>
+                         <th>Ngày Tạo</th>
+                         <th>Thể Loại</th>
+                         <th>Ảnh Poster</th>
+                         <th>Thao Tác</th>
                     </tr>
-                    <?php $i++; endforeach; ?>
-          </tbody>
-     </table>
+               </thead>
+               <tbody>
+                    <?php $i = 1;
+                    foreach ($movies as $movie): ?>
+                         <tr>
+                              <td><?= $i ?></td>
+                              <td><?= htmlspecialchars($movie['title']) ?></td>
+                              <td><?= htmlspecialchars($movie['duration']) ?></td>
+                              <td><?= htmlspecialchars($movie['release_date']) ?></td>
+                              <td><?= htmlspecialchars($movie['genres'] ?: 'Chưa có thể loại') ?></td>
+
+
+                              <td>
+                                   <?php if ($movie['poster_path'] && file_exists($movie['poster_path'])): ?>
+                                        <img src="<?= htmlspecialchars($movie['poster_path']) ?>" alt="Poster" class="image-user">
+                                   <?php else: ?>
+                                        <span>Không có ảnh</span>
+                                   <?php endif; ?>
+                              </td>
+
+
+                              <td>
+                                   <a href="admin.php?controller=movie&action=view&id=<?= $movie['id']; ?>"
+                                        class="btn-view"><i class="fa fa-eye"></i></a>
+                                   <a href="admin.php?controller=movie&action=edit&id=<?= $movie['id'] ?>"
+                                        class="edit-btn">✏️</a>
+                                   <a href="#" class="delete-btn" onclick="deleteMovie(<?= $movie['id'] ?>)">🗑️</a>
+                              </td>
+                         </tr>
+                         <?php $i++; endforeach; ?>
+               </tbody>
+          </table>
+     </div>
 
 </div>
 
 </div>
 </div>
+

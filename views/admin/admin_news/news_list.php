@@ -22,42 +22,44 @@
      <?php if (empty($news)): ?>
           <p>Không có tin tức nào.</p>
      <?php else: ?>
-          <table>
-               <thead>
-                    <tr>
-                         <th>ID</th>
-                         <th>Hình ảnh</th>
-                         <th>Tiêu đề</th>
-                         <th>Nội dung</th>
-                         <th>Ngày tạo</th>
-                         <th>Hành động</th>
-                    </tr>
-               </thead>
-               <tbody>
-                    <?php foreach ($news as $newsItem): ?>
+          <div class="table-container">
+               <table>
+                    <thead>
                          <tr>
-                              <td><?= htmlspecialchars($newsItem['id']) ?></td>
-                              <td>
-                                   <?php if ($newsItem['image']): ?>
-                                        <img src="<?= htmlspecialchars($newsItem['image']) ?>" alt="Hình ảnh tin tức"
-                                             class="image-user">
-                                   <?php else: ?>
-                                        Không có hình ảnh
-                                   <?php endif; ?>
-                              </td>
-                              <td><?= htmlspecialchars($newsItem['title']) ?></td>
-                              <td><?= htmlspecialchars(substr($newsItem['content'], 0, 100)) . (strlen($newsItem['content']) > 100 ? '...' : '') ?>
-                              </td>
-                              <td><?= htmlspecialchars($newsItem['created_at']) ?></td>
-                              <td>
-                                   <a href="admin.php?controller=news&action=edit&id=<?= $newsItem['id'] ?>"
-                                        class="edit-btn">✏️</a>
-                                   <a href="#" class="delete-btn" onclick="deleteNews(<?= $newsItem['id'] ?>)">🗑️</a>
-                              </td>
+                              <th>ID</th>
+                              <th>Hình ảnh</th>
+                              <th>Tiêu đề</th>
+                              <th>Nội dung</th>
+                              <th>Ngày tạo</th>
+                              <th>Hành động</th>
                          </tr>
-                    <?php endforeach; ?>
-               </tbody>
-          </table>
+                    </thead>
+                    <tbody>
+                         <?php foreach ($news as $newsItem): ?>
+                              <tr>
+                                   <td><?= htmlspecialchars($newsItem['id']) ?></td>
+                                   <td>
+                                        <?php if ($newsItem['image']): ?>
+                                             <img src="<?= htmlspecialchars($newsItem['image']) ?>" alt="Hình ảnh tin tức"
+                                                  class="image-user">
+                                        <?php else: ?>
+                                             Không có hình ảnh
+                                        <?php endif; ?>
+                                   </td>
+                                   <td><?= htmlspecialchars($newsItem['title']) ?></td>
+                                   <td><?= htmlspecialchars(substr($newsItem['content'], 0, 100)) . (strlen($newsItem['content']) > 100 ? '...' : '') ?>
+                                   </td>
+                                   <td><?= htmlspecialchars($newsItem['created_at']) ?></td>
+                                   <td>
+                                        <a href="admin.php?controller=news&action=edit&id=<?= $newsItem['id'] ?>"
+                                             class="edit-btn">✏️</a>
+                                        <a href="#" class="delete-btn" onclick="deleteNews(<?= $newsItem['id'] ?>)">🗑️</a>
+                                   </td>
+                              </tr>
+                         <?php endforeach; ?>
+                    </tbody>
+               </table>
+          </div>
      <?php endif; ?>
 
 </div>

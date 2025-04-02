@@ -96,3 +96,95 @@
           return true;
      }
 </script>
+
+<style>
+     .main-content {
+          max-width: 700px;
+          margin: 20px auto;
+          padding: 20px;
+          background: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          text-align: center;
+     }
+
+     h1 {
+          font-size: 24px;
+          margin-bottom: 20px;
+          color: #333;
+     }
+
+     .content-section {
+          padding: 15px;
+          background: #f9f9f9;
+          border-radius: 8px;
+     }
+
+     .error-message {
+          color: red;
+          font-size: 14px;
+          margin-bottom: 10px;
+     }
+
+     .form-group {
+          margin-bottom: 15px;
+          text-align: left;
+     }
+
+     .form-group label {
+          font-weight: bold;
+          display: block;
+          margin-bottom: 5px;
+          color: #444;
+     }
+
+     .form-group input,
+     .form-group select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+     }
+
+     .form-group input:focus,
+     .form-group select:focus {
+          border-color: #007bff;
+          outline: none;
+          box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+     }
+
+     .form-actions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+     }
+
+     .btn {
+          padding: 10px 15px;
+          font-size: 16px;
+          font-weight: bold;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          text-decoration: none;
+     }
+
+     .btn-save {
+          background-color: #28a745;
+          color: white;
+     }
+
+     .btn-save:hover {
+          background-color: #218838;
+     }
+
+     .btn-back {
+          background-color: #007bff;
+          color: white;
+     }
+
+     .btn-back:hover {
+          background-color: #0056b3;
+     }
+</style>

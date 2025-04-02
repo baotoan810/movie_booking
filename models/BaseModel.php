@@ -46,24 +46,33 @@ class BaseModel
      // }
      public function add($data)
      {
-          // Tạo danh sách cột và giá trị
-          $columns = implode(", ", array_keys($data));
-          $placeholders = implode(", ", array_fill(0, count($data), "?"));
-          $values = array_values($data);
+          try {
+               // Đặt tên cột trong dấu backticks để tránh lỗi SQL
+               $columns = implode(", ", array_map(fn($col) => "`$col`", array_keys($data)));
+               $placeholders = implode(", ", array_fill(0, count($data), "?"));
+               $values = array_values($data);
 
-          // Tạo câu truy vấn
-          $query = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
-          $stmt = $this->conn->prepare($query);
+               // Tạo câu truy vấn
+               $query = "INSERT INTO `{$this->table}` ($columns) VALUES ($placeholders)";
+               $stmt = $this->conn->prepare($query);
 
-          // Thực thi truy vấn
-          if ($stmt->execute($values)) {
-               // Trả về ID của bản ghi vừa chèn
-               return $this->conn->lastInsertId();
+               if (!$stmt) {
+                    throw new Exception("Lỗi chuẩn bị truy vấn: " . implode(", ", $this->conn->errorInfo()));
+               }
+
+               // Thực thi truy vấn
+               if ($stmt->execute($values)) {
+                    return $this->conn->lastInsertId();
+               }
+
+               // Nếu thất bại, ném ngoại lệ với lỗi chi tiết
+               throw new Exception("Không thể thêm bản ghi vào bảng {$this->table}: " . implode(", ", $stmt->errorInfo()));
+
+          } catch (Exception $e) {
+               die("Lỗi: " . $e->getMessage());
           }
-
-          // Nếu thất bại, ném ngoại lệ
-          throw new Exception("Không thể thêm bản ghi vào bảng {$this->table}: " . implode(", ", $stmt->errorInfo()));
      }
+
      // Update dữ liệu
      public function update($id, $data)
      {

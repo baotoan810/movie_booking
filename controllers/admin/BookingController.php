@@ -38,6 +38,10 @@ class BookingController
             }
         }
     }
+
+
+    // Doanh thu ve
+
 }
 
 $controller = new BookingController();
