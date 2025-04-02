@@ -48,7 +48,7 @@ class TheaterAdminController
           }
 
           if ($result) {
-               header("Location: index.php?controller=theater&action=index");
+               header("Location: admin.php?controller=theater&action=index");
                exit();
           } else {
                echo "Lỗi khi lưu rạp!";
@@ -64,7 +64,7 @@ class TheaterAdminController
                }
                $result = $this->theaterModel->deleteTheater($id);
                if ($result) {
-                    header("Location: index.php?controller=theater&action=index");
+                    header("Location: admin.php?controller=theater&action=index");
                } else {
                     die("Xóa thất bại");
                }

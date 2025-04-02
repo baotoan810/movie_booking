@@ -36,7 +36,7 @@
                         <td><?= htmlspecialchars($booking['seats']) ?></td>
                         <td><?= htmlspecialchars(date('d/m/Y', strtotime($booking['start_time']))) ?></td>
                         <td><?= htmlspecialchars(date('H:i', strtotime($booking['start_time']))) ?></td>
-                        <td><?= htmlspecialchars(number_format($booking['total_price'], 0)) ?> VND</td>
+                        <td><?php echo htmlspecialchars($booking['total_price']); ?></td>
                         <td><?= htmlspecialchars(date('d/m/Y H:i', strtotime($booking['booking_time']))) ?></td>
                         <td><?= htmlspecialchars(ucfirst($booking['booking_status'])) ?></td>
                         <td class="action-buttons">

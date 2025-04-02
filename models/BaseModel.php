@@ -46,18 +46,23 @@ class BaseModel
      // }
      public function add($data)
      {
-          $fields = array_keys($data);
+          // Tạo danh sách cột và giá trị
+          $columns = implode(", ", array_keys($data));
+          $placeholders = implode(", ", array_fill(0, count($data), "?"));
           $values = array_values($data);
-          $placeholders = array_fill(0, count($values), '?');
 
-          // Bọc tên cột trong dấu backtick
-          $fieldList = array_map(function ($field) {
-               return "`$field`";
-          }, $fields);
-
-          $query = "INSERT INTO {$this->table} (" . implode(', ', $fieldList) . ") VALUES (" . implode(', ', $placeholders) . ")";
+          // Tạo câu truy vấn
+          $query = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
           $stmt = $this->conn->prepare($query);
-          return $stmt->execute($values);
+
+          // Thực thi truy vấn
+          if ($stmt->execute($values)) {
+               // Trả về ID của bản ghi vừa chèn
+               return $this->conn->lastInsertId();
+          }
+
+          // Nếu thất bại, ném ngoại lệ
+          throw new Exception("Không thể thêm bản ghi vào bảng {$this->table}: " . implode(", ", $stmt->errorInfo()));
      }
      // Update dữ liệu
      public function update($id, $data)

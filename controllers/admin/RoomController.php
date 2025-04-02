@@ -52,7 +52,7 @@ class RoomController
                }
 
                if ($result) {
-                    header("Location: index.php?controller=room&action=index");
+                    header("Location: admin.php?controller=room&action=index");
                     exit();
                } else {
                     echo "Lỗi khi lưu phòng!";
@@ -71,7 +71,7 @@ class RoomController
                }
                $result = $this->roomModel->deleteRoom($id);
                if ($result) {
-                    header("Location: index.php?controller=room&action=index");
+                    header("Location: admin.php?controller=room&action=index");
                } else {
                     die("Xóa thất bại");
                }
@@ -117,7 +117,7 @@ class RoomController
 
                $result = $this->roomModel->updateSeat($seat_id, $type_seat, $status, $price);
                if ($result) {
-                    header("Location: index.php?controller=room&action=viewSeats&room_id=$room_id");
+                    header("Location: admin.php?controller=room&action=viewSeats&room_id=$room_id");
                     exit();
                } else {
                     die("Cập nhật ghế thất bại!");
@@ -137,7 +137,7 @@ class RoomController
 
                $result = $this->roomModel->deleteSeat($seat_id);
                if ($result) {
-                    header("Location: index.php?controller=room&action=viewSeats&room_id=$room_id");
+                    header("Location: admin.php?controller=room&action=viewSeats&room_id=$room_id");
                     exit();
                } else {
                     die("Xóa ghế thất bại!");
@@ -163,7 +163,7 @@ class RoomController
                try {
                     $result = $this->roomModel->addSeat($room_id, $row, $column, $type_seat, $status, $price);
                     if ($result) {
-                         header("Location: index.php?controller=room&action=viewSeats&room_id=$room_id");
+                         header("Location: admin.php?controller=room&action=viewSeats&room_id=$room_id");
                          exit();
                     } else {
                          die("Thêm ghế thất bại!");

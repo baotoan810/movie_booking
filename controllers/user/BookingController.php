@@ -161,6 +161,33 @@ class BookingController
                return;
           }
 
+          // Kiểm tra total_price
+          if ($totalPrice <= 0) {
+               // Tính lại total_price dựa trên giá vé và loại ghế
+               $query = "
+                 SELECT s.price AS base_price, ts.id AS seat_id, ts.type_seat 
+                 FROM showtimes s 
+                 LEFT JOIN theater_seats ts ON ts.id IN (" . implode(',', array_fill(0, count($selectedSeats), '?')) . ")
+                 WHERE s.id = ?
+             ";
+               $stmt = $this->db->prepare($query);
+               $params = array_merge($selectedSeats, [$showtimeId]);
+               $stmt->execute($params);
+               $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+               $totalPrice = 0;
+               $basePrice = $results[0]['base_price'] ?? 0;
+               foreach ($results as $result) {
+                    $priceMultiplier = ($result['type_seat'] === 'vip') ? 1.5 : 1;
+                    $totalPrice += $basePrice * $priceMultiplier;
+               }
+
+               if ($totalPrice <= 0) {
+                    echo "Giá vé không hợp lệ! Total price: $totalPrice";
+                    return;
+               }
+          }
+
           $bookingId = $this->bookingModel->createBooking($userId, $showtimeId, $selectedSeats, $totalPrice, $promotionId);
           if ($bookingId) {
                $this->bookingModel->confirmBooking($bookingId);

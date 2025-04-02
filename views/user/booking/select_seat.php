@@ -283,6 +283,7 @@
                 <input type="hidden" name="showtime_id" value="<?php echo $selectedShowtime['id']; ?>">
                 <input type="hidden" name="movie_id" value="<?php echo htmlspecialchars($_POST['movie_id']); ?>">
                 <input type="hidden" name="date" value="<?php echo htmlspecialchars($_POST['date']); ?>">
+                <input type="hidden" name="total_price" id="total_price" value="0">
 
                 <div class="screen">Màn hình</div>
 
@@ -295,11 +296,14 @@
                                 $isBooked = $seat['showtime_status'] === 'booked';
                                 $seatType = $seat['type_seat'] ?? 'normal';
                                 $seatClass = $isBooked ? 'booked' : ($seatType . ' available');
+
+                                // Tính giá ghế dựa trên showtime price và type_seat
+                                $seatPrice = $selectedShowtime['price'] * ($seatType === 'vip' ? 1.5 : 1);
                                 ?>
                                 <label class="seat <?php echo $seatClass; ?>">
                                     <input type="checkbox" name="seats[]" value="<?php echo $seat['id']; ?>"
                                         <?php echo $isBooked ? 'disabled' : ''; ?>
-                                        data-price="<?php echo $seat['price']; ?>">
+                                        data-price="<?php echo $seatPrice; ?>">
                                     <span><?php echo 'R' . $row . 'C' . $col; ?></span>
                                 </label>
                                 <?php
@@ -321,15 +325,14 @@
             <p><strong>Phòng:</strong> <?php echo htmlspecialchars($selectedShowtime['room_name']); ?></p>
             <p>
                 <strong>Ngày:</strong>
-            <?php echo date('d/m/Y', strtotime($selectedShowtime['start_time'])); ?>
-        </p>
+                <?php echo date('d/m/Y', strtotime($selectedShowtime['start_time'])); ?>
+            </p>
             <p><strong>Giờ:</strong> <?php echo date('H:i', strtotime($selectedShowtime['start_time'])); ?>
-            --
-            <?php echo date('H:i', strtotime($selectedShowtime['end_time'])); ?>
-        </p>
+                --
+                <?php echo date('H:i', strtotime($selectedShowtime['end_time'])); ?>
+            </p>
             <p><strong>Ghế:</strong> <span id="selectedSeats">Chưa chọn ghế</span></p>
             <p><strong>Tổng tiền:</strong> <span id="totalPriceDisplay">0</span> VND</p>
-            <input type="hidden" name="total_price" id="total_price" value="0">
 
             <div class="button-group">
                 <button type="button" class="submit-btn" id="submitBtn">Thanh toán</button>
@@ -367,7 +370,8 @@
 
             checkboxes.forEach(cb => {
                 if (cb.checked) {
-                    total += parseFloat(cb.getAttribute('data-price'));
+                    const price = parseFloat(cb.getAttribute('data-price')) || 0;
+                    total += price;
                     const seatLabel = cb.nextElementSibling.textContent; // Lấy nhãn ghế (R1C1, R1C2, v.v.)
                     selectedSeats.push(seatLabel);
                 }
@@ -375,7 +379,7 @@
 
             // Cập nhật tổng tiền
             totalPriceInput.value = total;
-            totalPriceDisplay.textContent = total;
+            totalPriceDisplay.textContent = total.toLocaleString('vi-VN');
 
             // Cập nhật danh sách ghế
             selectedSeatsDisplay.textContent = selectedSeats.length > 0 ? selectedSeats.join(', ') : 'Chưa chọn ghế';
@@ -388,12 +392,12 @@
 
         // Hiển thị modal xác nhận khi nhấn "Thanh toán"
         submitBtn.addEventListener('click', () => {
-            const totalPrice = totalPriceInput.value;
+            const totalPrice = parseFloat(totalPriceInput.value);
             if (totalPrice <= 0) {
                 alert('Vui lòng chọn ít nhất một ghế để thanh toán.');
                 return;
             }
-            modalTotalPrice.textContent = totalPrice;
+            modalTotalPrice.textContent = totalPrice.toLocaleString('vi-VN');
             confirmModal.style.display = 'block';
         });
 

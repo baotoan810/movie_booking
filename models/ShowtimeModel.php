@@ -39,34 +39,89 @@ class ShowtimeModel extends BaseModel
      // Thêm suất chiếu mới
      public function addShowtime($movie_id, $room_id, $start_time, $end_time, $price)
      {
+          // Kiểm tra dữ liệu đầu vào
+          if (empty($movie_id) || empty($room_id) || empty($start_time) || empty($end_time) || empty($price)) {
+               throw new Exception("Dữ liệu đầu vào không đầy đủ!");
+          }
+
+          // Kiểm tra movie_id
+          $query = "SELECT id FROM movies WHERE id = ?";
+          $stmt = $this->conn->prepare($query);
+          $stmt->execute([$movie_id]);
+          if (!$stmt->fetch()) {
+               throw new Exception("Phim không tồn tại! movie_id: $movie_id");
+          }
+
+          // Kiểm tra room_id và lấy theater_id
+          $query = "SELECT theater_id, capacity FROM rooms WHERE id = ?";
+          $stmt = $this->conn->prepare($query);
+          $stmt->execute([$room_id]);
+          $room = $stmt->fetch(PDO::FETCH_ASSOC);
+          if (!$room) {
+               throw new Exception("Phòng không tồn tại! room_id: $room_id");
+          }
+          $theater_id = $room['theater_id'];
+
+          // Kiểm tra theater_id
+          $query = "SELECT id FROM theaters WHERE id = ?";
+          $stmt = $this->conn->prepare($query);
+          $stmt->execute([$theater_id]);
+          if (!$stmt->fetch()) {
+               throw new Exception("Rạp không tồn tại! theater_id: $theater_id");
+          }
+
+          // Kiểm tra định dạng thời gian
+          $start_timestamp = strtotime($start_time);
+          $end_timestamp = strtotime($end_time);
+          if (!$start_timestamp || !$end_timestamp || $start_timestamp >= $end_timestamp) {
+               throw new Exception("Thời gian không hợp lệ! start_time phải nhỏ hơn end_time.");
+          }
+
+          // Kiểm tra trùng lịch chiếu
+          $query = "SELECT COUNT(*) FROM showtimes 
+                   WHERE room_id = ? 
+                   AND (
+                       (start_time <= ? AND end_time >= ?) OR 
+                       (start_time <= ? AND end_time >= ?) OR 
+                       (start_time >= ? AND end_time <= ?)
+                   )";
+          $stmt = $this->conn->prepare($query);
+          $stmt->execute([$room_id, $start_time, $start_time, $end_time, $end_time, $start_time, $end_time]);
+          if ($stmt->fetchColumn() > 0) {
+               throw new Exception("Phòng đã có suất chiếu trong khoảng thời gian này!");
+          }
+
+          // Lấy số lượng ghế khả dụng ban đầu
+          $query = "SELECT COUNT(*) FROM theater_seats WHERE room_id = ? AND status = 'available'";
+          $stmt = $this->conn->prepare($query);
+          $stmt->execute([$room_id]);
+          $available_seats = $stmt->fetchColumn();
+
           $data = [
                'movie_id' => $movie_id,
+               'theater_id' => $theater_id,
                'room_id' => $room_id,
                'start_time' => $start_time,
                'end_time' => $end_time,
-               'price' => $price
+               'price' => $price,
+               'available_seats' => $available_seats
           ];
 
           $this->conn->beginTransaction();
           try {
                $showtime_id = $this->add($data);
+
+               if (!$showtime_id || $showtime_id <= 0) {
+                    throw new Exception("Không thể thêm suất chiếu! showtime_id không hợp lệ: $showtime_id");
+               }
+
                $this->initializeShowtimeSeats($showtime_id, $room_id);
-
-               // Cập nhật available_seats
-               $query = "SELECT COUNT(*) FROM theater_seats WHERE room_id = ?";
-               $stmt = $this->conn->prepare($query);
-               $stmt->execute([$room_id]);
-               $available_seats = $stmt->fetchColumn();
-
-               $query = "UPDATE showtimes SET available_seats = ? WHERE id = ?";
-               $stmt = $this->conn->prepare($query);
-               $stmt->execute([$available_seats, $showtime_id]);
 
                $this->conn->commit();
                return $showtime_id;
           } catch (Exception $e) {
                $this->conn->rollBack();
-               throw $e;
+               throw new Exception("Lỗi khi thêm suất chiếu: " . $e->getMessage());
           }
      }
 

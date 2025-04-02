@@ -36,7 +36,17 @@ class BookingModel extends BaseModel
         ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Debug dữ liệu trả về
+        error_log("getAllBookings result: " . print_r($bookings, true));
+
+        // Định dạng total_price trước khi trả về
+        foreach ($bookings as &$booking) {
+            $booking['total_price'] = number_format($booking['total_price'], 0, ',', '.') . ' VND';
+        }
+
+        return $bookings;
     }
 
     // Xóa đặt vé
@@ -50,6 +60,50 @@ class BookingModel extends BaseModel
 
         // Sau đó xóa đặt vé trong bảng bookings
         return $this->delete($id);
+    }
+
+    public function cancelBookingBySeat($showtime_id, $seat_id)
+    {
+        $this->conn->beginTransaction();
+
+        try {
+            // Tìm booking_id dựa trên showtime_id và seat_id
+            $query = "
+            SELECT bs.booking_id 
+            FROM booking_seats bs
+            INNER JOIN bookings b ON bs.booking_id = b.id
+            WHERE b.showtime_id = :showtime_id AND bs.theater_seat_id = :seat_id
+        ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':showtime_id', $showtime_id, PDO::PARAM_INT);
+            $stmt->bindParam(':seat_id', $seat_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $booking = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$booking) {
+                throw new Exception("Không tìm thấy đặt vé cho ghế này! showtime_id: $showtime_id, seat_id: $seat_id");
+            }
+
+            $booking_id = $booking['booking_id'];
+
+            // Xóa các bản ghi trong booking_seats liên quan đến booking_id
+            $query = "DELETE FROM booking_seats WHERE booking_id = :booking_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':booking_id', $booking_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Xóa bản ghi trong bookings
+            $query = "DELETE FROM bookings WHERE id = :booking_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':booking_id', $booking_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $this->conn->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            throw new Exception("Lỗi khi hủy đặt vé: " . $e->getMessage());
+        }
     }
 }
 ?>

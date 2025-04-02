@@ -105,6 +105,32 @@ class BookingModel extends BaseModel
           try {
                $this->conn->beginTransaction();
 
+               // Kiểm tra total_price
+               if ($totalPrice <= 0) {
+                    // Tính lại total_price
+                    $query = "
+                     SELECT s.price AS base_price, ts.id AS seat_id, ts.type_seat 
+                     FROM showtimes s 
+                     LEFT JOIN theater_seats ts ON ts.id IN (" . implode(',', array_fill(0, count($selectedSeats), '?')) . ")
+                     WHERE s.id = ?
+                 ";
+                    $stmt = $this->conn->prepare($query);
+                    $params = array_merge($selectedSeats, [$showtimeId]);
+                    $stmt->execute($params);
+                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    $totalPrice = 0;
+                    $basePrice = $results[0]['base_price'] ?? 0;
+                    foreach ($results as $result) {
+                         $priceMultiplier = ($result['type_seat'] === 'vip') ? 1.5 : 1;
+                         $totalPrice += $basePrice * $priceMultiplier;
+                    }
+
+                    if ($totalPrice <= 0) {
+                         throw new Exception("Giá vé không hợp lệ! Total price: $totalPrice, Base price: $basePrice");
+                    }
+               }
+
                $bookingData = [
                     'user_id' => $userId,
                     'showtime_id' => $showtimeId,
@@ -118,11 +144,20 @@ class BookingModel extends BaseModel
                $bookingId = $this->conn->lastInsertId();
 
                foreach ($selectedSeats as $seatId) {
-                    $seatQuery = "SELECT price FROM theater_seats WHERE id = :seat_id";
+                    // Lấy giá từ showtimes và tính lại dựa trên type_seat
+                    $seatQuery = "
+                     SELECT ts.type_seat, s.price AS base_price 
+                     FROM theater_seats ts 
+                     CROSS JOIN showtimes s 
+                     WHERE ts.id = :seat_id AND s.id = :showtime_id
+                 ";
                     $stmt = $this->conn->prepare($seatQuery);
                     $stmt->bindParam(':seat_id', $seatId, PDO::PARAM_INT);
+                    $stmt->bindParam(':showtime_id', $showtimeId, PDO::PARAM_INT);
                     $stmt->execute();
-                    $seatPrice = $stmt->fetchColumn();
+                    $seat = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                    $seatPrice = $seat['base_price'] * ($seat['type_seat'] === 'vip' ? 1.5 : 1);
 
                     $bookingSeatData = [
                          'booking_id' => $bookingId,
@@ -131,16 +166,16 @@ class BookingModel extends BaseModel
                          'status' => 'pending'
                     ];
                     $seatStmt = $this->conn->prepare("
-                         INSERT INTO booking_seats (booking_id, theater_seat_id, price, status)
-                         VALUES (:booking_id, :theater_seat_id, :price, :status)
-                    ");
+                     INSERT INTO booking_seats (booking_id, theater_seat_id, price, status)
+                     VALUES (:booking_id, :theater_seat_id, :price, :status)
+                 ");
                     $seatStmt->execute($bookingSeatData);
 
                     $updateSeatQuery = "
-                         UPDATE showtime_seats 
-                         SET status = 'booked'
-                         WHERE showtime_id = :showtime_id AND theater_seat_id = :seat_id
-                    ";
+                     UPDATE showtime_seats 
+                     SET status = 'booked'
+                     WHERE showtime_id = :showtime_id AND theater_seat_id = :seat_id
+                 ";
                     $updateStmt = $this->conn->prepare($updateSeatQuery);
                     $updateStmt->execute([
                          ':showtime_id' => $showtimeId,
@@ -150,11 +185,11 @@ class BookingModel extends BaseModel
 
                $seatCount = count($selectedSeats);
                $updateShowtimeQuery = "
-                    UPDATE showtimes 
-                    SET available_seats = available_seats - :seat_count
-                    WHERE id = :showtime_id
-                    AND available_seats >= :seat_count
-               ";
+                 UPDATE showtimes 
+                 SET available_seats = available_seats - :seat_count
+                 WHERE id = :showtime_id
+                 AND available_seats >= :seat_count
+             ";
                $updateShowtimeStmt = $this->conn->prepare($updateShowtimeQuery);
                $updateShowtimeStmt->execute([
                     ':seat_count' => $seatCount,

@@ -60,7 +60,7 @@ class UserController
           }
 
           if ($result) {
-               header("Location: index.php?controller=user&action=index");
+               header("Location: admin.php?controller=user&action=index");
                exit;
           } else {
                echo "Lỗi khi lưu người dùng!";
@@ -79,7 +79,7 @@ class UserController
           }
 
           if ($this->userModel->deleteUser($id)) {
-               header("Location: index.php?controller=user&action=index");
+               header("Location: admin.php?controller=user&action=index");
                exit;
           } else {
                die("Xóa thất bại, vui lòng thử lại");

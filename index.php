@@ -17,7 +17,7 @@ $controller = new AuthController($pdo);
 
 // Lấy URI và loại bỏ phần BASE_URL
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = str_replace('/test/movie_booking/', '/', $uri);
+$uri = str_replace('/thuctap/movie_booking/', '/', $uri);
 
 switch ($uri) {
     case '/register':

@@ -1,6 +1,7 @@
 <?php
 require_once MODEL_PATH . 'ShowtimeModel.php';
 require_once MODEL_PATH . 'RoomModel.php';
+require_once MODEL_PATH . 'BookingModel.php';
 require_once DATABASE_PATH . 'database.php';
 
 class ShowtimeController
@@ -41,6 +42,10 @@ class ShowtimeController
           $price = $_POST['price'] ?? 50000;
 
           try {
+               if (empty($movie_id) || empty($room_id) || empty($start_time) || empty($end_time) || empty($price)) {
+                    throw new Exception("Vui lòng điền đầy đủ thông tin!");
+               }
+
                if ($id) {
                     $result = $this->showtimeModel->updateShowtime($id, $movie_id, $room_id, $start_time, $end_time, $price);
                } else {
@@ -48,13 +53,18 @@ class ShowtimeController
                }
 
                if ($result) {
-                    header("Location: index.php?controller=showtime&action=index");
+                    header("Location: admin.php?controller=showtime&action=index");
                     exit();
                } else {
-                    echo "Lỗi khi lưu suất chiếu!";
+                    throw new Exception("Không thể lưu suất chiếu!");
                }
           } catch (Exception $e) {
-               echo "Lỗi: " . $e->getMessage();
+               // Trả về form với thông báo lỗi
+               $error = $e->getMessage();
+               $movies = $this->showtimeModel->getMovies();
+               $rooms = $this->showtimeModel->getRooms();
+               $showtime = $id ? $this->showtimeModel->getShowtimeById($id) : null;
+               require VIEW_PATH . 'admin/admin_showtime/showtime_form.php';
           }
      }
 
@@ -67,7 +77,7 @@ class ShowtimeController
                }
                $result = $this->showtimeModel->deleteShowtime($id);
                if ($result) {
-                    header("Location: index.php?controller=showtime&action=index");
+                    header("Location: admin.php?controller=showtime&action=index");
                } else {
                     die("Xóa thất bại");
                }
@@ -110,7 +120,7 @@ class ShowtimeController
 
           require VIEW_PATH . 'admin/admin_showtime/showtime_seat_map.php';
      }
-     // Thêm action toggleSeatStatus để đặt hoặc hủy đặt ghế
+
      public function toggleSeatStatus()
      {
           if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -146,23 +156,30 @@ class ShowtimeController
                     $bookingModel = new BookingModel($this->db);
                     $user_id = 1; // Thay bằng user_id của admin hoặc người dùng thực tế
 
-                    // Lấy giá vé và loại ghế
-                    $query = "SELECT s.price, ts.type_seat 
+                    // Lấy giá vé từ showtimes và loại ghế từ theater_seats
+                    $query = "SELECT s.price AS base_price, ts.type_seat 
                            FROM showtimes s 
-                           JOIN showtime_seats ss ON s.id = ss.showtime_id 
-                           JOIN theater_seats ts ON ss.theater_seat_id = ts.id 
-                           WHERE s.id = ? AND ss.theater_seat_id = ?";
+                           JOIN theater_seats ts ON ts.id = ?
+                           WHERE s.id = ?";
                     $stmt = $this->db->prepare($query);
-                    $stmt->execute([$showtime_id, $seat_id]);
+                    $stmt->execute([$seat_id, $showtime_id]);
                     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     if (!$result) {
                          throw new Exception("Không thể lấy thông tin giá vé! showtime_id: $showtime_id, seat_id: $seat_id");
                     }
 
-                    $base_price = $result['price'];
+                    $base_price = $result['base_price'];
                     $price_multiplier = ($result['type_seat'] === 'vip') ? 1.5 : 1;
                     $total_price = $base_price * $price_multiplier;
+
+                    // Debug giá trị
+                    error_log("Showtime ID: $showtime_id, Seat ID: $seat_id, Base price: $base_price, Price multiplier: $price_multiplier, Total price: $total_price");
+
+                    // Kiểm tra nếu total_price là 0
+                    if ($total_price <= 0) {
+                         throw new Exception("Giá vé không hợp lệ! Total price: $total_price, Base price: $base_price, Seat type: {$result['type_seat']}");
+                    }
 
                     // Tạo bản ghi đặt vé
                     $query = "INSERT INTO bookings (user_id, showtime_id, booking_time, total_price, status) 
@@ -183,7 +200,13 @@ class ShowtimeController
                     $stmt->execute([$showtime_id, $seat_id]);
                } else {
                     $bookingModel = new BookingModel($this->db);
-                    $bookingModel->cancelBookingBySeat($showtime_id, $seat_id);
+                    error_log("Calling cancelBookingBySeat with showtime_id: $showtime_id, seat_id: $seat_id");
+                    $result = $bookingModel->cancelBookingBySeat($showtime_id, $seat_id);
+                    if ($result) {
+                         error_log("Successfully canceled booking for showtime_id: $showtime_id, seat_id: $seat_id");
+                    } else {
+                         error_log("Failed to cancel booking for showtime_id: $showtime_id, seat_id: $seat_id");
+                    }
 
                     $query = "UPDATE showtime_seats SET status = 'available' WHERE showtime_id = ? AND theater_seat_id = ?";
                     $stmt = $this->db->prepare($query);
@@ -201,7 +224,7 @@ class ShowtimeController
                $stmt->execute([$available_seats, $showtime_id]);
 
                $this->db->commit();
-               header("Location: index.php?controller=showtime&action=viewSeats&showtime_id=$showtime_id");
+               header("Location: admin.php?controller=showtime&action=viewSeats&showtime_id=$showtime_id");
                exit();
           } catch (Exception $e) {
                $this->db->rollBack();
@@ -229,7 +252,7 @@ switch ($action) {
      case 'viewSeats':
           $controller->viewSeats();
           break;
-     case 'toggleSeatStatus': // Thêm case cho toggleSeatStatus
+     case 'toggleSeatStatus':
           $controller->toggleSeatStatus();
           break;
 }

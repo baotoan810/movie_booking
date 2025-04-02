@@ -101,7 +101,8 @@
                                 <p><strong>Ngày chiếu:</strong> <?php echo date('d/m/Y', strtotime($booking['start_time'])); ?></p>
                                 <p><strong>Giờ chiếu:</strong> <?php echo date('H:i', strtotime($booking['start_time'])); ?></p>
                                 <p><strong>Số ghế đã đặt:</strong> <?php echo htmlspecialchars($booking['seat_count']); ?></p>
-                                <p><strong>Tổng tiền:</strong> <?php echo number_format($booking['total_price'], 0); ?> VND</p>
+                                <p><strong>Tổng tiền:</strong> <?php echo number_format($booking['total_price'], 0, ',', '.'); ?> VND
+                                </p>
                                 <p><strong>Ngày đặt:</strong> <?php echo date('d/m/Y H:i', strtotime($booking['booking_time'])); ?></p>
                                 <p><strong>Trạng thái:</strong>
                                         <span class="status <?php echo htmlspecialchars($booking['booking_status']); ?>">
