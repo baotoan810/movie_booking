@@ -2,8 +2,8 @@
 require_once 'config/config.php';
 require_once DATABASE_PATH . 'database.php';
 require_once CONTROLLER_PATH . 'AuthController.php';
+ob_start();
 session_start();
-
 // Khởi tạo kết nối database
 $db = new Database();
 $pdo = $db->getConnection();

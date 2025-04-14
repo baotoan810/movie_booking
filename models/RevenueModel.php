@@ -13,7 +13,7 @@ class RevenueModel extends BaseModel
         {
                 $query = "
                 SELECT 
-                        DATE(b.created_at) AS revenue_date,
+                        DATE(b.booking_time) AS revenue_date,
                         SUM(b.total_price) AS total_revenue
                 FROM bookings b
                 WHERE b.status = 'confirmed'
@@ -21,12 +21,12 @@ class RevenueModel extends BaseModel
 
                 $params = [];
                 if ($startDate && $endDate) {
-                        $query .= " AND DATE(b.created_at) BETWEEN :start_date AND :end_date";
+                        $query .= " AND DATE(b.booking_time) BETWEEN :start_date AND :end_date";
                         $params[':start_date'] = $startDate;
                         $params[':end_date'] = $endDate;
                 }
 
-                $query .= " GROUP BY DATE(b.created_at) ORDER BY revenue_date ASC";
+                $query .= " GROUP BY DATE(b.booking_time) ORDER BY revenue_date ASC";
 
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute($params);
@@ -38,7 +38,7 @@ class RevenueModel extends BaseModel
         {
                 $query = "
                 SELECT 
-                        DATE_FORMAT(b.created_at, '%Y-%m') AS revenue_month,
+                        DATE_FORMAT(b.booking_time, '%Y-%m') AS revenue_month,
                         SUM(b.total_price) AS total_revenue
                 FROM bookings b
                 WHERE b.status = 'confirmed'
@@ -46,12 +46,12 @@ class RevenueModel extends BaseModel
 
                 $params = [];
                 if ($startYear && $endYear) {
-                        $query .= " AND YEAR(b.created_at) BETWEEN :start_year AND :end_year";
+                        $query .= " AND YEAR(b.booking_time) BETWEEN :start_year AND :end_year";
                         $params[':start_year'] = $startYear;
                         $params[':end_year'] = $endYear;
                 }
 
-                $query .= " GROUP BY DATE_FORMAT(b.created_at, '%Y-%m') ORDER BY revenue_month ASC";
+                $query .= " GROUP BY DATE_FORMAT(b.booking_time, '%Y-%m') ORDER BY revenue_month ASC";
 
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute($params);
@@ -64,7 +64,7 @@ class RevenueModel extends BaseModel
                 $query = "
                 SELECT 
                         t.name AS theater_name,
-                        DATE(b.created_at) AS revenue_date,
+                        DATE(b.booking_time) AS revenue_date,
                         SUM(b.total_price) AS total_revenue
                 FROM bookings b
                 INNER JOIN showtimes s ON b.showtime_id = s.id
@@ -75,12 +75,12 @@ class RevenueModel extends BaseModel
 
                 $params = [];
                 if ($startDate && $endDate) {
-                        $query .= " AND DATE(b.created_at) BETWEEN :start_date AND :end_date";
+                        $query .= " AND DATE(b.booking_time) BETWEEN :start_date AND :end_date";
                         $params[':start_date'] = $startDate;
                         $params[':end_date'] = $endDate;
                 }
 
-                $query .= " GROUP BY t.name, DATE(b.created_at) ORDER BY revenue_date ASC, t.name";
+                $query .= " GROUP BY t.name, DATE(b.booking_time) ORDER BY revenue_date ASC, t.name";
 
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute($params);

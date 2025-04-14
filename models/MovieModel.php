@@ -122,12 +122,12 @@ class MovieModel extends BaseModel
      public function searchMovie($keyword)
      {
           $query = "SELECT movies.*, 
-                                                       GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
-                                                       FROM movies 
-                                                       LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
-                                                       LEFT JOIN genres ON movie_genres.genre_id = genres.id 
-                                                       WHERE movies.title LIKE :keyword
-                                                       GROUP BY movies.id";
+                                                            GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
+                                                            FROM movies 
+                                                            LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                                                            LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                                                            WHERE movies.title LIKE :keyword
+                                                            GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
           $stmt->execute();

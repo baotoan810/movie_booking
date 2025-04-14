@@ -5,11 +5,17 @@
         <title>Doanh thu - Admin</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
-                body {
-                        background-color: #121212;
-                        color: #fff;
-                        font-family: Arial, sans-serif;
-                        padding: 20px;
+                .chart-form {
+                        width: 100%;
+                        height: 100vh;
+                        background-color: #222;
+                }
+
+                .main-chart {
+                        width: 100%;
+                        height: 550px;
+                        overflow-y: auto;
+
                 }
 
                 h1 {
@@ -28,7 +34,7 @@
                         margin-bottom: 20px;
                         box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
                         max-width: 800px;
-                        margin: 0 auto;
+                        margin: 20px auto;
                 }
 
                 .filter-form {
@@ -65,31 +71,36 @@
 </head>
 
 <body>
-        <h1>Thống kê doanh thu</h1>
+        <div class="chart-form">
 
-        <!-- Form lọc thời gian -->
-        <div class="filter-form">
-                <form method="GET" action="admin.php?controller=revenue&action=index">
-                        <label for="start_date">Từ ngày:</label>
-                        <input type="date" id="start_date" name="start_date"
-                                value="<?php echo htmlspecialchars($startDate ?? ''); ?>">
-                        <label for="end_date">Đến ngày:</label>
-                        <input type="date" id="end_date" name="end_date"
-                                value="<?php echo htmlspecialchars($endDate ?? ''); ?>">
-                        <button type="submit">Lọc</button>
-                </form>
-        </div>
+                <h1>Thống kê doanh thu</h1>
 
-        <!-- Biểu đồ tổng doanh thu -->
-        <div class="chart-container">
-                <h2 style="text-align: center; color: #fdd835;">Tổng doanh thu</h2>
-                <canvas id="totalRevenueChart"></canvas>
-        </div>
+                <!-- Form lọc thời gian -->
+                <div class="filter-form">
+                        <form method="GET" action="admin.php?controller=bookingHistory&action=index">
+                                <label for="start_date">Từ ngày:</label>
+                                <input type="date" id="start_date" name="start_date"
+                                        value="<?php echo htmlspecialchars($startDate ?? ''); ?>">
+                                <label for="end_date">Đến ngày:</label>
+                                <input type="date" id="end_date" name="end_date"
+                                        value="<?php echo htmlspecialchars($endDate ?? ''); ?>">
+                                <button type="submit">Lọc</button>
+                        </form>
+                </div>
 
-        <!-- Biểu đồ doanh thu theo rạp -->
-        <div class="chart-container">
-                <h2 style="text-align: center; color: #fdd835;">Doanh thu theo rạp</h2>
-                <canvas id="theaterRevenueChart"></canvas>
+                <div class="main-chart">
+                        <div class="chart-container">
+                                <h2 style="text-align: center; color: #fdd835;">Tổng doanh thu</h2>
+                                <canvas id="totalRevenueChart"></canvas>
+                        </div>
+
+                        <!-- Biểu đồ doanh thu theo rạp -->
+                        <div class="chart-container">
+                                <h2 style="text-align: center; color: #fdd835;">Doanh thu theo rạp</h2>
+                                <canvas id="theaterRevenueChart"></canvas>
+                        </div>
+                </div>
+                <!-- Biểu đồ tổng doanh thu -->
         </div>
 
         <script>
@@ -120,7 +131,7 @@
                                                 },
                                                 ticks: {
                                                         color: '#bbb',
-                                                        callback: function (value) {
+                                                        callback: function(value) {
                                                                 return value.toLocaleString('vi-VN');
                                                         }
                                                 },
@@ -150,7 +161,7 @@
                                         },
                                         tooltip: {
                                                 callbacks: {
-                                                        label: function (context) {
+                                                        label: function(context) {
                                                                 let label = context.dataset.label || '';
                                                                 if (label) {
                                                                         label += ': ';
@@ -184,7 +195,7 @@
                                                 },
                                                 ticks: {
                                                         color: '#bbb',
-                                                        callback: function (value) {
+                                                        callback: function(value) {
                                                                 return value.toLocaleString('vi-VN');
                                                         }
                                                 },
@@ -214,7 +225,7 @@
                                         },
                                         tooltip: {
                                                 callbacks: {
-                                                        label: function (context) {
+                                                        label: function(context) {
                                                                 let label = context.dataset.label || '';
                                                                 if (label) {
                                                                         label += ': ';

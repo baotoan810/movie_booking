@@ -98,10 +98,11 @@
 
           /* Thông tin suất chiếu */
           .theater div {
-               background: #222;
+               background: #444;
                padding: 10px;
                border-radius: 5px;
                margin-top: 10px;
+               line-height: 30px;
           }
 
           /* Nút chọn suất */

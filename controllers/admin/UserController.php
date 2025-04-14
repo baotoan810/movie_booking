@@ -70,22 +70,24 @@ class UserController
 
      public function delete()
      {
-          if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-               die("Phương thức không hợp lệ");
-          }
-          $id = $_POST['id'] ?? null;
-          if (!$id || !is_numeric($id)) {
-               die("ID không hợp lệ");
+          $userId = $_GET['id'] ?? null;
+
+          if (!$userId) {
+               echo "Thiếu ID người dùng để xóa.";
+               return;
           }
 
-          if ($this->userModel->deleteUser($id)) {
-               header("Location: admin.php?controller=user&action=index");
+          $result = $this->userModel->deleteUser($userId);
+
+          if ($result['success']) {
+               // Chuyển hướng nếu xóa thành công
+               header('Location: index.php?controller=user&action=index&status=deleted');
                exit;
           } else {
-               die("Xóa thất bại, vui lòng thử lại");
+               // Hiển thị lỗi
+               echo $result['message'];
           }
      }
-
 
      // Upload image
      private function uploadImage()

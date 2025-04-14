@@ -21,7 +21,7 @@
                display: flex;
                justify-content: space-between;
                align-items: center;
-               padding: 10px 20px;
+               padding: 30px;
                background-color: #222;
                color: white;
                flex-wrap: wrap;
@@ -61,11 +61,6 @@
                font-weight: 500;
           }
 
-          .register-btn h2 {
-               font-size: 16px;
-               color: #f5c518;
-               margin: 0;
-          }
 
           /* Responsive */
           @media (max-width: 768px) {

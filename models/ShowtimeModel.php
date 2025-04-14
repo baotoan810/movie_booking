@@ -12,11 +12,11 @@ class ShowtimeModel extends BaseModel
      public function getAllShowtimes()
      {
           $query = "SELECT showtimes.*, movies.title AS movie_title, rooms.name AS room_name, theaters.name AS theater_name
-                                   FROM showtimes
-                                   JOIN movies ON showtimes.movie_id = movies.id
-                                   JOIN rooms ON showtimes.room_id = rooms.id
-                                   JOIN theaters ON rooms.theater_id = theaters.id
-                                   ORDER BY showtimes.start_time DESC";
+                                        FROM showtimes
+                                        JOIN movies ON showtimes.movie_id = movies.id
+                                        JOIN rooms ON showtimes.room_id = rooms.id
+                                        JOIN theaters ON rooms.theater_id = theaters.id
+                                        ORDER BY showtimes.start_time DESC";
           $stmt = $this->conn->prepare($query);
           $stmt->execute();
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -26,10 +26,10 @@ class ShowtimeModel extends BaseModel
      public function getShowtimeById($id)
      {
           $query = "SELECT showtimes.*, movies.title AS movie_title, rooms.name AS room_name
-                                   FROM showtimes
-                                   JOIN movies ON showtimes.movie_id = movies.id
-                                   JOIN rooms ON showtimes.room_id = rooms.id
-                                   WHERE showtimes.id = :id";
+                                        FROM showtimes
+                                        JOIN movies ON showtimes.movie_id = movies.id
+                                        JOIN rooms ON showtimes.room_id = rooms.id
+                                        WHERE showtimes.id = :id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':id', $id);
           $stmt->execute();
@@ -79,12 +79,12 @@ class ShowtimeModel extends BaseModel
 
           // Kiểm tra trùng lịch chiếu
           $query = "SELECT COUNT(*) FROM showtimes 
-                   WHERE room_id = ? 
-                   AND (
-                       (start_time <= ? AND end_time >= ?) OR 
-                       (start_time <= ? AND end_time >= ?) OR 
-                       (start_time >= ? AND end_time <= ?)
-                   )";
+                    WHERE room_id = ? 
+                    AND (
+                         (start_time <= ? AND end_time >= ?) OR 
+                         (start_time <= ? AND end_time >= ?) OR 
+                         (start_time >= ? AND end_time <= ?)
+                    )";
           $stmt = $this->conn->prepare($query);
           $stmt->execute([$room_id, $start_time, $start_time, $end_time, $end_time, $start_time, $end_time]);
           if ($stmt->fetchColumn() > 0) {
@@ -131,13 +131,13 @@ class ShowtimeModel extends BaseModel
      {
           // Kiểm tra trùng lịch chiếu (trừ suất chiếu hiện tại)
           $query = "SELECT COUNT(*) FROM showtimes 
-                    WHERE room_id = :room_id 
-                    AND id != :id
-                    AND (
-                         (start_time <= :start_time AND end_time >= :start_time) OR 
-                         (start_time <= :end_time AND end_time >= :end_time) OR 
-                         (start_time >= :start_time AND end_time <= :end_time)
-                    )";
+                         WHERE room_id = :room_id 
+                         AND id != :id
+                         AND (
+                              (start_time <= :start_time AND end_time >= :start_time) OR 
+                              (start_time <= :end_time AND end_time >= :end_time) OR 
+                              (start_time >= :start_time AND end_time <= :end_time)
+                         )";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':room_id', $room_id);
           $stmt->bindParam(':id', $id);
@@ -184,11 +184,11 @@ class ShowtimeModel extends BaseModel
      public function searchShowtime($keyword)
      {
           $query = "SELECT showtimes.*, movies.title AS movie_title, rooms.name AS room_name, theaters.name AS theater_name
-                                   FROM showtimes
-                                   JOIN movies ON showtimes.movie_id = movies.id
-                                   JOIN rooms ON showtimes.room_id = rooms.id
-                                   JOIN theaters ON rooms.theater_id = theaters.id
-                                   WHERE movies.title LIKE :keyword OR rooms.name LIKE :keyword";
+                                        FROM showtimes
+                                        JOIN movies ON showtimes.movie_id = movies.id
+                                        JOIN rooms ON showtimes.room_id = rooms.id
+                                        JOIN theaters ON rooms.theater_id = theaters.id
+                                        WHERE movies.title LIKE :keyword OR rooms.name LIKE :keyword";
           $stmt = $this->conn->prepare($query);
           $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
           $stmt->execute();
@@ -208,8 +208,8 @@ class ShowtimeModel extends BaseModel
      public function getRooms()
      {
           $query = "SELECT rooms.id, rooms.name, theaters.name AS theater_name 
-                                   FROM rooms 
-                                   JOIN theaters ON rooms.theater_id = theaters.id";
+                                        FROM rooms 
+                                        JOIN theaters ON rooms.theater_id = theaters.id";
           $stmt = $this->conn->prepare($query);
           $stmt->execute();
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -229,7 +229,7 @@ class ShowtimeModel extends BaseModel
 
           foreach ($seats as $seat) {
                $query = "INSERT INTO showtime_seats (showtime_id, theater_seat_id, status) 
-                      VALUES (:showtime_id, :theater_seat_id, 'available')";
+                         VALUES (:showtime_id, :theater_seat_id, 'available')";
                $stmt = $this->conn->prepare($query);
                $stmt->execute([
                     ':showtime_id' => $showtime_id,

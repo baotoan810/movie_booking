@@ -61,3 +61,10 @@
      </div>
 
 </div>
+
+<style>
+     .content-section {
+          height: 700px;
+          overflow-y: auto;
+     }
+</style>

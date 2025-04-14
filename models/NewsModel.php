@@ -19,7 +19,7 @@ class NewsModel extends BaseModel
      public function getAllNewsLimit($limit = 3)
      {
           $query = "SELECT * FROM news  
-                    ORDER BY news.created_at DESC 
+               ORDER BY news.created_at DESC 
                     LIMIT :limit";
           $stmt = $this->conn->prepare($query);
           $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);

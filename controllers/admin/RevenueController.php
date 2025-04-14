@@ -65,7 +65,7 @@ class RevenueController
         }
 
         // Truyền dữ liệu vào view
-        include_once VIEW_PATH . 'admin/admin_chart/chart.php';
+        require_once VIEW_PATH . 'admin/admin_chart/chart.php';
     }
 }
 
@@ -81,4 +81,3 @@ switch ($action) {
         $controller->index();
         break;
 }
-?>

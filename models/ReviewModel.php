@@ -8,19 +8,19 @@ class ReviewModel extends BaseModel
           parent::__construct($conn, 'reviews');
      }
 
-    public function getAllReviews()
-    {
-        $query = "
-            SELECT r.*, u.username, m.title
-            FROM reviews r
-            INNER JOIN users u ON r.user_id = u.id
-            INNER JOIN movies m ON r.movie_id = m.id
-            ORDER BY r.created_at DESC
-        ";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+     public function getAllReviews()
+     {
+          $query = "
+               SELECT r.*, u.username, m.title
+               FROM reviews r
+               INNER JOIN users u ON r.user_id = u.id
+               INNER JOIN movies m ON r.movie_id = m.id
+               ORDER BY r.created_at DESC
+          ";
+          $stmt = $this->conn->prepare($query);
+          $stmt->execute();
+          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+     }
      public function addReview($user_id, $movie_id, $content)
      {
           $data = [
@@ -53,12 +53,12 @@ class ReviewModel extends BaseModel
      public function getReviewsByMovieId($movie_id)
      {
           $query = "
-               SELECT r.*, u.username
-               FROM reviews r
-               INNER JOIN users u ON r.user_id = u.id
-               WHERE r.movie_id = :movie_id
-               ORDER BY r.created_at DESC
-          ";
+                    SELECT r.*, u.username
+                    FROM reviews r
+                    INNER JOIN users u ON r.user_id = u.id
+                    WHERE r.movie_id = :movie_id
+                    ORDER BY r.created_at DESC
+               ";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);
           $stmt->execute();
@@ -69,10 +69,10 @@ class ReviewModel extends BaseModel
      public function hasUserReviewed($user_id, $movie_id)
      {
           $query = "
-               SELECT COUNT(*) as count
-               FROM reviews
-               WHERE user_id = :user_id AND movie_id = :movie_id
-          ";
+                    SELECT COUNT(*) as count
+                    FROM reviews
+                    WHERE user_id = :user_id AND movie_id = :movie_id
+               ";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
           $stmt->bindParam(':movie_id', $movie_id, PDO::PARAM_INT);

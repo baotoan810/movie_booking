@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Chọn ghế - <?php echo htmlspecialchars($selectedShowtime['title']); ?></title>
     <style>
@@ -54,15 +55,18 @@
         }
 
         .seat.normal.available {
-            background-color: #28a745; /* Ghế thường - Có thể sử dụng: xanh lá */
+            background-color: #28a745;
+            /* Ghế thường - Có thể sử dụng: xanh lá */
         }
 
         .seat.vip.available {
-            background-color: #ffc107; /* Ghế VIP - Có thể sử dụng: vàng */
+            background-color: #ffc107;
+            /* Ghế VIP - Có thể sử dụng: vàng */
         }
 
         .seat.booked {
-            background-color: #ffffff; /* Ghế không khả dụng: trắng */
+            background-color: #ffffff;
+            /* Ghế không khả dụng: trắng */
             border: 1px solid #ccc;
             cursor: not-allowed;
         }
@@ -79,8 +83,9 @@
             display: none;
         }
 
-        .seat input[type="checkbox"]:checked + span {
-            background-color: #007bff; /* Ghế đang chọn: xanh dương */
+        .seat input[type="checkbox"]:checked+span {
+            background-color: #007bff;
+            /* Ghế đang chọn: xanh dương */
         }
 
         .screen {
@@ -123,15 +128,15 @@
         .invoice-section h3 {
             margin-bottom: 15px;
             font-size: 1.2rem;
-            color:#333;
+            color: #333;
             text-align: center;
         }
 
         .invoice-section p {
             margin-bottom: 10px;
             font-size: 1rem;
-            color:#333;
-        
+            color: #333;
+
         }
 
         .invoice-section p strong {
@@ -209,6 +214,10 @@
             cursor: pointer;
         }
 
+        .modal-content h2 {
+            color: #333;
+        }
+
         .modal-content .confirm-btn {
             background-color: #28a745;
             color: #fff;
@@ -257,6 +266,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Sơ đồ ghế - Phòng <?php echo htmlspecialchars($selectedShowtime['room_name']); ?> (<?php echo htmlspecialchars($selectedShowtime['theater_name']); ?>)</h1>
 
@@ -299,14 +309,14 @@
 
                                 // Tính giá ghế dựa trên showtime price và type_seat
                                 $seatPrice = $selectedShowtime['price'] * ($seatType === 'vip' ? 1.5 : 1);
-                                ?>
+                    ?>
                                 <label class="seat <?php echo $seatClass; ?>">
                                     <input type="checkbox" name="seats[]" value="<?php echo $seat['id']; ?>"
                                         <?php echo $isBooked ? 'disabled' : ''; ?>
                                         data-price="<?php echo $seatPrice; ?>">
                                     <span><?php echo 'R' . $row . 'C' . $col; ?></span>
                                 </label>
-                                <?php
+                    <?php
                             } else {
                                 echo '<div class="seat" style="visibility: hidden;"></div>';
                             }
@@ -415,4 +425,5 @@
         updateInvoice();
     </script>
 </body>
+
 </html>
