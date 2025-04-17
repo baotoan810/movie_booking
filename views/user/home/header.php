@@ -63,7 +63,7 @@
 
 
           /* Responsive */
-          @media (max-width: 768px) {
+          @media (max-width: 820px) {
                .menu-toggle {
                     display: block;
                }
@@ -113,14 +113,14 @@
                </li>
                <li class="register-btn">
                     <a href="user.php?controller=booking&action=userProfile">
-                         <h2><?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Khách'; ?>
+                         <h2>Chào <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Khách'; ?>
                          </h2>
                     </a>
                </li>
           </ul>
      </nav>
 
-     <script>
+     <script>  
           document.addEventListener('DOMContentLoaded', function () {
                const mobileMenu = document.getElementById('mobile-menu');
                const navLinks = document.getElementById('nav-links');

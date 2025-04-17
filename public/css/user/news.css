@@ -1,6 +1,6 @@
 /* Phần tin tức phim */
 .movie-news {
-     max-width: 80%;
+     /* max-width: 100%; */
      margin: 50px auto;
      padding: 30px;
      background: linear-gradient(135deg, #1e1e1e, #292929);

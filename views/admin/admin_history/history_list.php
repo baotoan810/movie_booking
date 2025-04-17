@@ -44,7 +44,7 @@
                                 <form action="admin.php?controller=booking&action=delete" method="post"
                                     onsubmit="return confirm('Bạn có chắc chắn muốn xóa đặt vé này?');">
                                     <input type="hidden" name="booking_id" value="<?= $booking['booking_id'] ?>">
-                                    <button type="submit" class="delete-btn">Xóa</button>
+                                    <button type="submit" class="delete-btn">🗑️</button>
                                 </form>
                             </td>
                         </tr>

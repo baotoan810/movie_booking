@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Đăng ký</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/style.css">
 </head>
+
 <body>
-<div class="container">
-    <h2>Đăng ký tài khoản</h2>
-    <?php if (isset($error)): ?>
-        <p class="error"><?php echo $error; ?></p>
-    <?php endif; ?>
+    <div class="container">
+        <h2>Đăng ký tài khoản</h2>
+        <?php if (isset($error)): ?>
+            <p class="error"><?php echo $error; ?></p>
+        <?php endif; ?>
 
-    <form method="POST" action="<?php echo BASE_URL; ?>register" enctype="multipart/form-data">
-        <div class="form-group">
-            <label>Tên người dùng:</label>
-            <input type="text" name="username" required>
-        </div>
+        <form method="POST" action="<?php echo BASE_URL; ?>register" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Tên người dùng:</label>
+                <input type="text" name="username" required>
+            </div>
 
-        <div class="form-group">
-            <label>Email:</label>
-            <input type="email" name="email" required>
-        </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </div>
 
-        <div class="form-group">
-            <label>Mật khẩu:</label>
-            <input type="password" name="password" required>
-        </div>
+            <div class="form-group">
+                <label>Mật khẩu:</label>
+                <input type="password" name="password" required>
+            </div>
 
-        <div class="form-group">
-            <label>Số điện thoại:</label>
-            <input type="text" name="phone">
-        </div>
+            <div class="form-group">
+                <label>Số điện thoại:</label>
+                <input type="text" name="phone">
+            </div>
 
-        <div class="form-group">
-            <label>Địa chỉ:</label>
-            <input type="text" name="address">
-        </div>
+            <div class="form-group">
+                <label>Địa chỉ:</label>
+                <input type="text" name="address">
+            </div>
 
-        <div class="form-group">
-            <label>Ảnh đại diện:</label>
-            <input type="file" name="image" accept="image/*">
-        </div>
+            <div class="form-group">
+                <label>Ảnh đại diện:</label>
+                <input type="file" name="image" accept="image/*">
+            </div>
 
-        <button type="submit">Đăng ký</button>
-    </form>
-    <p>Đã có tài khoản? <a href="<?php echo BASE_URL; ?>login">Đăng nhập</a></p>
-</div>
+            <button type="submit">Đăng ký</button>
+        </form>
+        <p>Đã có tài khoản? <a href="<?php echo BASE_URL; ?>login">Đăng nhập</a></p>
+    </div>
 </body>
+
 </html>
 
 <style>
@@ -68,8 +71,8 @@
         padding: 40px;
         border-radius: 12px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-        width: 100%;
-        max-width: 400px;
+        width: 40%;
+        /* max-width: 400px; */
         color: #ffffff;
         text-align: center;
     }
@@ -141,5 +144,4 @@
     a:hover {
         text-decoration: underline;
     }
-
 </style>

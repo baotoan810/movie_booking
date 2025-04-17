@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/style.css">
 </head>
+
 <body>
-<div class="container">
-    <h2>Đăng nhập</h2>
-    <?php if (isset($error)): ?>
-        <p class="error"><?php echo $error; ?></p>
-    <?php endif; ?>
+    <div class="container">
+        <h2>Đăng nhập</h2>
+        <?php if (isset($error)): ?>
+            <p class="error"><?php echo $error; ?></p>
+        <?php endif; ?>
 
-    <form method="POST" action="<?php echo BASE_URL; ?>login">
-        <div class="form-group">
-            <label>Email:</label>
-            <input type="email" name="email" required>
-        </div>
+        <form method="POST" action="<?php echo BASE_URL; ?>login">
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </div>
 
-        <div class="form-group">
-            <label>Mật khẩu:</label>
-            <input type="password" name="password" required>
-        </div>
+            <div class="form-group">
+                <label>Mật khẩu:</label>
+                <input type="password" name="password" required>
+            </div>
 
-        <button type="submit">Đăng nhập</button>
-    </form>
-    <p><a href="<?php echo BASE_URL; ?>forgot">Quên mật khẩu?</a></p>
-    <p>Chưa có tài khoản? <a href="<?php echo BASE_URL; ?>register">Đăng ký</a></p>
-</div>
+            <button type="submit">Đăng nhập</button>
+        </form>
+        <p><a href="<?php echo BASE_URL; ?>forgot">Quên mật khẩu?</a></p>
+        <p>Chưa có tài khoản? <a href="<?php echo BASE_URL; ?>register">Đăng ký</a></p>
+    </div>
 </body>
+
 </html>
 
 
@@ -50,8 +53,8 @@
         padding: 40px;
         border-radius: 12px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-        width: 100%;
-        max-width: 400px;
+        width: 40%;
+        /* max-width: 400px; */
         color: #ffffff;
         text-align: center;
     }
@@ -123,5 +126,4 @@
     a:hover {
         text-decoration: underline;
     }
-
 </style>

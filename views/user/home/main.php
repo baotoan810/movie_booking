@@ -1,4 +1,3 @@
-
 <main>
      <!-- Banner quảng cáo -->
      <section class="banner">
@@ -15,18 +14,6 @@
           </div>
      </section>
 
-     <!-- Tìm kiếm -->
-     <!-- <div class="search-input">
-          <h2>🎥 Tìm Kiếm Phim</h2>
-          <form action="index.php" method="get" class="search-form">
-               <input type="hidden" name="controller" value="homepage">
-               <input type="hidden" name="action" value="index">
-               <input id="search-movie" class="input-search" type="text" name="search" placeholder="Tìm kiếm phim..."
-                    value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
-               <button type="submit" class="btn-search">Tìm kiếm</button>
-          </form>
-
-     </div> -->
 
      <!-- Danh sách phim -->
      <div class="movie-hot">

@@ -308,7 +308,13 @@
                                 $seatClass = $isBooked ? 'booked' : ($seatType . ' available');
 
                                 // Tính giá ghế dựa trên showtime price và type_seat
-                                $seatPrice = $selectedShowtime['price'] * ($seatType === 'vip' ? 1.5 : 1);
+                                // $seatPrice = $selectedShowtime['price'] * ($seatType === 'vip' ? 1.1 : 1);
+                                
+                                $basePrice = floatval($selectedShowtime['price']); // Đảm bảo giá cơ bản là số
+                                $seatPrice = $basePrice; // Giá cơ bản cho ghế thường
+                                if ($seatType === 'vip') {
+                                    $seatPrice += 10000; // Tăng thêm 10,000 VND cho ghế VIP
+                                }
                     ?>
                                 <label class="seat <?php echo $seatClass; ?>">
                                     <input type="checkbox" name="seats[]" value="<?php echo $seat['id']; ?>"

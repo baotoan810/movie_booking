@@ -46,7 +46,7 @@ switch ($controller) {
      case 'history':
           require_once CONTROLLER_PATH . 'admin/BookingController.php';
           break;
-     case 'bookingHistory':
+     case 'Revenue':
           require_once CONTROLLER_PATH . 'admin/RevenueController.php';
           break;
      default:

@@ -65,7 +65,8 @@
                                    <a href="#" class="delete-btn" onclick="deleteUser(<?= $user['id'] ?>)">🗑️</a>
                               </td>
                          </tr>
-                         <?php $i++; endforeach; ?>
+                    <?php $i++;
+                    endforeach; ?>
                </tbody>
           </table>
      </div>

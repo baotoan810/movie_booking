@@ -46,7 +46,7 @@
                          <ul class="dropdown-menu">
                               <li><a href="admin.php?controller=user&action=index">Danh sách người dùng</a></li>
                               <li><a href="admin.php?controller=history&action=index">Lịch sử đặt vé</a></li>
-                              <li><a href="admin.php?controller=bookingHistory&action=index">Doanh thu</a></li>
+                              <li><a href="admin.php?controller=Revenue&action=index">Doanh thu</a></li>
                          </ul>
                     </li>
 

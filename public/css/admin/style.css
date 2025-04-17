@@ -11,6 +11,11 @@ body {
      background-color: #f0f0f0;
 }
 
+button {
+     outline: none;
+     border: none;
+}
+
 .container {
      display: flex;
      width: 100%;
@@ -102,7 +107,7 @@ body {
 }
 
 .table-container {
-     height: 540px;
+     height: 550px;
      overflow-y: auto;
 }
 
@@ -110,7 +115,7 @@ body {
 .main-content {
      height: 100%;
      flex: 1;
-     padding: 20px;
+     padding: 0 10px;
 }
 
 .header {
@@ -190,6 +195,8 @@ table th {
      background-color: #34495e;
      color: white;
      text-transform: capitalize;
+     position: sticky;
+     top: 0;
 }
 
 table td {

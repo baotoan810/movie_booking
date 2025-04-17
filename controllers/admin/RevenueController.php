@@ -15,20 +15,38 @@ class RevenueController
 
     public function index()
     {
+        // Đặt ngày mặc định để bao gồm dữ liệu có sẵn
+        $startDate = $_GET['start_date'] ?? date('Y-m-d'); // Lấy ngày hôm nay
+        $endDate = $_GET['end_date'] ?? date('Y-m-d', strtotime('+30 days')); // 30 ngày sau hôm nay
+
+        // Lấy danh sách all rạp
+        $theater = $this->revenueModel->getAllTheaters();
+
         // Lấy dữ liệu doanh thu theo ngày
-        $startDate = $_GET['start_date'] ?? null;
-        $endDate = $_GET['end_date'] ?? null;
-
         $revenueData = $this->revenueModel->getRevenueByDay($startDate, $endDate);
-
-        // Chuẩn bị dữ liệu cho Chart.js
+        // Chuẩn bị dữ liệu cho biểu đồ Tổng doanh thu
         $labels = [];
         $data = [];
-        foreach ($revenueData as $row) {
-            $labels[] = $row['revenue_date'];
-            $data[] = $row['total_revenue'];
+        $dateRange = [];
+
+        // Tạo danh sách tất cả các ngày trong khoảng thời gian
+        $currentDate = $startDate;
+        while (strtotime($currentDate) <= strtotime($endDate)) {
+            $dateRange[$currentDate] = 0; // Khởi tạo doanh thu bằng 0 cho mỗi ngày
+            $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
         }
 
+        // Điền dữ liệu doanh thu vào các ngày tương ứng
+        foreach ($revenueData as $row) {
+            $dateRange[$row['revenue_date']] = $row['total_revenue'];
+        }
+
+        // Tạo mảng labels và data cho Chart.js
+        foreach ($dateRange as $date => $revenue) {
+            $labels[] = $date;
+            $data[] = $revenue;
+        }
+        $jsonData = json_encode($data, JSON_NUMERIC_CHECK);
         // Lấy doanh thu theo rạp
         $revenueByTheater = $this->revenueModel->getRevenueByTheater($startDate, $endDate);
 
@@ -43,7 +61,7 @@ class RevenueController
             $theaterData[$theater][$date] = $row['total_revenue'];
         }
 
-        $allDates = array_unique(array_column($revenueByTheater, 'revenue_date'));
+        $allDates = array_keys($dateRange);
         sort($allDates);
 
         $datasets = [];

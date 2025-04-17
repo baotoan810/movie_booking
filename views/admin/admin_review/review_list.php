@@ -12,7 +12,7 @@
                <table>
                     <thead>
                          <tr>
-                              <th>ID</th>
+                              <th>STT</th>
                               <th>Người dùng</th>
                               <th>Phim</th>
                               <th>Nội dung</th>
@@ -21,9 +21,10 @@
                          </tr>
                     </thead>
                     <tbody>
-                         <?php foreach ($reviews as $review): ?>
+                         <?php $i = 1;
+                         foreach ($reviews as $review): ?>
                               <tr>
-                                   <td><?= htmlspecialchars($review['id']) ?></td>
+                                   <td><?= htmlspecialchars($i) ?></td>
                                    <td><?= htmlspecialchars($review['username']) ?></td>
                                    <td><?= htmlspecialchars($review['title']) ?></td>
                                    <td><?= htmlspecialchars($review['content']) ?></td>
@@ -32,11 +33,12 @@
                                         <form action="admin.php?controller=review&action=delete" method="post"
                                              onsubmit="return confirm('Bạn có chắc chắn muốn xóa bình luận này?');">
                                              <input type="hidden" name="review_id" value="<?= $review['id'] ?>">
-                                             <button type="submit" class="delete-btn">Xóa</button>
+                                             <button type="submit" class="delete-btn">🗑️</button>
                                         </form>
                                    </td>
                               </tr>
-                         <?php endforeach; ?>
+                         <?php $i++;
+                         endforeach; ?>
                     </tbody>
                </table>
           </div>

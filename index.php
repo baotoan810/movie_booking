@@ -16,8 +16,23 @@ if (!$pdo) {
 $controller = new AuthController($pdo);
 
 // Lấy URI và loại bỏ phần BASE_URL
+// $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// $uri = str_replace('/thuctap/movie_booking/', '/', $uri);
+// Lấy base path tự động (VD: /thuctap/movie_booking)
+$scriptName = dirname($_SERVER['SCRIPT_NAME']);
+$scriptName = str_replace('\\', '/', $scriptName); // Fix cho Windows
+
+// Lấy URI path
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = str_replace('/thuctap/movie_booking/', '/', $uri);
+
+// Loại bỏ base path khỏi URI
+if (strpos($uri, $scriptName) === 0) {
+    $uri = substr($uri, strlen($scriptName));
+}
+
+// Chuẩn hóa lại URI
+$uri = '/' . trim($uri, '/');
+
 
 switch ($uri) {
     case '/register':
@@ -53,4 +68,3 @@ switch ($uri) {
         header("Location: " . BASE_URL . "login");
         exit;
 }
-?>

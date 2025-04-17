@@ -1,4 +1,3 @@
-
 <main class="movie-detail">
      <div class="movie-poster">
           <img src="<?= htmlspecialchars($movie['poster_path']) ?>" alt="Poster Phim">
@@ -89,18 +88,18 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-     $(document).ready(function () {
-          $("#openTrailer").click(function (e) {
+     $(document).ready(function() {
+          $("#openTrailer").click(function(e) {
                e.preventDefault();
                $(".trailer-modal").fadeIn();
           });
 
-          $(".close-btn").click(function () {
+          $(".close-btn").click(function() {
                $(".trailer-modal").fadeOut();
                $("#trailerVideo").attr("src", $("#trailerVideo").attr("src"));
           });
 
-          $(document).click(function (e) {
+          $(document).click(function(e) {
                if ($(e.target).is(".trailer-modal")) {
                     $(".trailer-modal").fadeOut();
                     $("#trailerVideo").attr("src", $("#trailerVideo").attr("src"));
@@ -124,5 +123,29 @@
 
      .review-actions a:hover {
           color: #fdd835;
+     }
+
+     @media screen and (max-width: 400px) {
+          .movie-detail {
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+          }
+
+          .movie-poster {
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+          }
+
+          .movie-poster img {
+               width: 90%;
+          }
+
+          .book-btn {
+               margin-bottom: 10px;
+          }
      }
 </style>

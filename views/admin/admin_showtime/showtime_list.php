@@ -30,7 +30,7 @@
           </div>
      </div>
 
-     
+
      <div class="table-container">
           <table>
                <thead>
@@ -51,9 +51,10 @@
                               <td colspan="8" style="text-align: center;">Không có suất chiếu nào.</td>
                          </tr>
                     <?php else: ?>
-                         <?php foreach ($showtimes as $showtime): ?>
+                         <?php $i = 1;
+                         foreach ($showtimes as $showtime): ?>
                               <tr>
-                                   <td><?= htmlspecialchars($showtime['id']); ?></td>
+                                   <td><?= htmlspecialchars($i) ?></td>
                                    <td><?= htmlspecialchars($showtime['movie_title']); ?></td>
                                    <td><?= htmlspecialchars($showtime['room_name']); ?></td>
                                    <td><?= htmlspecialchars($showtime['theater_name']); ?></td>
@@ -69,12 +70,13 @@
                                              style="display:inline;"
                                              onsubmit="return confirm('Bạn có chắc chắn muốn xóa suất chiếu này?');">
                                              <input type="hidden" name="id" value="<?= $showtime['id']; ?>">
-                                             <button type="submit" class="delete-btn"><i class="fas fa-trash"></i>
-                                                  Xóa</button>
+                                             <button type="submit" class="delete-btn">🗑️
+                                             </button>
                                         </form>
                                    </td>
                               </tr>
-                         <?php endforeach; ?>
+                         <?php $i++;
+                         endforeach; ?>
                     <?php endif; ?>
                </tbody>
           </table>
