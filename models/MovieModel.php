@@ -11,10 +11,10 @@ class MovieModel extends BaseModel
      public function getAllMoviesWithGenres()
      {
           $query = "SELECT movies.*, GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres 
-                                                       FROM movies 
-                                                       LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
-                                                       LEFT JOIN genres ON movie_genres.genre_id = genres.id 
-                                                       GROUP BY movies.id";
+                    FROM movies 
+                    LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id 
+                    LEFT JOIN genres ON movie_genres.genre_id = genres.id 
+                    GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->execute();
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,12 +23,12 @@ class MovieModel extends BaseModel
      public function getMovieById($id)
      {
           $query = "SELECT movies.*, 
-                                                            GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres
-                                                            FROM movies
-                                                            LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
-                                                            LEFT JOIN genres ON movie_genres.genre_id = genres.id
-                                                            WHERE movies.id = :id
-                                                            GROUP BY movies.id";
+                    GROUP_CONCAT(genres.name SEPARATOR ', ') AS genres
+                    FROM movies
+                    LEFT JOIN movie_genres ON movies.id = movie_genres.movie_id
+                    LEFT JOIN genres ON movie_genres.genre_id = genres.id
+                    WHERE movies.id = :id
+                    GROUP BY movies.id";
           $stmt = $this->conn->prepare($query);
           $stmt->bindParam(':id', $id);
           $stmt->execute();
@@ -215,4 +215,3 @@ class MovieModel extends BaseModel
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
      }
 }
-?>

@@ -90,7 +90,8 @@
 
         .screen {
             width: 100%;
-            height: 20px;
+            height: 50px;
+            line-height: 50px;
             background-color: #333;
             color: #fff;
             text-align: center;
@@ -116,36 +117,102 @@
         }
 
         /* Hóa đơn */
+        /* Hóa đơn */
         .invoice-section {
             flex: 1;
             min-width: 300px;
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dee2e6;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .invoice-section:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .invoice-section h3 {
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: #343a40;
             text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            position: relative;
         }
 
-        .invoice-section p {
-            margin-bottom: 10px;
-            font-size: 1rem;
-            color: #333;
-
+        .invoice-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: #28a745;
         }
 
-        .invoice-section p strong {
-            display: inline-block;
-            width: 100px;
+        .invoice-details {
+            margin-bottom: 20px;
         }
 
-        .invoice-section #selectedSeats {
-            font-weight: normal;
+        .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #ced4da;
+        }
+
+        .invoice-label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 100px;
+        }
+
+        .invoice-value {
+            color: #212529;
+            text-align: right;
+            flex: 1;
+        }
+
+        .invoice-total {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px solid #007bff;
+            font-size: 1.1rem;
+        }
+
+        .invoice-total .invoice-label {
+            font-weight: 700;
+            color: #343a40;
+        }
+
+        .invoice-total .invoice-value {
+            font-weight: 700;
+            color: #dc3545;
+            font-size: 1.2rem;
+        }
+
+        /* Animation cho giá trị thay đổi */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .invoice-value.updated {
+            animation: pulse 0.5s ease;
         }
 
         /* Nút */
@@ -309,7 +376,7 @@
 
                                 // Tính giá ghế dựa trên showtime price và type_seat
                                 // $seatPrice = $selectedShowtime['price'] * ($seatType === 'vip' ? 1.1 : 1);
-                                
+
                                 $basePrice = floatval($selectedShowtime['price']); // Đảm bảo giá cơ bản là số
                                 $seatPrice = $basePrice; // Giá cơ bản cho ghế thường
                                 if ($seatType === 'vip') {
@@ -336,19 +403,39 @@
         <!-- Hóa đơn -->
         <div class="invoice-section">
             <h3>Hóa đơn</h3>
-            <p><strong>Phim:</strong> <?php echo htmlspecialchars($selectedShowtime['title']); ?></p>
-            <p><strong>Rạp:</strong> <?php echo htmlspecialchars($selectedShowtime['theater_name']); ?></p>
-            <p><strong>Phòng:</strong> <?php echo htmlspecialchars($selectedShowtime['room_name']); ?></p>
-            <p>
-                <strong>Ngày:</strong>
-                <?php echo date('d/m/Y', strtotime($selectedShowtime['start_time'])); ?>
-            </p>
-            <p><strong>Giờ:</strong> <?php echo date('H:i', strtotime($selectedShowtime['start_time'])); ?>
-                --
-                <?php echo date('H:i', strtotime($selectedShowtime['end_time'])); ?>
-            </p>
-            <p><strong>Ghế:</strong> <span id="selectedSeats">Chưa chọn ghế</span></p>
-            <p><strong>Tổng tiền:</strong> <span id="totalPriceDisplay">0</span> VND</p>
+            <div class="invoice-details">
+                <div class="invoice-item">
+                    <span class="invoice-label">Phim:</span>
+                    <span class="invoice-value"><?php echo htmlspecialchars($selectedShowtime['title']); ?></span>
+                </div>
+                <div class="invoice-item">
+                    <span class="invoice-label">Rạp:</span>
+                    <span class="invoice-value"><?php echo htmlspecialchars($selectedShowtime['theater_name']); ?></span>
+                </div>
+                <div class="invoice-item">
+                    <span class="invoice-label">Phòng:</span>
+                    <span class="invoice-value"><?php echo htmlspecialchars($selectedShowtime['room_name']); ?></span>
+                </div>
+                <div class="invoice-item">
+                    <span class="invoice-label">Ngày:</span>
+                    <span class="invoice-value"><?php echo date('d/m/Y', strtotime($selectedShowtime['start_time'])); ?></span>
+                </div>
+                <div class="invoice-item">
+                    <span class="invoice-label">Giờ:</span>
+                    <span class="invoice-value">
+                        <?php echo date('H:i', strtotime($selectedShowtime['start_time'])); ?> -
+                        <?php echo date('H:i', strtotime($selectedShowtime['end_time'])); ?>
+                    </span>
+                </div>
+                <div class="invoice-item">
+                    <span class="invoice-label">Ghế:</span>
+                    <span class="invoice-value" id="selectedSeats">Chưa chọn ghế</span>
+                </div>
+            </div>
+            <div class="invoice-item invoice-total">
+                <span class="invoice-label">Tổng tiền:</span>
+                <span class="invoice-value" id="totalPriceDisplay">0 VND</span>
+            </div>
 
             <div class="button-group">
                 <button type="button" class="submit-btn" id="submitBtn">Thanh toán</button>

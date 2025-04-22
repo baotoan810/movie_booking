@@ -9,6 +9,8 @@
                         color: #fff;
                         font-family: Arial, sans-serif;
                         padding: 20px;
+                        margin: 0;
+                        /* Bỏ margin mặc định */
                 }
 
                 h1 {
@@ -31,7 +33,15 @@
                         padding: 20px;
                         border-radius: 10px;
                         margin-bottom: 20px;
-                        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+                        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+                        /* Đổ bóng mạnh hơn */
+                        transition: transform 0.2s;
+                        /* Hiệu ứng chuyển tiếp */
+                }
+
+                .booking:hover {
+                        transform: translateY(-5px);
+                        /* Hiệu ứng nâng lên khi hover */
                 }
 
                 .booking h2 {
@@ -101,8 +111,7 @@
                                 <p><strong>Ngày chiếu:</strong> <?php echo date('d/m/Y', strtotime($booking['start_time'])); ?></p>
                                 <p><strong>Giờ chiếu:</strong> <?php echo date('H:i', strtotime($booking['start_time'])); ?></p>
                                 <p><strong>Số ghế đã đặt:</strong> <?php echo htmlspecialchars($booking['seat_count']); ?></p>
-                                <p><strong>Tổng tiền:</strong> <?php echo number_format($booking['total_price'], 0, ',', '.'); ?> VND
-                                </p>
+                                <p><strong>Tổng tiền:</strong> <?php echo number_format($booking['total_price'], 0, ',', '.'); ?> VND</p>
                                 <p><strong>Ngày đặt:</strong> <?php echo date('d/m/Y H:i', strtotime($booking['booking_time'])); ?></p>
                                 <p><strong>Trạng thái:</strong>
                                         <span class="status <?php echo htmlspecialchars($booking['booking_status']); ?>">
