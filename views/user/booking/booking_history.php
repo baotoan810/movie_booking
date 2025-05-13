@@ -10,7 +10,6 @@
                         font-family: Arial, sans-serif;
                         padding: 20px;
                         margin: 0;
-                        /* Bỏ margin mặc định */
                 }
 
                 h1 {
@@ -34,14 +33,11 @@
                         border-radius: 10px;
                         margin-bottom: 20px;
                         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-                        /* Đổ bóng mạnh hơn */
                         transition: transform 0.2s;
-                        /* Hiệu ứng chuyển tiếp */
                 }
 
                 .booking:hover {
                         transform: translateY(-5px);
-                        /* Hiệu ứng nâng lên khi hover */
                 }
 
                 .booking h2 {
@@ -80,6 +76,23 @@
                         color: #fff;
                 }
 
+                .delete-btn {
+                        background-color: #f44336;
+                        color: #fff;
+                        padding: 5px 10px;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        margin-top: 10px;
+                        display: inline-block;
+                        text-decoration: none;
+                }
+
+                .delete-btn:hover {
+                        background-color: #d32f2f;
+                }
+
                 @media (max-width: 768px) {
                         h1 {
                                 font-size: 24px;
@@ -110,7 +123,7 @@
                                 <p><strong>Phòng:</strong> <?php echo htmlspecialchars($booking['room_name']); ?></p>
                                 <p><strong>Ngày chiếu:</strong> <?php echo date('d/m/Y', strtotime($booking['start_time'])); ?></p>
                                 <p><strong>Giờ chiếu:</strong> <?php echo date('H:i', strtotime($booking['start_time'])); ?></p>
-                                <p><strong>Số ghế đã đặt:</strong> <?php echo htmlspecialchars($booking['seat_count']); ?></p>
+                                <p><strong>Số ghế đã đặt:</strong> <?php echo htmlspecialchars($booking['seats']); ?></p>
                                 <p><strong>Tổng tiền:</strong> <?php echo number_format($booking['total_price'], 0, ',', '.'); ?> VND</p>
                                 <p><strong>Ngày đặt:</strong> <?php echo date('d/m/Y H:i', strtotime($booking['booking_time'])); ?></p>
                                 <p><strong>Trạng thái:</strong>
@@ -118,6 +131,11 @@
                                                 <?php echo htmlspecialchars(ucfirst($booking['booking_status'])); ?>
                                         </span>
                                 </p>
+                                <a href="user.php?controller=booking&action=deleteBooking&booking_id=<?php echo $booking['booking_id']; ?>"
+                                        class="delete-btn"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa đặt vé #<?php echo $booking['booking_id']; ?> không?');">
+                                        Xóa
+                                </a>
                         </div>
                 <?php endforeach; ?>
         <?php endif; ?>

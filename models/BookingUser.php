@@ -216,4 +216,16 @@ class BookingModel extends BaseModel
           $data = ['status' => 'confirmed'];
           return $this->update($bookingId, $data);
      }
+
+     public function deleteBooking($id)
+     {
+          // Xóa các ghế liên quan trong bảng booking_seats trước
+          $query = "DELETE FROM booking_seats WHERE booking_id = :booking_id";
+          $stmt = $this->conn->prepare($query);
+          $stmt->bindParam(':booking_id', $id, PDO::PARAM_INT);
+          $stmt->execute();
+
+          // Sau đó xóa đặt vé trong bảng bookings
+          return $this->delete($id);
+     }
 }

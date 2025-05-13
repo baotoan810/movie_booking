@@ -25,7 +25,6 @@ class UserController
           }
 
           require VIEW_PATH . 'admin/admin_user/user_list.php';
-
      }
 
      public function edit($id = null)
@@ -103,9 +102,6 @@ class UserController
           }
           return null;
      }
-
-
-
 }
 
 $controller = new UserController();
@@ -123,7 +119,4 @@ switch ($action) {
      case 'delete':
           $controller->delete();
           break;
-
-
 }
-?>

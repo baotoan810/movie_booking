@@ -1,6 +1,6 @@
 <div class="main-content">
      <div class="header">
-          <h1>Quản Lý Xuất Chiếu</h1>
+          <h1>Quản Lý Suất Chiếu</h1>
           <div class="user-info">
                <span>Xin chào, ADMIN</span>
           </div>
